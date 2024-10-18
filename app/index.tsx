@@ -6,7 +6,8 @@ export default function HomeScreen() {
     <View style={{
         alignItems: "center",
         justifyContent: "center",
-        flex: 1
+        flex: 1,
+        backgroundColor: "red"
     }}>
       <Text>Seja Bem-vindo!</Text>
       <Link href={"/login"}>Login</Link>
