@@ -1,8 +1,14 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
+  const router = useRouter();
+
+  const handlePress = () => {
+    router.push('/login');
+  };
+
   return (
     <View style={{
         alignItems: "center",
@@ -35,11 +41,28 @@ export default function HomeScreen() {
           justifyContent: "center",
           elevation: 5
         }}>
+          
           <Text>Seja Bem-vindo!</Text>
           
-          <TouchableOpacity>
-            <Link href={"/login"}>Login</Link>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={handlePress}>
+
+              <LinearGradient style={{
+                padding: 10,
+                width: 250,
+                alignItems: 'center',
+                borderRadius: 25
+              }}
+
+                colors={['#DB1A00', '#ED4200', '#FF6A00']}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+              >
+
+                <Text style={{color: 'white', fontWeight: 'bold'}}>
+                  Entrar
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
 
         </View>
     </View>
