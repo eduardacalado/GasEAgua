@@ -9,6 +9,10 @@ export default function HomeScreen() {
     router.push('/login');
   };
 
+  const handlePressSignup = () => {
+    router.push('/signup');
+  };
+
   return (
     <View style={{
         alignItems: "center",
@@ -42,13 +46,28 @@ export default function HomeScreen() {
           elevation: 5
         }}>
           
-          <Text>Seja Bem-vindo!</Text>
-          
+
+          <View style={{gap: 15}}>
+
+            <TouchableOpacity onPress={handlePressSignup} style={{
+                padding: 10,
+                width: 275,
+                alignItems: 'center',
+                borderRadius: 25,
+                backgroundColor: '#D9D9D9'
+              }}>
+
+
+                <Text style={{color: '#373737', fontWeight: 'bold'}}>
+                  Cadastre-se
+                </Text>
+            </TouchableOpacity>
+                        
             <TouchableOpacity onPress={handlePress}>
 
               <LinearGradient style={{
                 padding: 10,
-                width: 250,
+                width: 275,
                 alignItems: 'center',
                 borderRadius: 25
               }}
@@ -63,6 +82,7 @@ export default function HomeScreen() {
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
+          </View>
 
         </View>
     </View>
