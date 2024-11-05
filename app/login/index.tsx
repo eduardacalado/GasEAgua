@@ -1,7 +1,7 @@
 import { SafeAreaView, Text, View } from "react-native";
 
-export default function Teste() {
+export default function Login() {
     return (
-        <SafeAreaView><View><Text>Te amo!</Text></View></SafeAreaView>
+        <SafeAreaView><View><Text>login</Text></View></SafeAreaView>
     )
 }    
