@@ -1,14 +1,6 @@
 import { useRouter } from 'expo-router';
 import { TouchableOpacity, View } from 'react-native';
-import {
-  Background, 
-  BackgroundOrangeContainer, 
-  WhiteContainer, 
-  GreyButton, 
-  GreyButtonText, 
-  OrangeButton, 
-  OrangeButtonText 
-} from '../src/styled'
+import * as S from './styles'
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -22,40 +14,36 @@ export default function HomeScreen() {
   };
 
   return (
-    <Background>
-      < BackgroundOrangeContainer
+    <S.SafeAreaViewBackground>
+      < S.LinearGradientContainer
       colors={['#DB1A00', '#ED4200', '#FF6A00']}
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 0 }}
       />
 
-        <WhiteContainer style={{elevation: 5}}>
-          
-          <View style={{gap: 15}}>
+        <S.Container style={{elevation: 5}}>
 
-            <GreyButton onPress={handlePressSignup}>
-                <GreyButtonText>
-                  Cadastre-se
-                </GreyButtonText>
-            </GreyButton>
+          <S.SignupButton onPress={handlePressSignup}>
+            <S.SignupButtonText>
+              Cadastre-se
+            </S.SignupButtonText>
+          </S.SignupButton>
                         
-            <TouchableOpacity onPress={handlePressLogin}>
-              <OrangeButton
-                colors={['#DB1A00', '#ED4200', '#FF6A00']}
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 0 }}
-              >
+          <TouchableOpacity onPress={handlePressLogin}>
+            <S.LoginButton
+              colors={['#DB1A00', '#ED4200', '#FF6A00']}
+              start={{ x: 0, y: 1 }}
+              end={{ x: 1, y: 0 }}
+            >
 
-                <OrangeButtonText>
-                  Entrar
-                </OrangeButtonText>
-              </OrangeButton>
-            </TouchableOpacity>
+              <S.LoginButtonText>
+                Entrar
+              </S.LoginButtonText>
+            </S.LoginButton>
+          </TouchableOpacity>
 
-          </View>
+        </ S.Container>
 
-        </ WhiteContainer>
-
-    </Background>
+    </S.SafeAreaViewBackground>
   );
 }

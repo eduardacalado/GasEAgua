@@ -1,14 +1,14 @@
 import styled from "styled-components/native";
 import { LinearGradient } from 'expo-linear-gradient';
 
-export const Background = styled.View`
+export const SafeAreaViewBackground = styled.SafeAreaView`
     align-items: center;
     justify-content: center;
     flex: 1;
     background-color: white;
 `;
 
-export const BackgroundOrangeContainer = styled(LinearGradient)`
+export const LinearGradientContainer = styled(LinearGradient)`
     height: 370px;
     position: absolute;
     top: 0;
@@ -18,16 +18,17 @@ export const BackgroundOrangeContainer = styled(LinearGradient)`
     border-bottom-right-radius: 92px;
 `;
 
-export const WhiteContainer = styled.View`
+export const Container = styled.View`
     background-color: white;
     width: 325px;
     height: 200px;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
+    gap: 15px;
 `;
 
-export const GreyButton = styled.TouchableOpacity`
+export const SignupButton = styled.TouchableOpacity`
     padding: 10px;
     width: 275px;
     align-items: center;
@@ -35,19 +36,19 @@ export const GreyButton = styled.TouchableOpacity`
     background-color: #D9D9D9;
 `;
 
-export const GreyButtonText = styled.Text`
-    color: '#373737';
+export const SignupButtonText = styled.Text`
+    color: #373737;
     font-weight: bold;
 `;
 
-export const OrangeButton = styled(LinearGradient)`
+export const LoginButton = styled(LinearGradient)`
     padding: 10px;
     width: 275px;
     align-items: center;
     border-radius: 25px;
 `;
 
-export const OrangeButtonText = styled.Text`
+export const LoginButtonText = styled.Text`
     color: white;
     font-weight: bold;
 `;
