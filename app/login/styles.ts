@@ -18,6 +18,16 @@ export const LinearGradientContainer = styled(LinearGradient)`
     border-bottom-right-radius: 92px;
 `;
 
+export const BackToWelcomeScreenButton = styled.TouchableOpacity`
+    border: 2px solid white;
+    width: 50px;
+    position: relative;
+    top: 50px;
+    left: 30px;
+    border-radius: 50px;
+    align-items: center;
+`;
+
 export const Container = styled.View`
     background-color: white;
     width: 325px;
@@ -26,14 +36,23 @@ export const Container = styled.View`
     align-items: center;
     justify-content: center;
     gap: 15px;
+    elevation: 5;
 `;
 
-export const InputArea = styled.TextInput`
+export const InputArea = styled.View`
     padding: 10px;
     width: 275px;
     align-items: center;
     border-radius: 25px;
     background-color: #D9D9D9;
+    flex-direction: row;
+`;
+
+export const Input = styled.TextInput`
+  flex: 1;
+  font-size: 16px;
+  color: #000;
+  margin-left: 10px;
 `;
 
 export const LoginButton = styled(LinearGradient)`

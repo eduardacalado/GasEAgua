@@ -26,6 +26,7 @@ export const Container = styled.View`
     align-items: center;
     justify-content: center;
     gap: 15px;
+    elevation: 5;
 `;
 
 export const SignupButton = styled.TouchableOpacity`
