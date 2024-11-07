@@ -1,16 +1,49 @@
-import { Link } from 'expo-router';
-import { Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { TouchableOpacity, View } from 'react-native';
+import * as S from './styles'
 
 export default function HomeScreen() {
+  const router = useRouter();
+
+  const handlePressLogin = () => {
+    router.push('/login');
+  };
+
+  const handlePressSignup = () => {
+    router.push('/signup');
+  };
+
   return (
-    <View style={{
-        alignItems: "center",
-        justifyContent: "center",
-        flex: 1,
-        backgroundColor: "red"
-    }}>
-      <Text>Seja Bem-vindo!</Text>
-      <Link href={"/login"}>Login</Link>
-    </View>
+    <S.SafeAreaViewBackground>
+      < S.LinearGradientContainer
+      colors={['#DB1A00', '#ED4200', '#FF6A00']}
+      start={{ x: 0, y: 1 }}
+      end={{ x: 1, y: 0 }}
+      />
+
+        <S.Container style={{elevation: 5}}>
+
+          <S.SignupButton onPress={handlePressSignup}>
+            <S.SignupButtonText>
+              Cadastre-se
+            </S.SignupButtonText>
+          </S.SignupButton>
+                        
+          <TouchableOpacity onPress={handlePressLogin}>
+            <S.LoginButton
+              colors={['#DB1A00', '#ED4200', '#FF6A00']}
+              start={{ x: 0, y: 1 }}
+              end={{ x: 1, y: 0 }}
+            >
+
+              <S.LoginButtonText>
+                Entrar
+              </S.LoginButtonText>
+            </S.LoginButton>
+          </TouchableOpacity>
+
+        </ S.Container>
+
+    </S.SafeAreaViewBackground>
   );
 }
