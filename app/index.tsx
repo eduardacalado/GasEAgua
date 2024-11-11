@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import * as S from './styles'
 
 export default function HomeScreen() {
@@ -21,7 +21,7 @@ export default function HomeScreen() {
       end={{ x: 1, y: 0 }}
       />
 
-        <S.Container style={{elevation: 5}}>
+        <S.Container>
 
           <S.SignupButton onPress={handlePressSignup}>
             <S.SignupButtonText>

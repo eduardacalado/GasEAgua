@@ -29,22 +29,25 @@ export const Container = styled.View`
     elevation: 5;
 `;
 
-export const SignupButton = styled.TouchableOpacity`
+export const InputArea = styled.View`
     padding: 10px;
     width: 275px;
     align-items: center;
     border-radius: 25px;
     background-color: #D9D9D9;
+    flex-direction: row;
 `;
 
-export const SignupButtonText = styled.Text`
-    color: #373737;
-    font-weight: bold;
+export const Input = styled.TextInput`
+  flex: 1;
+  font-size: 16px;
+  color: #000;
+  margin-left: 10px;
 `;
 
 export const LoginButton = styled(LinearGradient)`
     padding: 10px;
-    width: 275px;
+    width: 125px;
     align-items: center;
     border-radius: 25px;
 `;
