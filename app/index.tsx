@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import * as S from './styles'
 
 export default function HomeScreen() {

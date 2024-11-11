@@ -18,16 +18,6 @@ export const LinearGradientContainer = styled(LinearGradient)`
     border-bottom-right-radius: 92px;
 `;
 
-export const BackToWelcomeScreenButton = styled.TouchableOpacity`
-    border: 2px solid white;
-    width: 50px;
-    position: relative;
-    top: 50px;
-    left: 30px;
-    border-radius: 50px;
-    align-items: center;
-`;
-
 export const Container = styled.View`
     background-color: white;
     width: 325px;

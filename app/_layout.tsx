@@ -27,11 +27,19 @@ export default function RootLayout() {
   }
 
   return (
+
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack screenOptions={{
+        headerTransparent: true,
+        headerStyle: {
+          backgroundColor: 'transparent',
+        },
+        headerTintColor: '#fff',
+        headerTitle: ""
+      }}>
         <Stack.Screen name="index" options={{headerShown: false}}/>
-        <Stack.Screen name="login/index" options={{headerShown: false}} />
-        <Stack.Screen name="signup/index" options={{headerShown: false}} />
+        <Stack.Screen name="login/index" options={{headerShown: true}} />
+        <Stack.Screen name="signup/index" options={{headerShown: true}} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

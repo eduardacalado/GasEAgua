@@ -1,26 +1,17 @@
 import { TouchableOpacity} from "react-native";
 import * as S from './styles'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { useRouter } from 'expo-router';
 
 export default function Login() {
-    const router = useRouter();
-
-    const handlePressWelcome = () => {
-        router.push('/');
-      };    
-
 
     return (
         <S.SafeAreaViewBackground>
+
             < S.LinearGradientContainer
             colors={['#DB1A00', '#ED4200', '#FF6A00']}
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 0 }}
             >
-                <S.BackToWelcomeScreenButton onPress={handlePressWelcome}>
-                    <MaterialIcons name="keyboard-arrow-left" size={45} color="white" />
-                </S.BackToWelcomeScreenButton>  
 
             </S.LinearGradientContainer>
             
@@ -56,3 +47,5 @@ export default function Login() {
         </S.SafeAreaViewBackground>
     )
 }    
+
+
