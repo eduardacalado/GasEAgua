@@ -1,4 +1,5 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { ThemeProvider } from 'styled-components';
+import theme  from '../styles/theme'
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -28,13 +29,13 @@ export default function RootLayout() {
 
   return (
 
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider theme={theme}>
       <Stack screenOptions={{
         headerTransparent: true,
         headerStyle: {
           backgroundColor: 'transparent',
         },
-        headerTintColor: '#fff',
+        headerTintColor: '#ffff',
         headerTitle: ""
       }}>
         <Stack.Screen name="index" options={{headerShown: false}}/>

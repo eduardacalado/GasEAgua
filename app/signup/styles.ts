@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 
 export const SafeAreaViewBackground = styled.SafeAreaView`
     align-items: center;

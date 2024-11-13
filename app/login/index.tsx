@@ -1,19 +1,15 @@
 import { TouchableOpacity} from "react-native";
 import * as S from './styles'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { LinearGradientContainer } from '../../components/linear-gradient-container';
+import { LoginButton } from '../../components/login-buttton';
 
 export default function Login() {
 
     return (
         <S.SafeAreaViewBackground>
 
-            < S.LinearGradientContainer
-            colors={['#DB1A00', '#ED4200', '#FF6A00']}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 1, y: 0 }}
-            >
-
-            </S.LinearGradientContainer>
+            <LinearGradientContainer />
             
             
 
@@ -30,16 +26,11 @@ export default function Login() {
                 </S.InputArea>
                                 
                 <TouchableOpacity>
-                    <S.LoginButton
-                    colors={['#DB1A00', '#ED4200', '#FF6A00']}
-                    start={{ x: 0, y: 1 }}
-                    end={{ x: 1, y: 0 }}
-                    >
-
-                    <S.LoginButtonText>
-                        Entrar
-                    </S.LoginButtonText>
-                    </S.LoginButton>
+                    <LoginButton>
+                        <S.LoginButtonText>
+                            Entrar
+                        </S.LoginButtonText>
+                    </LoginButton>
                 </TouchableOpacity>
 
             </ S.Container>

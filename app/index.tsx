@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { TouchableOpacity } from 'react-native';
-import * as S from './styles'
+import * as S from './styles';
+import { LinearGradientContainer } from '../components/linear-gradient-container';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -15,11 +16,7 @@ export default function HomeScreen() {
 
   return (
     <S.SafeAreaViewBackground>
-      < S.LinearGradientContainer
-      colors={['#DB1A00', '#ED4200', '#FF6A00']}
-      start={{ x: 0, y: 1 }}
-      end={{ x: 1, y: 0 }}
-      />
+      < LinearGradientContainer />
 
         <S.Container>
 
