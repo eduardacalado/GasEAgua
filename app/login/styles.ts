@@ -8,16 +8,6 @@ export const SafeAreaViewBackground = styled.SafeAreaView`
     background-color: white;
 `;
 
-export const LinearGradientContainer = styled(LinearGradient)`
-    height: 370px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    border-bottom-left-radius: 92px;
-    border-bottom-right-radius: 92px;
-`;
-
 export const Container = styled.View`
     background-color: white;
     width: 325px;

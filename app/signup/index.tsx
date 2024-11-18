@@ -3,7 +3,6 @@ import * as S from './styles'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { LinearGradientContainer } from '../../components/linear-gradient-container';
-import { SignUpButton } from '../../components/signup-button';
 
 export default function SignUp() {
 
@@ -41,11 +40,15 @@ export default function SignUp() {
                 </S.InputArea>
                                 
                 <TouchableOpacity>
-                    <SignUpButton>
+                    <S.SignUpButton
+                    colors={['#DB1A00', '#ED4200', '#FF6A00']}
+                    start={{ x: 0, y: 1 }}
+                    end={{ x: 1, y: 0 }}
+                    >
                         <S.SignUpButtonText>
                             Cadastrar
                         </S.SignUpButtonText>
-                    </SignUpButton>
+                    </S.SignUpButton>
                 </TouchableOpacity>
 
             </ S.Container>

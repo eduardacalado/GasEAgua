@@ -45,13 +45,7 @@ const theme = {
       },
     },
     font: {
-      spacing: {
-        tighty: "-0.06px",
-        tight: "-0.04px",
-        cozy: "0",
-        roomy: "0.02px",
-        spatious: "0.04px",
-      },
+
       lineHeight: {
         large: "1.6",
         medium: "1.5",
