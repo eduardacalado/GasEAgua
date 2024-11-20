@@ -1,6 +1,6 @@
 import { TouchableOpacity} from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { LinearGradientContainer } from '../../components/linear-gradient-container';
+import { LinearGradientContainer } from '../../components/LinearGradientContainer/index';
 import * as S from './styles'
 
 export default function Login() {

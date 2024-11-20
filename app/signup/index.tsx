@@ -2,7 +2,7 @@ import { TouchableOpacity} from "react-native";
 import * as S from './styles'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { LinearGradientContainer } from '../../components/linear-gradient-container';
+import { LinearGradientContainer } from '../../components/LinearGradientContainer/index';
 
 export default function SignUp() {
 

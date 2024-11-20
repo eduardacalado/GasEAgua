@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { TouchableOpacity } from 'react-native';
 import * as S from './styles';
-import { LinearGradientContainer } from '../components/linear-gradient-container';
+import { LinearGradientContainer } from '../components/LinearGradientContainer/index';
 
 export default function HomeScreen() {
   const router = useRouter();
