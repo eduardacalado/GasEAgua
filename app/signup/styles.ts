@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 
 export const SafeAreaViewBackground = styled.SafeAreaView`
     align-items: center;
@@ -11,7 +11,7 @@ export const SafeAreaViewBackground = styled.SafeAreaView`
 export const Container = styled.View`
     background-color: white;
     width: 325px;
-    height: 200px;
+    height: 400px;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
@@ -35,14 +35,14 @@ export const Input = styled.TextInput`
   margin-left: 10px;
 `;
 
-export const LoginButton = styled(LinearGradient)`
+export const SignUpButton = styled(LinearGradient)`
     padding: 10px;
     width: 125px;
     align-items: center;
     border-radius: 25px;
 `;
 
-export const LoginButtonText = styled.Text`
+export const SignUpButtonText = styled.Text`
     color: white;
     font-weight: bold;
 `;
