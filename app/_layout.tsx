@@ -41,6 +41,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{headerShown: false}}/>
         <Stack.Screen name="login/index" options={{headerShown: true}} />
         <Stack.Screen name="signup/index" options={{headerShown: true}} />
+        <Stack.Screen name="home/index" options={{headerShown: false}} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

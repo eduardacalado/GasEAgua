@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 
 export const SafeAreaViewBackground = styled.SafeAreaView`
     align-items: center;
@@ -17,4 +16,43 @@ export const Container = styled.View`
     justify-content: center;
     gap: 15px;
     elevation: 5;
+`;
+
+export const GasButton = styled.Image`
+    width: 162px;
+    height: 158px;
+    position: absolute;
+    bottom: -30px;
+    right: 15px;
+    border: 8px solid #e1e1e1;
+    border-radius: 80px;
+`;
+
+export const AguaButton = styled.Image`
+    width: 160px;
+    height: 160px;
+    position: absolute;
+    bottom: -30px;
+    left: 15px;
+    border: 8px solid #e1e1e1;;
+    border-radius: 80px;
+`;
+
+export const Title = styled.Text`
+  color: #DB1A00;
+  text-align: center;
+  position: absolute;
+  bottom: 250px;
+  left: 30px;
+  font-size: 40px;
+  font-weight: bold;
+`;
+
+export const SubTitle = styled.Text`
+  color: #DB1A00;
+  text-align: center;
+  position: absolute;
+  bottom: 220px;
+  left: 30px;
+  font-size: 25px;
 `;

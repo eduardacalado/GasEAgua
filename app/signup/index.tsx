@@ -3,9 +3,15 @@ import * as S from './styles'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { LinearGradientContainer } from '../../components/LinearGradientContainer/index';
+import { useRouter } from "expo-router";
 
 export default function SignUp() {
+    const router = useRouter();
 
+    const handlePressHome = () => {
+      router.push('../home');
+    };
+  
     return (
         <S.SafeAreaViewBackground>
 
@@ -39,7 +45,7 @@ export default function SignUp() {
                     <S.Input placeholder="Senha"/>
                 </S.InputArea>
                                 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handlePressHome}>
                     <S.SignUpButton
                     colors={['#DB1A00', '#ED4200', '#FF6A00']}
                     start={{ x: 0, y: 1 }}
