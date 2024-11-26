@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { LinearGradient } from 'expo-linear-gradient';
 
-export const SafeAreaViewBackground = styled.SafeAreaView`
+export const SafeAreaViewContainer = styled.SafeAreaView`
     align-items: center;
     justify-content: center;
     flex: 1;
