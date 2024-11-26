@@ -2,8 +2,9 @@ import { TouchableOpacity} from "react-native";
 import * as S from './styles'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { LinearGradientContainer } from '../../components/LinearGradientContainer/index';
+import { LinearGradientBackground } from '../../components/LinearGradientBackground/index';
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 export default function SignUp() {
     const router = useRouter();
@@ -13,9 +14,10 @@ export default function SignUp() {
     };
   
     return (
-        <S.SafeAreaViewBackground>
+        <S.SafeAreaViewContainer>
+            <StatusBar style='light' />
 
-            < LinearGradientContainer/>          
+            < LinearGradientBackground/>          
             
 
             <S.Container>
@@ -59,6 +61,6 @@ export default function SignUp() {
 
             </ S.Container>
 
-        </S.SafeAreaViewBackground>
+        </S.SafeAreaViewContainer>
     )
 }    

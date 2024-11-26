@@ -1,20 +1,28 @@
 import * as S from './styles'
-import { LinearGradientContainer } from '../../components/LinearGradientContainer/index';
+import { LinearGradientBackground } from '../../components/LinearGradientBackground/index';
 import { TouchableOpacity } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
-export default function home() {
+export default function Home() {
 
     return (
-        <S.SafeAreaViewBackground>
+        <S.SafeAreaViewContainer>
+            <StatusBar style='light' />
 
-            <LinearGradientContainer />     
+            <LinearGradientBackground />     
             
             <TouchableOpacity>
                 <S.GasButton source={require("../../assets/images/gasLogo.png")}/>
+                <S.GasButtonText>
+                    Pedir Gás
+                </S.GasButtonText>
             </TouchableOpacity>
 
             <TouchableOpacity>
-                <S.AguaButton source={require("../../assets/images/aguaLogo.png")}/>
+                <S.WaterButton source={require("../../assets/images/aguaLogo.png")}/>
+                <S.WaterButtonText>
+                    Pedir Água
+                </S.WaterButtonText>
             </TouchableOpacity>
 
             <S.Title>
@@ -25,6 +33,6 @@ export default function home() {
                 O que gostaria de pedir?
             </S.SubTitle>
             
-        </S.SafeAreaViewBackground>
+        </S.SafeAreaViewContainer>
     )
 }    

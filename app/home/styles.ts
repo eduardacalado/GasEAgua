@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const SafeAreaViewBackground = styled.SafeAreaView`
+export const SafeAreaViewContainer = styled.SafeAreaView`
     align-items: center;
     justify-content: center;
     flex: 1;
@@ -28,7 +28,18 @@ export const GasButton = styled.Image`
     border-radius: 80px;
 `;
 
-export const AguaButton = styled.Image`
+export const GasButtonText = styled.Text`
+  color: white;
+  background-color: #ED4200;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 20px;
+  position: absolute;
+  right: 43px;
+`;
+
+export const WaterButton = styled.Image`
     width: 160px;
     height: 160px;
     position: absolute;
@@ -36,6 +47,17 @@ export const AguaButton = styled.Image`
     left: 15px;
     border: 8px solid #e1e1e1;;
     border-radius: 80px;
+`;
+
+export const WaterButtonText = styled.Text`
+  color: white;
+  background-color: #ED4200;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 20px;
+  position: absolute;
+  left: 37px;
 `;
 
 export const Title = styled.Text`

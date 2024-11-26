@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { LinearGradient } from 'expo-linear-gradient';
 
-export const LinearGradientContainerStyle = styled(LinearGradient)`
+export const LinearGradientBackgroundStyle = styled(LinearGradient)`
     height: 370px;
     position: absolute;
     top: 0;
