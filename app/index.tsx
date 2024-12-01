@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import { TouchableOpacity } from 'react-native';
 import * as S from './styles';
-import { LinearGradientContainer } from '../components/LinearGradientContainer/index';
+import { LinearGradientBackground } from '../components/LinearGradientBackground/index';
+import { StatusBar } from 'expo-status-bar';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -15,8 +16,10 @@ export default function HomeScreen() {
   };
 
   return (
-    <S.SafeAreaViewBackground>
-      < LinearGradientContainer />
+    <S.SafeAreaViewContainer>
+      <StatusBar style='light' />
+
+      < LinearGradientBackground />
 
         <S.Container>
 
@@ -41,6 +44,6 @@ export default function HomeScreen() {
 
         </ S.Container>
 
-    </S.SafeAreaViewBackground>
+    </S.SafeAreaViewContainer>
   );
 }

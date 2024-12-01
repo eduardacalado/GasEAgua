@@ -1,14 +1,22 @@
 import { TouchableOpacity} from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { LinearGradientContainer } from '../../components/LinearGradientContainer/index';
+import { LinearGradientBackground } from '../../components/LinearGradientBackground/index';
 import * as S from './styles'
+import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 export default function Login() {
+    const router = useRouter();
 
+    const handlePressHome = () => {
+      router.push('../home');
+    };
+  
     return (
-        <S.SafeAreaViewBackground>
+        <S.SafeAreaViewContainer>
+            <StatusBar style='light' />
 
-            <LinearGradientContainer />
+            <LinearGradientBackground />
              
             <S.Container>
 
@@ -22,7 +30,7 @@ export default function Login() {
                     <S.Input placeholder="Senha"/>
                 </S.InputArea>
                                 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handlePressHome}>
                     <S.LoginButton 
                             colors={['#DB1A00', '#ED4200', '#FF6A00']}
                             start={{ x: 0, y: 1 }}
@@ -35,7 +43,7 @@ export default function Login() {
 
             </ S.Container>
 
-        </S.SafeAreaViewBackground>
+        </S.SafeAreaViewContainer>
     )
 }    
 

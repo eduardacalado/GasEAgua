@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 import theme from "../../styles/theme"
 
-export const SafeAreaViewBackground = styled.SafeAreaView`
+export const SafeAreaViewContainer = styled.SafeAreaView`
     align-items: center;
     justify-content: center;
     flex: 1;
