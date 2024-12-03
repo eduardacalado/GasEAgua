@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
+import { LinearGradient} from 'expo-linear-gradient';
 import theme from "../../styles/theme"
 
 export const SafeAreaViewContainer = styled.SafeAreaView`
@@ -10,7 +10,7 @@ export const SafeAreaViewContainer = styled.SafeAreaView`
 `;
 
 export const Container = styled.View`
-    background-color: white;
+    background-color: ${theme.colors.background.white};
     width: 325px;
     height: 400px;
     border-radius: ${theme.size.m6};
