@@ -1,7 +1,7 @@
 import * as S from './styles'
 import { LinearGradientBackground } from '../../components/LinearGradientBackground/index';
 import { StatusBar } from 'expo-status-bar';
-import { TouchableOpacity } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
@@ -10,10 +10,56 @@ export default function Home() {
     return (
         <S.SafeAreaViewContainer>
             <StatusBar style='light' />
+            
         
             <LinearGradientBackground />     
 
-            <S.Container>
+            <S.SecondOrderContainer>
+                <S.AddItemContainer>
+                    <TouchableOpacity>
+                        <S.SecondOrderMinusPlusButton>
+                            <MaterialCommunityIcons name="minus" size={25} color="#7e7e7e" />
+                        </S.SecondOrderMinusPlusButton>
+                    </TouchableOpacity>
+
+                    <S.SecondOrderAddItemNumber>
+                        2
+                    </S.SecondOrderAddItemNumber>
+
+                    <TouchableOpacity>
+                        <S.SecondOrderMinusPlusButton>
+                            <MaterialCommunityIcons name="plus" size={25} color="#7e7e7e" />
+                        </S.SecondOrderMinusPlusButton>
+                    </TouchableOpacity>
+                </S.AddItemContainer>
+
+                <S.SecondOrderTitle>
+                    1 Gás + 2 Águas
+                </S.SecondOrderTitle>
+
+                <S.SecondTotalCashContainer
+                colors={['#5c5c5c', '#878787', '#c1c1c1']}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}>
+
+                    <S.TotalItems>
+                        3 Items
+                    </S.TotalItems>
+                    <S.TotalCash>
+                        TOTAL R$ 112,00
+                    </S.TotalCash>
+                </S.SecondTotalCashContainer>
+                
+                <TouchableOpacity>
+                    <S.ConfirmOrderButton>
+                        <S.ConfirmOrderButtonText>
+                            Confirmar pedido
+                        </S.ConfirmOrderButtonText>
+                    </S.ConfirmOrderButton>
+                </TouchableOpacity>
+            </S.SecondOrderContainer>
+
+            <S.FirstOrderContainer>
                 <TouchableOpacity>
                     <S.AlterLocationButtonText>
                         Alterar endereço de entrega
@@ -62,21 +108,14 @@ export default function Home() {
                         1 Item
                     </S.TotalItems>
                     <S.TotalCash>
-                        TOTAL R$ 100,00
+                        R$ 100,00
                     </S.TotalCash>
 
                 </S.TotalCashContainer>
-
-                <TouchableOpacity>
-                    <S.ConfirmOrderButton>
-                        <S.ConfirmOrderButtonText>
-                            Confirmar pedido
-                        </S.ConfirmOrderButtonText>
-                    </S.ConfirmOrderButton>
-                    </TouchableOpacity>
-            </S.Container>
+            </S.FirstOrderContainer>
 
                 <S.OrderImage source={require("../../assets/images/gasLogo.png")}/>
+                
         </S.SafeAreaViewContainer>
     )
 }    

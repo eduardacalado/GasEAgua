@@ -2,6 +2,10 @@ import styled from "styled-components/native";
 import theme from "../../styles/theme";
 import { LinearGradient} from 'expo-linear-gradient';
 
+export const ScrollView = styled.ScrollView`
+  background-color: transparent;
+`;
+
 export const SafeAreaViewContainer = styled.SafeAreaView`
   align-items: center;
   justify-content: center;
@@ -19,7 +23,7 @@ export const OrderImage = styled.Image`
   border-radius: ${theme.size.m14};
 `;
 
-export const Container = styled.View`
+export const FirstOrderContainer = styled.View`
     background-color: ${theme.colors.background.white};
     position: absolute;
     bottom: 220px;
@@ -102,11 +106,12 @@ export const TotalItems = styled.Text`
 
 export const ConfirmOrderButton = styled.View`
   width: 140px;
-  height: 40px;
+  height: ${theme.font.size.m9};
   align-items: center;
   justify-content: center;
-  border-radius: 15px;
+  border-radius: ${theme.font.size.m4};
   background-color: ${theme.colors.button.primary.background};
+  top: -30px;
 `;
 
 export const ConfirmOrderButtonText = styled.Text`
@@ -114,3 +119,55 @@ export const ConfirmOrderButtonText = styled.Text`
   font-size: ${theme.font.size.m4};
   font-weight: ${theme.font.weight.bold};
 `;
+
+export const SecondOrderContainer = styled.View`
+  background-color: ${theme.colors.background.white};
+    position: absolute;
+    bottom: 115px;
+    width: 325px;
+    height:  ${theme.size.m14};
+    border-radius: ${theme.size.m6};
+    align-items: left;
+    gap: ${theme.size.m2};
+    elevation: 5;
+    padding-top: ${theme.size.m12};
+`;
+
+export const SecondOrderAddItemNumber = styled.Text`
+  color: ${theme.colors.text.black};
+  font-size: ${theme.font.size.m7};
+  font-weight: ${theme.font.weight.bold};
+`;
+
+export const SecondOrderMinusPlusButton = styled.View`
+  width: ${theme.size.m8};
+  height: ${theme.size.m8};
+  background-color: ${theme.colors.button.secondary.background};
+  border-radius: ${theme.size.m4};
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SecondOrderTitle = styled.Text`
+  color: ${theme.colors.text.black};
+  font-size: ${theme.font.size.m5};
+  font-weight: ${theme.font.weight.bold};
+  left: ${theme.size.m5};
+  position: relative;
+  bottom: ${theme.size.m10};
+  left:  ${theme.size.m14};
+`;
+
+export const SecondTotalCashContainer = styled(LinearGradient)`
+  width: 325px;
+  height: ${theme.size.m10};
+  border-bottom-left-radius: ${theme.size.m6};
+  border-bottom-right-radius: ${theme.size.m6};
+  padding-left: ${theme.size.m2};
+  padding-right: ${theme.size.m2};
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  bottom:  ${theme.size.m9};
+`; 
