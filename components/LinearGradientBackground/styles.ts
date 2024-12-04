@@ -12,8 +12,7 @@ export const LinearGradientBackgroundStyle = styled(LinearGradient)`
   border-bottom-right-radius: 92px;
 `;
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   background-color: ${theme.colors.background.lightGray};
   flex: 1;
-  align-items: center;
 `;

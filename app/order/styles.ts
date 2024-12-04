@@ -6,26 +6,23 @@ export const ScrollView = styled.ScrollView`
   background-color: transparent;
 `;
 
-export const SafeAreaViewContainer = styled.SafeAreaView`
+export const AlterAddressButton = styled.TouchableOpacity`
+  margin-top: 25px;
+`;
+
+export const SafeAreaViewContainer = styled.View`
   flex: 1;
-  background-color: ${theme.colors.background.white};
+  padding: ${theme.size.m7};
+  justify-content: flex-start;
 `;
 
 export const OrderImage = styled.Image`
-  width: ${theme.size.m15};
-  height: ${theme.size.m15};
+  width: ${theme.size.m13};
+  height: ${theme.size.m13};
   border: 8px solid #e1e1e1;
   border-radius: ${theme.size.m14};
-`;
-
-export const FirstOrderContainer = styled.View`
-  background-color: ${theme.colors.background.white};
-  justify-content: center;
-  align-items: center;
-  gap: ${theme.size.m2};
-  border-radius: ${theme.size.m6};
-  elevation: 5;
-  margin-top: 80px;
+  margin-bottom: -40px;
+  z-index: 10;
 `;
 
 export const AlterLocationButtonText = styled.Text`
@@ -46,10 +43,11 @@ export const SubTitle = styled.Text`
 `;
 
 export const AddItemContainer = styled.View`
-  height: ${theme.size.m9};
-  width: ${theme.size.m11};
   flex-direction: row;
-  gap: ${theme.size.m3};
+  align-items: center;
+  justify-content: space-between;
+  padding: ${theme.size.m3};
+  width: 100%;
 `;
 
 export const AddItemNumber = styled.Text`
@@ -67,17 +65,6 @@ export const MinusPlusButton = styled.View`
   justify-content: center;
 `;
 
-export const TotalCashContainer = styled(LinearGradient)`
-  width: 325px;
-  height: ${theme.size.m10};
-  border-bottom-left-radius: ${theme.size.m6};
-  border-bottom-right-radius: ${theme.size.m6};
-  padding-right: ${theme.size.m2};
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 export const TotalCash = styled.Text`
   color: ${theme.colors.text.white};
   font-size: ${theme.font.size.m6};
@@ -90,34 +77,55 @@ export const TotalItems = styled.Text`
   font-weight: ${theme.font.weight.bold};
 `;
 
-export const ConfirmOrderButton = styled.View`
-  width: 140px;
-  height: ${theme.font.size.m9};
-  align-items: center;
-  justify-content: center;
-  border-radius: ${theme.font.size.m4};
-  background-color: ${theme.colors.button.primary.background};
-`;
-
 export const ConfirmOrderButtonText = styled.Text`
+  flex: 1;
   color: ${theme.colors.text.white};
   font-size: ${theme.font.size.m4};
   font-weight: ${theme.font.weight.bold};
 `;
 
-export const SecondOrderContainer = styled.View`
-  background-color: ${theme.colors.background.white};
-  width: 325px;
-  border-radius: ${theme.size.m6};
-  gap: ${theme.size.m2};
+export const ConfirmOrderButton = styled.TouchableOpacity`
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+  border-radius: ${theme.font.size.m6};
+  background-color: ${theme.colors.button.primary.background};
+  margin-bottom: 20px;
+  margin-horizontal: ${theme.size.m7};
+`;
+
+export const AddressContainer = styled.View`
   elevation: 5;
-  /* margin-top: ${theme.size.m6}; */
-  /* margin-bottom: ${theme.size.m6}; */
+  margin-top: ${theme.size.m11};
+  margin-bottom: ${theme.size.m6};
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const AddressSubContainer = styled.View`
+  padding: ${theme.font.size.m6};
+  padding-top: ${theme.font.size.m10};
+  background-color: ${theme.colors.background.white};
+  border-radius: ${theme.size.m6};
+  gap: ${theme.size.base};
+  width: 100%;
+`;
+
+export const OrderContainer = styled.View`
+  background-color: ${theme.colors.background.white};
+  elevation: 5;
+  margin-top: ${theme.size.m11};
+  margin-bottom: ${theme.size.m6};
+  border-radius: ${theme.size.m6};
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `;
 
 export const SecondOrderAddItemNumber = styled.Text`
   color: ${theme.colors.text.black};
-  font-size: ${theme.font.size.m7};
+  font-size: ${theme.font.size.m6};
   font-weight: ${theme.font.weight.bold};
 `;
 
@@ -136,13 +144,28 @@ export const SecondOrderTitle = styled.Text`
   font-weight: ${theme.font.weight.bold};
 `;
 
-export const SecondTotalCashContainer = styled(LinearGradient)`
-  width: 325px;
-  height: ${theme.size.m10};
-  border-bottom-left-radius: ${theme.size.m6};
-  border-bottom-right-radius: ${theme.size.m6};
-  padding-right: ${theme.size.m2};
+export const CashContainer = styled(LinearGradient)`
   flex-direction: row;
   justify-content: space-between;
+  border-bottom-right-radius: ${theme.size.m6};
+  border-bottom-left-radius: ${theme.size.m6};
   align-items: center;
+  width: 100%;
+  padding: 10px;
+`;
+
+export const ItemContainer = styled.View`
+  flex-direction: row;
+`;
+
+export const AddItemRightContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  gap: ${theme.size.m9};
+`;
+export const AddItemLeftContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: ${theme.size.m2};
 `;
