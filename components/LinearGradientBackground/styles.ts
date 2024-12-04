@@ -1,10 +1,19 @@
 import styled from "styled-components/native";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
+import theme from "@/styles/theme";
 
 export const LinearGradientBackgroundStyle = styled(LinearGradient)`
-     align-items: center;
+  height: 370px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom-left-radius: 92px;
+  border-bottom-right-radius: 92px;
+`;
+
+export const Container = styled.View`
+  background-color: ${theme.colors.background.lightGray};
   flex: 1;
-  justify-content: center;
-    border-bottom-left-radius: 92px;
-    border-bottom-right-radius: 92px;
+  align-items: center;
 `;
