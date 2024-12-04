@@ -8,7 +8,7 @@ export default function Home() {
     const router = useRouter();
 
     const handlePressOrder = () => {
-      router.push('../order');
+       router.push('../order');
     };
 
     return (

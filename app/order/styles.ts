@@ -8,16 +8,14 @@ export const ScrollView = styled.ScrollView`
 
 export const SafeAreaViewContainer = styled.SafeAreaView`
   align-items: center;
-  justify-content: center;
   flex: 1;
+  justify-content: center;
   background-color: ${theme.colors.background.white};
 `;
 
 export const OrderImage = styled.Image`
   width: ${theme.size.m15};
   height: ${theme.size.m15};
-  position: absolute;
-  top: ${theme.size.m12};
   left: ${theme.size.m11};
   border: 8px solid #e1e1e1;
   border-radius: ${theme.size.m14};
@@ -25,15 +23,12 @@ export const OrderImage = styled.Image`
 
 export const FirstOrderContainer = styled.View`
     background-color: ${theme.colors.background.white};
-    position: absolute;
-    bottom: 220px;
     width: 325px;
     height: 350px;
     border-radius: ${theme.size.m6};
     align-items: left;
     gap: ${theme.size.m2};
     elevation: 5;
-    padding-top: ${theme.size.m12};
 `;
 
 export const AlterLocationButtonText = styled.Text`
@@ -52,7 +47,6 @@ export const Title = styled.Text`
 
 export const SubTitle = styled.Text`
   color: ${theme.colors.text.gray};
-  top: -10px;
   left: ${theme.size.m5};
   font-size: ${theme.font.size.m5};
 `;
@@ -111,7 +105,6 @@ export const ConfirmOrderButton = styled.View`
   justify-content: center;
   border-radius: ${theme.font.size.m4};
   background-color: ${theme.colors.button.primary.background};
-  top: -30px;
 `;
 
 export const ConfirmOrderButtonText = styled.Text`
@@ -122,15 +115,12 @@ export const ConfirmOrderButtonText = styled.Text`
 
 export const SecondOrderContainer = styled.View`
   background-color: ${theme.colors.background.white};
-    position: absolute;
-    bottom: 115px;
     width: 325px;
-    height:  ${theme.size.m14};
     border-radius: ${theme.size.m6};
     align-items: left;
     gap: ${theme.size.m2};
     elevation: 5;
-    padding-top: ${theme.size.m12};
+    //padding-top: ${theme.size.m12};
 `;
 
 export const SecondOrderAddItemNumber = styled.Text`
@@ -152,10 +142,6 @@ export const SecondOrderTitle = styled.Text`
   color: ${theme.colors.text.black};
   font-size: ${theme.font.size.m5};
   font-weight: ${theme.font.weight.bold};
-  left: ${theme.size.m5};
-  position: relative;
-  bottom: ${theme.size.m10};
-  left:  ${theme.size.m14};
 `;
 
 export const SecondTotalCashContainer = styled(LinearGradient)`
@@ -168,6 +154,4 @@ export const SecondTotalCashContainer = styled(LinearGradient)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  bottom:  ${theme.size.m9};
 `; 
