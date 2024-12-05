@@ -96,7 +96,7 @@ export const ConfirmOrderButton = styled.TouchableOpacity`
 
 export const AddressContainer = styled.View`
   elevation: 5;
-  margin-top: ${theme.size.m11};
+  margin-top: ${theme.size.m10};
   margin-bottom: ${theme.size.m6};
   align-items: center;
   justify-content: center;
@@ -163,6 +163,7 @@ export const AddItemRightContainer = styled.View`
   justify-content: space-between;
   gap: ${theme.size.m9};
 `;
+
 export const AddItemLeftContainer = styled.View`
   flex-direction: row;
   align-items: center;

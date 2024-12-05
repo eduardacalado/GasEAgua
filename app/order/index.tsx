@@ -58,8 +58,8 @@ export default function Order() {
             </S.AddItemLeftContainer>
 
             <S.AddItemRightContainer>
-              <S.SecondOrderTitle>Água</S.SecondOrderTitle>
-              <S.SecondOrderTitle>R$ 12,00</S.SecondOrderTitle>
+              <S.SecondOrderTitle>Gás</S.SecondOrderTitle>
+              <S.SecondOrderTitle>R$ 100,00</S.SecondOrderTitle>
             </S.AddItemRightContainer>
           </S.AddItemContainer>
           <S.AddItemContainer>
@@ -86,8 +86,8 @@ export default function Order() {
               </TouchableOpacity>
             </S.AddItemLeftContainer>
             <S.AddItemRightContainer>
-              <S.SecondOrderTitle>Gás</S.SecondOrderTitle>
-              <S.SecondOrderTitle>R$ 100,00</S.SecondOrderTitle>
+              <S.SecondOrderTitle>Água</S.SecondOrderTitle>
+              <S.SecondOrderTitle>R$ 12,00</S.SecondOrderTitle>
             </S.AddItemRightContainer>
           </S.AddItemContainer>
 
