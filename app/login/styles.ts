@@ -37,7 +37,7 @@ export const Input = styled.TextInput`
 export const LoginButton = styled(LinearGradient)`
   padding: ${theme.size.m2};
   width: 200px;
-  margin-top: 40px;
+  margin-top: ${theme.size.m9};
   align-items: center;
   border-radius: ${theme.size.m7};
 `;

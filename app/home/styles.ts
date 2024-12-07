@@ -8,12 +8,19 @@ export const SafeAreaViewContainer = styled.View`
   /* justify-content: center; */
 `;
 
+export const ButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 250px;
+`;
+
 export const ButtonImage = styled(Image)`
-  flex: 1;
   border: 8px solid #e1e1e1;
   border-radius: ${theme.size.m13};
   aspect-ratio: 1;
   margin-bottom: -40px;
+  flex: 1;
 `;
 
 export const OrderButton = styled.TouchableOpacity`
@@ -34,7 +41,7 @@ export const Title = styled.Text`
   color: ${theme.colors.text.brand};
   font-size: ${theme.font.size.m9};
   font-weight: ${theme.font.weight.bold};
-  margin-top: 30px;
+  margin-top: ${theme.font.size.m8};
 `;
 
 export const SubTitle = styled.Text`

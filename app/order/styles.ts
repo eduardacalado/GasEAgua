@@ -7,7 +7,7 @@ export const ScrollView = styled.ScrollView`
 `;
 
 export const AlterAddressButton = styled.TouchableOpacity`
-  margin-top: 25px;
+  margin-top: ${theme.font.size.m7};
 `;
 
 export const SafeAreaViewContainer = styled.View`
@@ -22,7 +22,7 @@ export const OrderImage = styled.Image`
   border: 8px solid #e1e1e1;
   border-radius: ${theme.size.m14};
   margin-bottom: -40px;
-  z-index: 10;
+  z-index: ${theme.font.size.m1};
 `;
 
 export const AlterLocationButtonText = styled.Text`
@@ -85,12 +85,12 @@ export const ConfirmOrderButtonText = styled.Text`
 `;
 
 export const ConfirmOrderButton = styled.TouchableOpacity`
-  padding: 15px;
+  padding: ${theme.font.size.m4};
   align-items: center;
   justify-content: center;
   border-radius: ${theme.font.size.m6};
   background-color: ${theme.colors.button.primary.background};
-  margin-bottom: 20px;
+  margin-bottom: ${theme.size.m6};
   margin-horizontal: ${theme.size.m7};
 `;
 
@@ -151,7 +151,7 @@ export const CashContainer = styled(LinearGradient)`
   border-bottom-left-radius: ${theme.size.m6};
   align-items: center;
   width: 100%;
-  padding: 10px;
+  padding: ${theme.font.size.m1};
 `;
 
 export const ItemContainer = styled.View`

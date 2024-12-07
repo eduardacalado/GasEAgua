@@ -18,14 +18,7 @@ export default function Home() {
     <LinearGradientBackground>
       <S.SafeAreaViewContainer>
         <StatusBar style="light" />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: 8,
-            marginTop: 250,
-          }}
-        >
+        <S.ButtonsContainer>
           <S.OrderButton onPress={handlePressOrder}>
             <S.ButtonImage
               style={{
@@ -41,14 +34,17 @@ export default function Home() {
 
           <S.OrderButton>
             <S.ButtonImage
+            style={{
+              flex: 1,
+            }}
               source={require("../../assets/images/aguaLogo.png")}
-              //   placeholder={{ blurhash }}
+              placeholder={{ blurhash }}
               contentFit="cover"
               transition={1000}
             />
             <S.ButtonText>Pedir Água</S.ButtonText>
           </S.OrderButton>
-        </View>
+        </S.ButtonsContainer>
 
         <S.Title>Olá, Eduardo!</S.Title>
 
