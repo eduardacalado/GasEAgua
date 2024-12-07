@@ -1,70 +1,51 @@
 import styled from "styled-components/native";
-import theme from "../../styles/theme"
+import theme from "../../styles/theme";
+import { Image } from "expo-image";
 
-export const SafeAreaViewContainer = styled.SafeAreaView`
-  align-items: center;
-  justify-content: center;
+export const SafeAreaViewContainer = styled.View`
   flex: 1;
-  background-color: ${theme.colors.background.white};
+  padding: ${theme.size.m7};
+  /* justify-content: center; */
 `;
 
-export const GasButton = styled.Image`
-  width: ${theme.size.m14};
-  height: ${theme.size.m14};
-  position: absolute;
-  bottom: -30px;
-  right: 15px;
+export const ButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 250px;
+`;
+
+export const ButtonImage = styled(Image)`
   border: 8px solid #e1e1e1;
   border-radius: ${theme.size.m13};
+  aspect-ratio: 1;
+  margin-bottom: -40px;
+  flex: 1;
 `;
 
-export const GasButtonText = styled.Text`
+export const OrderButton = styled.TouchableOpacity`
+  flex: 1;
+`;
+
+export const ButtonText = styled.Text`
   color: ${theme.colors.text.white};
   background-color: ${theme.colors.button.primary.background};
   font-weight: ${theme.font.weight.bold};
   padding: ${theme.size.m1};
   border-radius: ${theme.size.m2};
   font-size: ${theme.font.size.m6};
-  position: absolute;
-  right: 43px;
-`;
-
-export const WaterButton = styled.Image`
-  width: ${theme.size.m14};
-  height: ${theme.size.m14};
-  position: absolute;
-  bottom: -30px;
-  left: ${theme.size.m4};
-  border: 8px solid #e1e1e1;;
-  border-radius: ${theme.size.m13};
-`;
-
-export const WaterButtonText = styled.Text`
-  color: ${theme.colors.text.white};
-  background-color: ${theme.colors.button.primary.background};
-  font-weight: ${theme.font.weight.bold};
-  padding: ${theme.size.m1};
-  border-radius: ${theme.size.m2};
-  font-size: ${theme.font.size.m6};
-  position: absolute;
-  left: 37px;
+  text-align: center;
 `;
 
 export const Title = styled.Text`
   color: ${theme.colors.text.brand};
-  text-align: center;
-  position: absolute;
-  bottom: 250px;
-  left: ${theme.size.m7};
   font-size: ${theme.font.size.m9};
   font-weight: ${theme.font.weight.bold};
+  margin-top: ${theme.font.size.m8};
 `;
 
 export const SubTitle = styled.Text`
   color: ${theme.colors.text.brand};
   text-align: center;
-  position: absolute;
-  bottom: 220px;
-  left: ${theme.size.m7};
   font-size: ${theme.font.size.m7};
 `;
