@@ -44,7 +44,7 @@ export default function Order() {
                   />
                 </S.MinusPlusButton>
               </TouchableOpacity>
-              <S.SecondOrderAddItemNumber>2</S.SecondOrderAddItemNumber>
+              <S.SecondOrderAddItemNumber>1</S.SecondOrderAddItemNumber>
 
               <TouchableOpacity>
                 <S.MinusPlusButton>
@@ -73,7 +73,7 @@ export default function Order() {
                   />
                 </S.MinusPlusButton>
               </TouchableOpacity>
-              <S.SecondOrderAddItemNumber>1</S.SecondOrderAddItemNumber>
+              <S.SecondOrderAddItemNumber>2</S.SecondOrderAddItemNumber>
 
               <TouchableOpacity>
                 <S.MinusPlusButton>

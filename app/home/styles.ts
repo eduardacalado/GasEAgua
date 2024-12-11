@@ -5,7 +5,16 @@ import { Image } from "expo-image";
 export const SafeAreaViewContainer = styled.View`
   flex: 1;
   padding: ${theme.size.m7};
-  /* justify-content: center; */
+`;
+
+export const ProfileButtonContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+export const ProfileButton = styled.TouchableOpacity`
+  justify-content: flex-end;
 `;
 
 export const ButtonsContainer = styled.View`
@@ -16,11 +25,11 @@ export const ButtonsContainer = styled.View`
 `;
 
 export const ButtonImage = styled(Image)`
+  width: 100%;
   border: 8px solid #e1e1e1;
-  border-radius: ${theme.size.m13};
+  border-radius: 999px;
   aspect-ratio: 1;
   margin-bottom: -40px;
-  flex: 1;
 `;
 
 export const OrderButton = styled.TouchableOpacity`
