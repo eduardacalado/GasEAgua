@@ -5,6 +5,8 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import { Provider } from "react-redux";
+import { store } from "@store/index";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,24 +26,26 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Stack
-        screenOptions={{
-          headerTransparent: true,
-          headerStyle: {
-            backgroundColor: "transparent",
-          },
-          headerTintColor: "#ffff",
-          headerTitle: "",
-        }}
-      >
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="login/index" options={{ headerShown: true }} />
-        <Stack.Screen name="signup/index" options={{ headerShown: true }} />
-        <Stack.Screen name="home/index" options={{ headerShown: true }} />
-        <Stack.Screen name="order/index" />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Stack
+          screenOptions={{
+            headerTransparent: true,
+            headerStyle: {
+              backgroundColor: "transparent",
+            },
+            headerTintColor: "#ffff",
+            headerTitle: "",
+          }}
+        >
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="login/index" options={{ headerShown: true }} />
+          <Stack.Screen name="signup/index" options={{ headerShown: true }} />
+          <Stack.Screen name="home/index" options={{ headerShown: true }} />
+          <Stack.Screen name="order/index" />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ThemeProvider>
+    </Provider>
   );
 }
