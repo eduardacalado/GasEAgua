@@ -1,6 +1,6 @@
+import { Image } from "expo-image";
 import styled from "styled-components/native";
 import theme from "../../styles/theme";
-import { Image } from "expo-image";
 
 export const SafeAreaViewContainer = styled.View`
   flex: 1;

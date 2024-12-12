@@ -1,6 +1,6 @@
+import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 import theme from "../../styles/theme";
-import { LinearGradient } from "expo-linear-gradient";
 
 export const ScrollView = styled.ScrollView`
   background-color: transparent;
