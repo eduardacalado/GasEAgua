@@ -1,14 +1,18 @@
 import * as S from "./styles";
 import { LinearGradientBackground } from "../../components/LinearGradientBackground/index";
-import { TouchableOpacity, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialIcons";
 
 export default function Home() {
   const router = useRouter();
 
   const handlePressOrder = () => {
     router.push("../order");
+  };
+
+  const handlePressProfile = () => {
+    router.push("../profile")
   };
 
   const blurhash =
@@ -21,9 +25,6 @@ export default function Home() {
         <S.ButtonsContainer>
           <S.OrderButton onPress={handlePressOrder}>
             <S.ButtonImage
-              style={{
-                flex: 1,
-              }}
               source={require("../../assets/images/gasLogo.png")}
               placeholder={{ blurhash }}
               contentFit="contain"
@@ -34,9 +35,6 @@ export default function Home() {
 
           <S.OrderButton>
             <S.ButtonImage
-            style={{
-              flex: 1,
-            }}
               source={require("../../assets/images/aguaLogo.png")}
               placeholder={{ blurhash }}
               contentFit="cover"
@@ -49,6 +47,12 @@ export default function Home() {
         <S.Title>Olá, Eduardo!</S.Title>
 
         <S.SubTitle>O que gostaria de pedir?</S.SubTitle>
+
+        <S.ProfileButtonContainer>
+          <S.ProfileButton onPress={handlePressProfile}>
+            <MaterialCommunityIcons name="account-circle" size={35} color="#DB1A00" />
+          </S.ProfileButton>
+        </S.ProfileButtonContainer>
       </S.SafeAreaViewContainer>
     </LinearGradientBackground>
   );

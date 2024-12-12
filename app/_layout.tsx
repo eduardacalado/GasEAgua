@@ -40,6 +40,7 @@ export default function RootLayout() {
         <Stack.Screen name="signup/index" options={{ headerShown: true }} />
         <Stack.Screen name="home/index" options={{ headerShown: true }} />
         <Stack.Screen name="order/index" />
+        <Stack.Screen name="profile/index" />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>
