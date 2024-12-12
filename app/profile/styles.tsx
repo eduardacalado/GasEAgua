@@ -20,7 +20,7 @@ export const ProfileImageContainer = styled.View`
   position: absolute;
   width: 200px;
   height: 200px;
-  gap: 8px;
+  gap: ${theme.size.m1};
   padding-left: 100px;
   padding-right: 100px;
   margin-top: 200px;
@@ -60,7 +60,7 @@ export const InfoContainer = styled.View`
 
 export const TitleSubtitleContainer = styled.View`
   align-items: flex-start;
-  gap: 4px;
+  gap: ${theme.size.base};
 `;
 
 export const InfoTitle = styled.Text`
@@ -78,7 +78,7 @@ export const InfoSubitle = styled.Text`
   font-size: ${theme.font.size.m6};
   padding: ${theme.size.m2};
   background-color: #FF6A00;
-  border-radius: 10px;
+  border-radius: ${theme.size.m1};
 `;
 
 export const AlterInfoButtonContainer = styled.View`
