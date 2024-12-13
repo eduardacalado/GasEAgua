@@ -1,10 +1,10 @@
 import { ThemeProvider } from "styled-components";
 import theme from "../styles/theme";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import { Stack } from 'expo-router/stack';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -35,6 +35,7 @@ export default function RootLayout() {
           headerTitle: "",
         }}
       >
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="login/index" options={{ headerShown: true }} />
         <Stack.Screen name="signup/index" options={{ headerShown: true }} />

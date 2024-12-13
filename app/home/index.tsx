@@ -3,6 +3,8 @@ import { LinearGradientBackground } from "../../components/LinearGradientBackgro
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialIcons";
+import Tab from "../(tabs)/index"
+import TabLayout from "../(tabs)/_layout";
 
 export default function Home() {
   const router = useRouter();
@@ -53,6 +55,7 @@ export default function Home() {
             <MaterialCommunityIcons name="account-circle" size={35} color="#DB1A00" />
           </S.ProfileButton>
         </S.ProfileButtonContainer>
+        <Tab></Tab>
       </S.SafeAreaViewContainer>
     </LinearGradientBackground>
   );
