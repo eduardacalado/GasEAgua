@@ -2,15 +2,17 @@ import { TouchableOpacity } from "react-native";
 import * as S from "./styles";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { LinearGradientBackground } from "../../components/LinearGradientBackground/index";
-import { useRouter } from "expo-router";
+import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
+import { RootNavigatorRoutesProps } from "@routes/index";
 
-export default function SignUp() {
-  const router = useRouter();
+export function SignUp() {
+  const navigation = useNavigation<RootNavigatorRoutesProps>();
 
   const handlePressHome = () => {
-    router.push("../home");
+    navigation.navigate("userHome");
   };
 
   return (

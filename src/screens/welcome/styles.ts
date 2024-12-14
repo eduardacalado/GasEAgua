@@ -1,8 +1,8 @@
-import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
-import theme from "../styles/theme";
+import styled from "styled-components/native";
+import theme from "../../styles/theme";
 
-export const SafeAreaViewContainer = styled.SafeAreaView`
+export const SafeAreaViewContainer = styled.View`
   flex: 1;
   padding: ${theme.size.m8};
   justify-content: flex-start;
