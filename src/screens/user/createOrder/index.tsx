@@ -1,18 +1,20 @@
 import * as S from "./styles";
-import { LinearGradientBackground } from "../../components/LinearGradientBackground/index";
+import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
-export default function Order() {
+export function userCreateOrder() {
   return (
     <LinearGradientBackground>
       <S.SafeAreaViewContainer>
         <StatusBar style="light" />
 
         <S.AddressContainer>
-          <S.OrderImage source={require("../../assets/images/gasLogo.png")} />
+          <S.OrderImage
+            source={require("../../../../assets/images/gasLogo.png")}
+          />
 
           <S.AddressSubContainer>
             <S.Title>Endereço de entrega</S.Title>
@@ -44,7 +46,7 @@ export default function Order() {
                   />
                 </S.MinusPlusButton>
               </TouchableOpacity>
-              <S.SecondOrderAddItemNumber>2</S.SecondOrderAddItemNumber>
+              <S.SecondOrderAddItemNumber>1</S.SecondOrderAddItemNumber>
 
               <TouchableOpacity>
                 <S.MinusPlusButton>
@@ -73,7 +75,7 @@ export default function Order() {
                   />
                 </S.MinusPlusButton>
               </TouchableOpacity>
-              <S.SecondOrderAddItemNumber>1</S.SecondOrderAddItemNumber>
+              <S.SecondOrderAddItemNumber>2</S.SecondOrderAddItemNumber>
 
               <TouchableOpacity>
                 <S.MinusPlusButton>

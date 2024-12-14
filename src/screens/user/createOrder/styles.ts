@@ -1,6 +1,6 @@
-import styled from "styled-components/native";
-import theme from "../../styles/theme";
 import { LinearGradient } from "expo-linear-gradient";
+import styled from "styled-components/native";
+import theme from "../../../styles/theme";
 
 export const ScrollView = styled.ScrollView`
   background-color: transparent;
@@ -78,14 +78,13 @@ export const TotalItems = styled.Text`
 `;
 
 export const ConfirmOrderButtonText = styled.Text`
-  flex: 1;
   color: ${theme.colors.text.white};
   font-size: ${theme.font.size.m4};
   font-weight: ${theme.font.weight.bold};
 `;
 
 export const ConfirmOrderButton = styled.TouchableOpacity`
-  padding: ${theme.font.size.m4};
+  padding: ${theme.font.size.m3};
   align-items: center;
   justify-content: center;
   border-radius: ${theme.font.size.m6};
