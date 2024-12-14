@@ -1,18 +1,19 @@
-import { useRouter } from "expo-router";
-import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import * as S from "./styles";
-import { LinearGradientBackground } from "../components/LinearGradientBackground/index";
+import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
 import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { RootNavigatorRoutesProps } from "@routes/index";
 
-export default function HomeScreen() {
-  const router = useRouter();
+export function WelcomeScreen() {
+  const navigation = useNavigation<RootNavigatorRoutesProps>();
 
   const handlePressLogin = () => {
-    router.push("/login");
+    navigation.navigate("login");
   };
 
   const handlePressSignup = () => {
-    router.push("/signup");
+    navigation.navigate("signup");
   };
 
   return (

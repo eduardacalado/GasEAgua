@@ -1,6 +1,5 @@
-import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
-import theme from "@/styles/theme";
+import styled from "styled-components/native";
 
 export const LinearGradientBackgroundStyle = styled(LinearGradient)`
   height: 370px;
@@ -13,6 +12,5 @@ export const LinearGradientBackgroundStyle = styled(LinearGradient)`
 `;
 
 export const Container = styled.SafeAreaView`
-  background-color: ${theme.colors.background.lightGray};
   flex: 1;
 `;

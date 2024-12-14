@@ -1,18 +1,19 @@
 import * as S from "./styles";
-import { LinearGradientBackground } from "../../components/LinearGradientBackground/index";
+import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
 import { StatusBar } from "expo-status-bar";
-import { useRouter } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialIcons";
+import { UserNavigatorRoutesProps } from "../../../routes/user.routes";
 
-export default function Home() {
-  const router = useRouter();
+export function Home() {
+  const navigation = useNavigation<UserNavigatorRoutesProps>();
 
   const handlePressOrder = () => {
-    router.push("../order");
+    navigation.navigate("userCreateOrder");
   };
 
   const handlePressProfile = () => {
-    router.push("../profile")
+    navigation.navigate("userProfile");
   };
 
   const blurhash =
@@ -25,7 +26,7 @@ export default function Home() {
         <S.ButtonsContainer>
           <S.OrderButton onPress={handlePressOrder}>
             <S.ButtonImage
-              source={require("../../assets/images/gasLogo.png")}
+              source={require("../../../../assets/images/gasLogo.png")}
               placeholder={{ blurhash }}
               contentFit="contain"
               transition={1000}
@@ -35,7 +36,7 @@ export default function Home() {
 
           <S.OrderButton>
             <S.ButtonImage
-              source={require("../../assets/images/aguaLogo.png")}
+              source={require("../../../../assets/images/aguaLogo.png")}
               placeholder={{ blurhash }}
               contentFit="cover"
               transition={1000}
@@ -50,7 +51,11 @@ export default function Home() {
 
         <S.ProfileButtonContainer>
           <S.ProfileButton onPress={handlePressProfile}>
-            <MaterialCommunityIcons name="account-circle" size={35} color="#DB1A00" />
+            <MaterialCommunityIcons
+              name="account-circle"
+              size={35}
+              color="#DB1A00"
+            />
           </S.ProfileButton>
         </S.ProfileButtonContainer>
       </S.SafeAreaViewContainer>

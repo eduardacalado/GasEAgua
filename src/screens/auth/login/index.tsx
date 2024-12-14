@@ -1,15 +1,16 @@
 import { TouchableOpacity } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { LinearGradientBackground } from "../../components/LinearGradientBackground/index";
+import { LinearGradientBackground } from "../../../components/LinearGradientBackground";
 import * as S from "./styles";
-import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
+import { RootNavigatorRoutesProps } from "@routes/index";
 
-export default function Login() {
-  const router = useRouter();
+export function Login() {
+  const navigation = useNavigation<RootNavigatorRoutesProps>();
 
   const handlePressHome = () => {
-    router.push("../home");
+    navigation.navigate("userHome");
   };
 
   return (
