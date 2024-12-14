@@ -8,7 +8,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Platform } from "react-native";
 import { UserProfile } from "../screens/user/profile";
 import { Home } from "../screens/user/home";
-import { userCreateOrder } from "../screens/user/createOrder";
+import { userCreateOrder } from "../screens/user/order";
 import theme from "src/styles/theme";
 
 export type UserRoutes = {

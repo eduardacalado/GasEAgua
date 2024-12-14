@@ -1,19 +1,19 @@
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native";
 import * as S from "./styles";
-import { LinearGradientBackground } from "../../components/LinearGradientBackground/index";
+import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { RootNavigatorRoutesProps } from "@routes/index";
 
 export function WelcomeScreen() {
-  const router = useNavigation();
+  const navigation = useNavigation<RootNavigatorRoutesProps>();
 
   const handlePressLogin = () => {
-    router.navigate("/login");
+    navigation.navigate("login");
   };
 
   const handlePressSignup = () => {
-    router.navigate("/signup");
+    navigation.navigate("signup");
   };
 
   return (
