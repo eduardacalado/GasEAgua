@@ -5,7 +5,7 @@ type UserState = UserDates;
 
 const initialState: UserState = {
   token: "",
-  user: { id: "", isAdmin: "", email: "", name: "" },
+  user: { id: "", isAdmin: false, email: "", name: "" },
 } as const;
 
 export const userSlice = createSlice({

@@ -5,5 +5,5 @@ import { LoginPayload } from "./types";
 export const postLogin = async (
   loginData: LoginPayload
 ): Promise<UserDates> => {
-  return api.post("/sessions", loginData).then((response) => response.data);
+  return api.post("/login", loginData).then((response) => response.data);
 };

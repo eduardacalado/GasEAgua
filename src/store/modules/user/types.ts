@@ -1,7 +1,7 @@
 export type UserDatesProps = {
   name: string;
   email: string;
-  isAdmin: string;
+  isAdmin: boolean;
   id: string;
 };
 
