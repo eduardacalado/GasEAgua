@@ -5,6 +5,7 @@ import theme from "./styles/theme";
 import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import Toast from "react-native-toast-message";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <RootRoutes />
         </ThemeProvider>
       </GestureHandlerRootView>
+      <Toast />
     </Provider>
   );
 }

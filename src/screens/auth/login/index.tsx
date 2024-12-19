@@ -11,6 +11,7 @@ import { authActions } from "@store/modules/auth/slice";
 import { userActions } from "@store/modules/user/slice";
 import { useState } from "react";
 import { isAxiosError } from "axios";
+import Toast from "react-native-toast-message";
 
 export function Login() {
   const [email,setEmail] = useState("")
@@ -27,6 +28,10 @@ export function Login() {
 
       if (isAxiosError(error)) {
         error.response?.data?.message
+        Toast.show({
+          type: 'error',
+          text1: 'Email ou senha incorretos'
+        })
       }
       console.log({error})
     }
