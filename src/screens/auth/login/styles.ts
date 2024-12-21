@@ -47,3 +47,8 @@ export const LoginButtonText = styled.Text`
   font-weight: ${theme.font.weight.bold};
   font-size: ${theme.font.size.m4};
 `;
+
+export const LabelError = styled.Text`
+  align-self: flex-start;
+  color: #FF375B;
+`;
