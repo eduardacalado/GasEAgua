@@ -3,18 +3,16 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { LinearGradientBackground } from "../../../components/LinearGradientBackground";
 import * as S from "./styles";
 import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/native";
-import { RootNavigatorRoutesProps } from "@routes/index";
 import { postLogin } from "src/services/auth";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { authActions } from "@store/modules/auth/slice";
 import { userActions } from "@store/modules/user/slice";
-import { useState } from "react";
 import { isAxiosError } from "axios";
 import Toast from "react-native-toast-message";
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useState } from "react";
 
 const schema = yup.object({
   email: yup.string().email("Email inválido").required("Infome seu email"),
@@ -22,16 +20,19 @@ const schema = yup.object({
 })
 
 export function Login() {
+  const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useAppDispatch();
+
   const { control, handleSubmit, formState: {errors} } = useForm({
     resolver: yupResolver(schema)
   })
-  const dispatch = useAppDispatch();
 
-  const handleLogin = async(data: any) => {
+  const handleLogin = async(data: yup.InferType<typeof schema> ) => {
     const { email, password } = data;
     
+    setIsLoading(true)
    try {
-     const authDates = await postLogin({email: email, password: password})
+     const authDates = await postLogin({ email, password })
      dispatch(authActions.updateAuthStore({isAuthenticated: true}))
      dispatch(userActions.saveUser(authDates))
    } catch(error) {
@@ -41,12 +42,11 @@ export function Login() {
        Toast.show({
          type: 'error',
          text1: 'Email ou senha incorretos'
-       })
-     }
-     console.log({error})
+        })
+      }
+    } finally {
+     setIsLoading(false)
    }
-
-    console.log(data.password)
   }
 
   return (
@@ -55,8 +55,6 @@ export function Login() {
         <StatusBar style="light" />
 
         <S.Container>
-
-
           <Controller
             control={control}
             name="email"
