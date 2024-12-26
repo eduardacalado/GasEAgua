@@ -38,10 +38,10 @@ export function Login() {
    } catch(error) {
 
      if (isAxiosError(error)) {
-       error.response?.data?.message
+       const errorMessage = error.response?.data?.message
        Toast.show({
          type: 'error',
-         text1: 'Email ou senha incorretos'
+         text1: errorMessage,
         })
       }
     } finally {
