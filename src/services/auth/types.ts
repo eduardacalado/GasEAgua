@@ -8,14 +8,14 @@ export type AuthState = {
 };
 
 export type SignupPayload = {
-    username: string,
-    email: string,
-    password: string,
-    telephone: string,
-    address: {
-      street?: string | undefined,
-      reference: string,
-      local: string,
-      number?: string | undefined
-    }
+  username: string,
+  email: string,
+  password: string,
+  telephone: string,
+  address: {
+    street?: string | undefined,
+    reference: string,
+    local: string,
+    number?: string | undefined
+  }
 }
