@@ -1,14 +1,10 @@
 import api from "@libs/axios/api";
-import { OrderPayload, StockPayload } from "./types";
+import { OrderPayload, StockData } from "./types";
 
-export const postOrder = async (
-    data: OrderPayload
-) => {
-    return api.post("/orders", data).then((response) => response.data);
-}
+export const postOrder = async (data: OrderPayload) => {
+  return api.post("/orders", data).then((response) => response.data);
+};
 
-export const getStock = async (
-    data: StockPayload
-) => {
-    return api.post("/stock/profile", data).then((response) => response.data);
-  };
+export const getStock = async (): Promise<StockData> => {
+  return api.get("/stock/profile").then((response) => response.data);
+};

@@ -1,69 +1,97 @@
 import * as S from "./styles";
 import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
 import { StatusBar } from "expo-status-bar";
-import { TouchableOpacity } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import { isAxiosError } from "axios";
 import { getStock, postOrder } from "src/services/order";
 
+type ProductsType = {
+  id: number;
+  value: number;
+  name: "Gás" | "Água";
+};
+
+type StockData = {
+  gas: ProductsType;
+  agua: ProductsType;
+};
+
 export function userCreateOrder() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [waterAmount, setWaterAmount] = useState(0);
   const [gasAmount, setGasAmount] = useState(1);
 
-  const waterIncrement = () => setWaterAmount(prevCount => prevCount + 1);
-  const waterDecrement = () => setWaterAmount(prevCount => Math.max(0, prevCount - 1));
+  const waterIncrement = () => setWaterAmount((prevCount) => prevCount + 1);
+  const waterDecrement = () =>
+    setWaterAmount((prevCount) => Math.max(0, prevCount - 1));
 
-  const gasIncrement = () => setGasAmount(prevCount => prevCount + 1);
-  const gasDecrement = () => setGasAmount(prevCount => Math.max(0, prevCount - 1));
+  const gasIncrement = () => setGasAmount((prevCount) => prevCount + 1);
+  const gasDecrement = () =>
+    setGasAmount((prevCount) => Math.max(0, prevCount - 1));
 
-  const [stock, setStock] = useState({})
-  const [stockLoading, setIsStockLoading] = useState(false)
+  const [stock, setStock] = useState<StockData>();
+  const [stockLoading, setIsStockLoading] = useState(false);
+
   async function handleGetStock() {
-    setIsStockLoading(true)
+    setIsStockLoading(true);
 
     try {
-      
+      const data = await getStock();
+      const gasStock = data.items.find(
+        (item) => item.name === "Gás"
+      ) as ProductsType;
+      const waterStock = data.items.find(
+        (item) => item.name === "Água"
+      ) as ProductsType;
+
+      setStock({
+        gas: gasStock,
+        agua: waterStock,
+      });
+    } catch (cuscuz) {
+      // empty
+    } finally {
+      setIsStockLoading(true);
     }
   }
 
   async function createOrder() {
-
     setIsLoading(true);
     try {
-      const { waterStock, gasStock } =  await getStock();
+      await postOrder({ waterAmount, gasAmount });
 
-      if (waterAmount > waterStock || gasAmount > gasStock) {
-        Toast.show({
-          type: 'error',
-          text1: 'Estoque insuficiente!',
-          text2: `Disponível: ${waterStock} águas, ${gasStock} gás`,
-        });
-        return;
-      }
-
-      await postOrder({ waterAmount, gasAmount})
-      
       Toast.show({
-        type: 'success',
-        text1: 'Pedido realizado com sucesso!'
-      })
+        type: "success",
+        text1: "Pedido realizado com sucesso!",
+      });
+
+      //redirect comprovante de pedido
     } catch (error) {
-      console.log(error)
+      console.log(error);
       if (isAxiosError(error)) {
         Toast.show({
-          type: 'error',
+          type: "error",
           text2: error.response?.data.message,
-        })
+        });
       }
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
-  return (
+
+  useEffect(() => {
+    handleGetStock();
+  }, []);
+
+  return stockLoading ? (
+    <View>
+      <ActivityIndicator />
+    </View>
+  ) : (
     <LinearGradientBackground>
       <S.SafeAreaViewContainer>
         <StatusBar style="light" />
@@ -103,7 +131,9 @@ export function userCreateOrder() {
                   />
                 </S.MinusPlusButton>
               </TouchableOpacity>
-              <S.SecondOrderAddItemNumber>{gasAmount}</S.SecondOrderAddItemNumber>
+              <S.SecondOrderAddItemNumber>
+                {gasAmount}
+              </S.SecondOrderAddItemNumber>
 
               <TouchableOpacity onPress={gasIncrement}>
                 <S.MinusPlusButton>
@@ -117,8 +147,8 @@ export function userCreateOrder() {
             </S.AddItemLeftContainer>
 
             <S.AddItemRightContainer>
-              <S.SecondOrderTitle>Gás</S.SecondOrderTitle>
-              <S.SecondOrderTitle>R$ 100,00</S.SecondOrderTitle>
+              <S.SecondOrderTitle>{stock?.agua.name}</S.SecondOrderTitle>
+              <S.SecondOrderTitle>{stock?.agua.value}</S.SecondOrderTitle>
             </S.AddItemRightContainer>
           </S.AddItemContainer>
           <S.AddItemContainer>
@@ -132,7 +162,9 @@ export function userCreateOrder() {
                   />
                 </S.MinusPlusButton>
               </TouchableOpacity>
-              <S.SecondOrderAddItemNumber>{waterAmount}</S.SecondOrderAddItemNumber>
+              <S.SecondOrderAddItemNumber>
+                {waterAmount}
+              </S.SecondOrderAddItemNumber>
 
               <TouchableOpacity onPress={waterIncrement}>
                 <S.MinusPlusButton>
@@ -145,8 +177,8 @@ export function userCreateOrder() {
               </TouchableOpacity>
             </S.AddItemLeftContainer>
             <S.AddItemRightContainer>
-              <S.SecondOrderTitle>Água</S.SecondOrderTitle>
-              <S.SecondOrderTitle>R$ 12,00</S.SecondOrderTitle>
+              <S.SecondOrderTitle>{stock?.agua.name}</S.SecondOrderTitle>
+              <S.SecondOrderTitle>{stock?.agua.value}</S.SecondOrderTitle>
             </S.AddItemRightContainer>
           </S.AddItemContainer>
 
@@ -156,7 +188,7 @@ export function userCreateOrder() {
             end={{ x: 1, y: 0 }}
           >
             <S.TotalItems>{gasAmount + waterAmount} Items</S.TotalItems>
-            <S.TotalCash>TOTAL R$ 112,00</S.TotalCash>
+            <S.TotalCash>Total {}</S.TotalCash>
           </S.CashContainer>
         </S.OrderContainer>
       </S.SafeAreaViewContainer>

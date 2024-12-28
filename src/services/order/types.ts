@@ -1,13 +1,23 @@
 export type OrderPayload = {
-    waterAmount: number,
-    gasAmount: number
+  waterAmount: number;
+  gasAmount: number;
+};
 
-}
+// export type StockPayload = {
+//   id: 0;
+//   value: 0;
+//   name: string;
+//   createdAt: string;
+//   updatedAt: string;
+// };
+export type StockData = {
+  items: StockItem[];
+};
 
-export type StockPayload = {
-    id: 0,
-    value: 0,
-    name: string,
-    createdAt: "2024-12-27T11:35:16.182Z",
-    updatedAt: "2024-12-27T11:35:16.182Z"
-}
+export type StockItem = {
+  id: number;
+  value: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
