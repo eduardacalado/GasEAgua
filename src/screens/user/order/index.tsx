@@ -24,6 +24,8 @@ export function userCreateOrder() {
   const [isLoading, setIsLoading] = useState(false);
   const [waterAmount, setWaterAmount] = useState(0);
   const [gasAmount, setGasAmount] = useState(1);
+  const [stock, setStock] = useState<StockData>();
+  const [stockLoading, setIsStockLoading] = useState(false);
 
   const waterIncrement = () => setWaterAmount((prevCount) => prevCount + 1);
   const waterDecrement = () =>
@@ -33,17 +35,24 @@ export function userCreateOrder() {
   const gasDecrement = () =>
     setGasAmount((prevCount) => Math.max(0, prevCount - 1));
 
-  const [stock, setStock] = useState<StockData>();
-  const [stockLoading, setIsStockLoading] = useState(false);
+  const total = () => {
+    const waterTotalValue = waterAmount * Number(stock?.agua.value);
+
+    const gasTotalValue = gasAmount * Number(stock?.gas.value);
+
+    return waterTotalValue + gasTotalValue;
+  };
 
   async function handleGetStock() {
     setIsStockLoading(true);
 
     try {
       const data = await getStock();
+
       const gasStock = data.items.find(
         (item) => item.name === "Gás"
       ) as ProductsType;
+
       const waterStock = data.items.find(
         (item) => item.name === "Água"
       ) as ProductsType;
@@ -188,7 +197,7 @@ export function userCreateOrder() {
             end={{ x: 1, y: 0 }}
           >
             <S.TotalItems>{gasAmount + waterAmount} Items</S.TotalItems>
-            <S.TotalCash>Total {}</S.TotalCash>
+            <S.TotalCash>Total {total}</S.TotalCash>
           </S.CashContainer>
         </S.OrderContainer>
       </S.SafeAreaViewContainer>
