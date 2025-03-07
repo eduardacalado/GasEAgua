@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import { isAxiosError } from "axios";
 import { getStock, postOrder } from "src/services/order";
+import { useAppSelector } from "@hooks/useAppSelector";
 
 type ProductsType = {
   id: number;
@@ -26,6 +27,9 @@ export function userCreateOrder() {
   const [gasAmount, setGasAmount] = useState(1);
   const [stock, setStock] = useState<StockData>();
   const [stockLoading, setIsStockLoading] = useState(false);
+  const {
+    user: { address },
+  } = useAppSelector((state) => state.user);
 
   const waterIncrement = () => setWaterAmount((prevCount) => prevCount + 1);
   const waterDecrement = () =>
@@ -39,7 +43,9 @@ export function userCreateOrder() {
     const waterTotalValue = waterAmount * Number(stock?.agua.value);
 
     const gasTotalValue = gasAmount * Number(stock?.gas.value);
-
+    console.log(gasAmount);
+    console.log(Number(stock?.gas.value));
+    console.log(waterTotalValue + gasTotalValue);
     return waterTotalValue + gasTotalValue;
   };
 
@@ -61,17 +67,26 @@ export function userCreateOrder() {
         gas: gasStock,
         agua: waterStock,
       });
-    } catch (cuscuz) {
-      // empty
+    } catch (error) {
+      console.log(JSON.stringify(error));
+      if (isAxiosError(error)) {
+        Toast.show({
+          type: "error",
+          text2: error.response?.data.message,
+        });
+      }
     } finally {
-      setIsStockLoading(true);
+      setIsStockLoading(false);
     }
   }
 
-  async function createOrder() {
+  async function handleCreateOrder() {
     setIsLoading(true);
     try {
-      await postOrder({ waterAmount, gasAmount });
+      await postOrder({
+        waterAmount,
+        gasAmount,
+      });
 
       Toast.show({
         type: "success",
@@ -80,7 +95,6 @@ export function userCreateOrder() {
 
       //redirect comprovante de pedido
     } catch (error) {
-      console.log(error);
       if (isAxiosError(error)) {
         Toast.show({
           type: "error",
@@ -114,11 +128,11 @@ export function userCreateOrder() {
             <S.Title>Endereço de entrega</S.Title>
             <S.SubTitle>
               <MaterialIcons name="location-pin" size={20} color="#7e7e7e" />
-              Rua José Bezerra, N 23B.
+              {address.street} {address.number}
             </S.SubTitle>
 
             <S.Title>Referência</S.Title>
-            <S.SubTitle>Ao lado da loja de panelas.</S.SubTitle>
+            <S.SubTitle>{address.reference}</S.SubTitle>
 
             <S.AlterAddressButton>
               <S.AlterLocationButtonText>
@@ -156,8 +170,8 @@ export function userCreateOrder() {
             </S.AddItemLeftContainer>
 
             <S.AddItemRightContainer>
-              <S.SecondOrderTitle>{stock?.agua.name}</S.SecondOrderTitle>
-              <S.SecondOrderTitle>{stock?.agua.value}</S.SecondOrderTitle>
+              <S.OrderTitle>{stock?.gas.name}</S.OrderTitle>
+              <S.OrderTitle>R${stock?.gas.value},00</S.OrderTitle>
             </S.AddItemRightContainer>
           </S.AddItemContainer>
           <S.AddItemContainer>
@@ -186,8 +200,10 @@ export function userCreateOrder() {
               </TouchableOpacity>
             </S.AddItemLeftContainer>
             <S.AddItemRightContainer>
-              <S.SecondOrderTitle>{stock?.agua.name}</S.SecondOrderTitle>
-              <S.SecondOrderTitle>{stock?.agua.value}</S.SecondOrderTitle>
+              <S.OrderWaterTitleContainer>
+                <S.OrderTitle>{stock?.agua.name}</S.OrderTitle>
+              </S.OrderWaterTitleContainer>
+              <S.OrderTitle>R${stock?.agua.value},00</S.OrderTitle>
             </S.AddItemRightContainer>
           </S.AddItemContainer>
 
@@ -197,11 +213,11 @@ export function userCreateOrder() {
             end={{ x: 1, y: 0 }}
           >
             <S.TotalItems>{gasAmount + waterAmount} Items</S.TotalItems>
-            <S.TotalCash>Total {total}</S.TotalCash>
+            <S.TotalCash>Total R${total()},00</S.TotalCash>
           </S.CashContainer>
         </S.OrderContainer>
       </S.SafeAreaViewContainer>
-      <S.ConfirmOrderButton>
+      <S.ConfirmOrderButton onPress={handleCreateOrder} disabled={isLoading}>
         <S.ConfirmOrderButtonText>Confirmar pedido</S.ConfirmOrderButtonText>
       </S.ConfirmOrderButton>
     </LinearGradientBackground>

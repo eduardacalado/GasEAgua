@@ -6,5 +6,5 @@ export const postOrder = async (data: OrderPayload) => {
 };
 
 export const getStock = async (): Promise<StockData> => {
-  return api.get("/stock/profile").then((response) => response.data);
+  return api.get("/stock").then((response) => response.data);
 };

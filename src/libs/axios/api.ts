@@ -25,11 +25,12 @@ api.interceptors.request.use(
       }
     }
 
-    console.log(config);
+    console.log({ config });
 
     return config as InternalAxiosRequestConfig;
   },
   function (error: AxiosError) {
+    console.log({ error });
     return Promise.reject(error);
   }
 );

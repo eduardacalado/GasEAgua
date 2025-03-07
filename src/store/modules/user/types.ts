@@ -3,6 +3,12 @@ export type UserDatesProps = {
   email: string;
   isAdmin: boolean;
   id: string;
+  address: {
+    street: string,
+    reference: string,
+    number: string,
+    local: string | undefined,
+  }
 };
 
 export type UserDates = {
