@@ -2,10 +2,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
 
-export const SafeAreaViewContainer = styled.SafeAreaView`
+export const ScrollViewContainer = styled.ScrollView`
   flex: 1;
   padding: ${theme.size.m7};
-  justify-content: flex-start;
 `;
 
 export const Container = styled.View`
@@ -46,4 +45,9 @@ export const LoginButtonText = styled.Text`
   color: ${theme.colors.button.primary.text};
   font-weight: ${theme.font.weight.bold};
   font-size: ${theme.font.size.m4};
+`;
+
+export const LabelError = styled.Text`
+  align-self: flex-start;
+  color: #ff375b;
 `;
