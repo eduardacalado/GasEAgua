@@ -92,8 +92,6 @@ export function userCreateOrder() {
         type: "success",
         text1: "Pedido realizado com sucesso!",
       });
-
-      //redirect comprovante de pedido
     } catch (error) {
       if (isAxiosError(error)) {
         Toast.show({

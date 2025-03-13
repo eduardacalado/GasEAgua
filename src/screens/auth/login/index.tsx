@@ -44,7 +44,6 @@ export function Login() {
       dispatch(userActions.saveUser(authDates));
       dispatch(authActions.updateAuthStore({ isAuthenticated: true }));
     } catch (error) {
-      console.log({ error });
       if (isAxiosError(error)) {
         const errorMessage = error.response?.data?.message;
         Toast.show({
