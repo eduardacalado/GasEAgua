@@ -49,5 +49,5 @@ export const LoginButtonText = styled.Text`
 
 export const LabelError = styled.Text`
   align-self: flex-start;
-  color: #ff375b;
+  color: #FF375B;
 `;
