@@ -2,7 +2,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
 
-export const SafeAreaViewContainer = styled.SafeAreaView`
+export const SafeAreaViewContainer = styled.View`
   flex: 1;
   padding: ${theme.size.m7};
   justify-content: flex-start;
@@ -46,4 +46,9 @@ export const SignUpButtonText = styled.Text`
   color: ${theme.colors.button.primary.text};
   font-weight: ${theme.font.weight.bold};
   font-size: ${theme.font.size.m4};
+`;
+
+export const LabelError = styled.Text`
+  align-self: flex-start;
+  color: #FF375B;
 `;

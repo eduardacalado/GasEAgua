@@ -38,6 +38,7 @@ export const Title = styled.Text`
 `;
 
 export const SubTitle = styled.Text`
+  /* flex: 1; */
   color: ${theme.colors.text.gray};
   font-size: ${theme.font.size.m5};
 `;
@@ -128,7 +129,7 @@ export const SecondOrderAddItemNumber = styled.Text`
   font-weight: ${theme.font.weight.bold};
 `;
 
-export const SecondOrderMinusPlusButton = styled.View`
+export const OrderMinusPlusButton = styled.View`
   width: ${theme.size.m8};
   height: ${theme.size.m8};
   background-color: ${theme.colors.button.secondary.background};
@@ -137,7 +138,11 @@ export const SecondOrderMinusPlusButton = styled.View`
   justify-content: center;
 `;
 
-export const SecondOrderTitle = styled.Text`
+export const OrderWaterTitleContainer = styled.View`
+  padding-right: 12px;
+`;
+
+export const OrderTitle = styled.Text`
   color: ${theme.colors.text.black};
   font-size: ${theme.font.size.m5};
   font-weight: ${theme.font.weight.bold};
