@@ -1,29 +1,29 @@
+import { Image } from "expo-image";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
-import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 
-export const LinearGradientBackground = styled(LinearGradient)`
+export const ScrollViewBackground = styled.ScrollView`
   flex: 1;
+  background-color: ${theme.colors.background.orange};
 `;
 
 export const MapImage = styled(Image)`
   flex: 1;
   background-color: white;
+  width: 100%;
+  height: 250px;
 `;
 
-export const SafeAreaViewContainer = styled.View`
+export const SafeAreaViewContainer = styled.SafeAreaView`
   flex: 1;
 `;
 
 export const ProfileImageContainer = styled.View`
-  position: absolute;
-  width: 200px;
+  align-items: center;
+  width: 100%;
   height: 200px;
   gap: ${theme.size.m1};
-  padding-left: 100px;
-  padding-right: 100px;
-  margin-top: 200px;
+  margin-top: -90px;
 `;
 
 export const ProfileImageButton = styled.TouchableOpacity`
@@ -43,7 +43,7 @@ export const Name = styled.Text`
   text-align: center;
   font-size: ${theme.font.size.m7};
   font-weight: ${theme.font.weight.bold};
-  padding-top: 100px;
+  padding-top: 10px;
 `;
 
 export const Email = styled.Text`
@@ -83,6 +83,7 @@ export const InfoSubitle = styled.Text`
 
 export const AlterInfoButtonContainer = styled.View`
   padding: ${theme.size.m7};
+  gap: ${theme.size.m1};
 `;
 
 export const AlterInfoButton = styled.TouchableOpacity`

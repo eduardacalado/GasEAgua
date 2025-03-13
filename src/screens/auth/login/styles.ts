@@ -2,10 +2,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
 
-export const SafeAreaViewContainer = styled.SafeAreaView`
+export const ScrollViewContainer = styled.ScrollView`
   flex: 1;
   padding: ${theme.size.m7};
-  justify-content: flex-start;
 `;
 
 export const Container = styled.View`

@@ -8,6 +8,7 @@ const theme = {
     },
     background: {
       brand: "#DB1A00",
+      orange: "#ED4200",
       white: "#fff",
       lightGray: "#F5F5F5",
     },
