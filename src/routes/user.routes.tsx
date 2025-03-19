@@ -1,19 +1,21 @@
+import { LinearGradientBackground } from "@components/LinearGradientBackground";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
-import { MaterialIcons } from "@expo/vector-icons";
 import { Platform } from "react-native";
-import { UserProfile } from "../screens/user/profile";
+import theme from "src/styles/theme";
+import { ProductName } from "src/types/stock";
 import { Home } from "../screens/user/home";
 import { userCreateOrder } from "../screens/user/order";
-import theme from "src/styles/theme";
+import { UserProfile } from "../screens/user/profile";
 
 export type UserRoutes = {
   userHome: undefined;
   schedule: undefined;
-  userCreateOrder: undefined;
+  userCreateOrder: { type: ProductName };
   userProfile: undefined;
 };
 
@@ -34,22 +36,26 @@ export function UserRoutes() {
   );
 
   return (
-    <Navigator
-      screenOptions={{
-        headerLeft: renderCustomBackButton,
-        title: "",
-        headerTransparent: true,
-        animation: Platform.OS === "android" ? "fade_from_bottom" : "default",
-        orientation: "portrait_up",
-      }}
-    >
-      <Screen
-        name="userHome"
-        component={Home}
-        options={{ headerShown: false }}
-      />
-      <Screen name="userCreateOrder" component={userCreateOrder} />
-      <Screen name="userProfile" component={UserProfile} />
-    </Navigator>
+    <LinearGradientBackground>
+      <Navigator
+        screenOptions={{
+          headerLeft: renderCustomBackButton,
+          headerShown: false,
+          title: "",
+          headerTransparent: true,
+          animation: Platform.OS === "android" ? "slide_from_right" : "default",
+          animationDuration: 50000,
+          orientation: "portrait_up",
+        }}
+      >
+        <Screen
+          name="userHome"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Screen name="userCreateOrder" component={userCreateOrder} />
+        <Screen name="userProfile" component={UserProfile} />
+      </Navigator>
+    </LinearGradientBackground>
   );
 }

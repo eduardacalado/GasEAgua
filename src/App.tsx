@@ -1,15 +1,13 @@
+import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Toast from "react-native-toast-message";
+import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components/native";
 import { RootRoutes } from "./routes/index";
-import theme from "./styles/theme";
-import { StatusBar } from "expo-status-bar";
-import { Provider } from "react-redux";
 import { store } from "./store";
-import Toast from "react-native-toast-message";
-import { API_URL } from "@env";
+import theme from "./styles/theme";
 
 export default function App() {
-  console.log(API_URL);
   return (
     <Provider store={store}>
       <GestureHandlerRootView style={{ flex: 1 }}>
