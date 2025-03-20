@@ -26,10 +26,7 @@ export function UserProfile() {
           placeholder={{ blurhash }}
           contentFit="cover"
         >
-          <CustomHeader
-            handleBack={() => navigate("userHome")}
-            color={theme.colors.background.orange}
-          />
+          <CustomHeader color={theme.colors.ORANGE_300} />
         </S.MapImage>
         <S.Container>
           <S.ProfileImageContainer>

@@ -28,7 +28,7 @@ export function AuthRoutes() {
     <MaterialIcons
       name="arrow-back-ios"
       size={24}
-      color={theme.colors.background.white}
+      color={theme.colors.WHITE}
       onPress={() => goBack()}
     />
   );

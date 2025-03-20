@@ -9,14 +9,16 @@ import theme from "./styles/theme";
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <ThemeProvider theme={theme}>
-          <StatusBar style="light" translucent />
-          <RootRoutes />
-        </ThemeProvider>
-      </GestureHandlerRootView>
-      <Toast />
-    </Provider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <ThemeProvider theme={theme}>
+            <StatusBar style="light" translucent />
+            <RootRoutes />
+          </ThemeProvider>
+        </GestureHandlerRootView>
+        <Toast />
+      </Provider>
+    </GestureHandlerRootView>
   );
 }

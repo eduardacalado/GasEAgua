@@ -10,7 +10,7 @@ export const SafeAreaViewContainer = styled.View`
 
 export const Container = styled.View`
   padding: ${theme.size.m7};
-  background-color: ${theme.colors.background.white};
+  background-color: ${theme.colors.WHITE};
   border-radius: ${theme.size.m6};
   align-items: center;
   justify-content: center;
@@ -24,7 +24,7 @@ export const InputArea = styled.View`
   width: ${theme.size.m14};
   align-items: center;
   border-radius: ${theme.size.m7};
-  background-color: ${theme.colors.input.background};
+  background-color: ${theme.colors.GRAY_200};
   flex-direction: row;
 `;
 
@@ -43,12 +43,12 @@ export const SignUpButton = styled(LinearGradient)`
 `;
 
 export const SignUpButtonText = styled.Text`
-  color: ${theme.colors.button.primary.text};
+  color: ${theme.colors.WHITE};
   font-weight: ${theme.font.weight.bold};
   font-size: ${theme.font.size.m4};
 `;
 
 export const LabelError = styled.Text`
   align-self: flex-start;
-  color: #FF375B;
+  color: #ff375b;
 `;

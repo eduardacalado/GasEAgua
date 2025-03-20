@@ -1,49 +1,23 @@
 const theme = {
   colors: {
-    ds: {
-      neutralVeryDark: "#DB1A00",
-      primaryVeryDark: "#DB1A00",
-      neutralMedium: "#ED4200",
-      auxiliar3Default: "#DB1A00",
-    },
-    background: {
-      brand: "#DB1A00",
-      orange: "#ED4200",
-      white: "#fff",
-      lightGray: "#F5F5F5",
-    },
-    typography: {
-      default: "#000000",
-    },
-    text: {
-      brand: "#DB1A00",
-      white: "#fff",
-      gray: "#7E7E7E",
-      black: "#000000",
-      orange: "#ED4200",
-      primary: "#DB1A00",
-      link: "#55A5F9",
-    },
-    button: {
-      primary: {
-        background: "#ED4200",
-        text: "#FFFFFF",
-      },
-      secondary: {
-        background: "#D9D9D9",
-        text: "#373737",
-      },
-    },
-    input: {
-      color: "#D9D9D9",
-      placeholder: "#7E7E7E",
-      background: "#D9D9D9",
-      border: {
-        default: "transparent",
-        error: "#f44336",
-        filled: "#1B2126",
-      },
-    },
+    WHITE: "#FFFFFF",
+
+    GRAY_700: "#121214",
+    GRAY_600: "#202024",
+    GRAY_500: "#232129",
+    GRAY_400: "#312E38",
+    GRAY_300: "#373737",
+    GRAY_200: "#D9D9D9",
+    GRAY_100: "#f4ede8",
+
+    RED_100: "#E53E3E",
+    RED_200: "#F56565",
+
+    ORANGE_100: "#FF9000",
+    ORANGE_200: "#DB1A00",
+    ORANGE_300: "#ED4200",
+
+    GREEN: "#68D391",
   },
   font: {
     lineHeight: {
