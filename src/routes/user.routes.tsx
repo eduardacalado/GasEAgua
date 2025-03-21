@@ -8,9 +8,9 @@ import {
 import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { ProductName } from "src/types/stock";
-import { Home } from "../screens/user/home";
 import { userCreateOrder } from "../screens/user/order";
 import { UserProfile } from "../screens/user/profile";
+import { UserBottomTabRoutes } from "./user-bottom-tab.routes";
 
 export type UserRoutes = {
   userHome: undefined;
@@ -30,7 +30,7 @@ export function UserRoutes() {
     <MaterialIcons
       name="arrow-back-ios"
       size={24}
-      color={theme.colors.background.white}
+      color={theme.colors.WHITE}
       onPress={() => goBack()}
     />
   );
@@ -50,8 +50,10 @@ export function UserRoutes() {
       >
         <Screen
           name="userHome"
-          component={Home}
-          options={{ headerShown: false }}
+          component={UserBottomTabRoutes}
+          options={{
+            animation: "slide_from_right",
+          }}
         />
         <Screen name="userCreateOrder" component={userCreateOrder} />
         <Screen name="userProfile" component={UserProfile} />

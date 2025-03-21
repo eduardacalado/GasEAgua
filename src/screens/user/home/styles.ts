@@ -37,8 +37,8 @@ export const OrderButton = styled.TouchableOpacity`
 `;
 
 export const ButtonText = styled.Text`
-  color: ${theme.colors.text.white};
-  background-color: ${theme.colors.button.primary.background};
+  color: ${theme.colors.WHITE};
+  background-color: ${theme.colors.ORANGE_300};
   font-weight: ${theme.font.weight.bold};
   padding: ${theme.size.m1};
   border-radius: ${theme.size.m2};
@@ -47,14 +47,14 @@ export const ButtonText = styled.Text`
 `;
 
 export const Title = styled.Text`
-  color: ${theme.colors.text.brand};
+  color: ${theme.colors.ORANGE_200};
   font-size: ${theme.font.size.m9};
   font-weight: ${theme.font.weight.bold};
   margin-top: ${theme.font.size.m8};
 `;
 
 export const SubTitle = styled.Text`
-  color: ${theme.colors.text.brand};
+  color: ${theme.colors.ORANGE_200};
   text-align: center;
   font-size: ${theme.font.size.m7};
 `;

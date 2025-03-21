@@ -1,4 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
+import theme from "src/styles/theme";
 import styled from "styled-components/native";
 
 export const LinearGradientBackgroundStyle = styled(LinearGradient)`
@@ -13,4 +14,5 @@ export const LinearGradientBackgroundStyle = styled(LinearGradient)`
 
 export const Container = styled.SafeAreaView`
   flex: 1;
+  background-color: ${theme.colors.GRAY_100};
 `;

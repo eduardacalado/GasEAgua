@@ -1,4 +1,3 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { ProductName } from "src/types/stock";
@@ -52,16 +51,6 @@ export function Home() {
         <S.Title>Olá, Eduardo!</S.Title>
 
         <S.SubTitle>O que gostaria de pedir?</S.SubTitle>
-
-        <S.ProfileButtonContainer>
-          <S.ProfileButton onPress={handlePressProfile}>
-            <MaterialCommunityIcons
-              name="account-circle"
-              size={35}
-              color="#DB1A00"
-            />
-          </S.ProfileButton>
-        </S.ProfileButtonContainer>
       </S.SafeAreaViewContainer>
     </LinearGradientBackground>
   );

@@ -16,7 +16,7 @@ export const CustomHeader = ({ handleBack, color }: CustomHeaderProps) => {
       <MaterialIcons
         name="arrow-back-ios"
         size={24}
-        color={color ?? theme.colors.background.white}
+        color={color ?? theme.colors.WHITE}
         onPress={handleBack ?? goBack}
       />
     </S.Container>

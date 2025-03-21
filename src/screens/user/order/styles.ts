@@ -32,20 +32,20 @@ export const ImageContainer = styled.View`
 `;
 
 export const AlterLocationButtonText = styled.Text`
-  color: ${theme.colors.text.orange};
+  color: ${theme.colors.ORANGE_300};
   font-size: ${theme.font.size.m4};
   font-weight: ${theme.font.weight.bold};
 `;
 
 export const Title = styled.Text`
-  color: ${theme.colors.text.black};
+  color: ${theme.colors.ORANGE_300};
   font-size: ${theme.font.size.m6};
   font-weight: ${theme.font.weight.bold};
 `;
 
 export const SubTitle = styled.Text`
   /* flex: 1; */
-  color: ${theme.colors.text.gray};
+  color: ${theme.colors.GRAY_300};
   font-size: ${theme.font.size.m5};
 `;
 
@@ -58,7 +58,7 @@ export const AddItemContainer = styled.View`
 `;
 
 export const AddItemNumber = styled.Text`
-  color: ${theme.colors.text.black};
+  color: ${theme.colors.GRAY_700};
   font-size: ${theme.font.size.m7};
   font-weight: ${theme.font.weight.bold};
 `;
@@ -66,37 +66,28 @@ export const AddItemNumber = styled.Text`
 export const MinusPlusButton = styled.View`
   width: ${theme.size.m8};
   height: ${theme.size.m8};
-  background-color: ${theme.colors.button.primary.background};
+  background-color: ${theme.colors.ORANGE_300};
   border-radius: ${theme.size.m4};
   align-items: center;
   justify-content: center;
 `;
 
 export const TotalCash = styled.Text`
-  color: ${theme.colors.text.white};
+  color: ${theme.colors.WHITE};
   font-size: ${theme.font.size.m6};
   font-weight: ${theme.font.weight.bold};
 `;
 
 export const TotalItems = styled.Text`
-  color: ${theme.colors.text.white};
+  color: ${theme.colors.WHITE};
   font-size: ${theme.font.size.m4};
   font-weight: ${theme.font.weight.bold};
 `;
 
 export const ConfirmOrderButtonText = styled.Text`
-  color: ${theme.colors.text.white};
+  color: ${theme.colors.WHITE};
   font-size: ${theme.font.size.m4};
   font-weight: ${theme.font.weight.bold};
-`;
-
-export const ConfirmOrderButton = styled.TouchableOpacity`
-  padding: ${theme.font.size.m3};
-  align-items: center;
-  justify-content: center;
-  border-radius: ${theme.font.size.m6};
-  background-color: ${theme.colors.button.primary.background};
-  margin-bottom: ${theme.size.m6};
 `;
 
 export const AddressContainer = styled.View`
@@ -111,7 +102,7 @@ export const AddressContainer = styled.View`
 export const AddressSubContainer = styled.View`
   padding: ${theme.font.size.m6};
   padding-top: ${theme.font.size.m10};
-  background-color: ${theme.colors.background.white};
+  background-color: ${theme.colors.WHITE};
   border-radius: ${theme.size.m6};
   gap: ${theme.size.base};
   width: 100%;
@@ -124,7 +115,7 @@ export const AddressSubContainer = styled.View`
 `;
 
 export const OrderContainer = styled.View`
-  background-color: ${theme.colors.background.white};
+  background-color: ${theme.colors.WHITE};
   elevation: 5;
   margin-top: ${theme.size.m11};
   margin-bottom: ${theme.size.m6};
@@ -140,7 +131,7 @@ export const OrderContainer = styled.View`
 `;
 
 export const SecondOrderAddItemNumber = styled.Text`
-  color: ${theme.colors.text.black};
+  color: ${theme.colors.GRAY_700};
   font-size: ${theme.font.size.m6};
   font-weight: ${theme.font.weight.bold};
 `;
@@ -148,7 +139,7 @@ export const SecondOrderAddItemNumber = styled.Text`
 export const OrderMinusPlusButton = styled.View`
   width: ${theme.size.m8};
   height: ${theme.size.m8};
-  background-color: ${theme.colors.button.secondary.background};
+  background-color: ${theme.colors.GRAY_200};
   border-radius: ${theme.size.m4};
   align-items: center;
   justify-content: center;
@@ -159,7 +150,7 @@ export const OrderWaterTitleContainer = styled.View`
 `;
 
 export const OrderTitle = styled.Text`
-  color: ${theme.colors.text.black};
+  color: ${theme.colors.GRAY_700};
   font-size: ${theme.font.size.m5};
   font-weight: ${theme.font.weight.bold};
 `;

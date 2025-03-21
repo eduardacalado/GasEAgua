@@ -4,7 +4,7 @@ import theme from "../../../styles/theme";
 
 export const ScrollViewBackground = styled.ScrollView`
   flex: 1;
-  background-color: ${theme.colors.background.orange};
+  background-color: ${theme.colors.ORANGE_300};
 `;
 
 export const Container = styled.View`
@@ -45,7 +45,7 @@ export const ProfileImage = styled(Image)`
 `;
 
 export const Name = styled.Text`
-  color: ${theme.colors.text.white};
+  color: ${theme.colors.WHITE};
   text-align: center;
   font-size: ${theme.font.size.m7};
   font-weight: ${theme.font.weight.bold};
@@ -53,7 +53,7 @@ export const Name = styled.Text`
 `;
 
 export const Email = styled.Text`
-  color: ${theme.colors.text.white};
+  color: ${theme.colors.WHITE};
   text-align: center;
   font-size: ${theme.font.size.m6};
   padding-top: ${theme.size.m1};
@@ -69,7 +69,7 @@ export const TitleSubtitleContainer = styled.View`
 `;
 
 export const InfoTitle = styled.Text`
-  color: ${theme.colors.text.white};
+  color: ${theme.colors.WHITE};
   text-align: center;
   font-size: ${theme.font.size.m8};
   font-weight: ${theme.font.weight.bold};
@@ -77,7 +77,7 @@ export const InfoTitle = styled.Text`
 `;
 
 export const InfoSubitle = styled.Text`
-  color: ${theme.colors.text.white};
+  color: ${theme.colors.WHITE};
   justify-content: center;
   text-align: center;
   font-size: ${theme.font.size.m6};
@@ -97,12 +97,12 @@ export const AlterInfoButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-radius: ${theme.size.m4};
-  background-color: ${theme.colors.button.secondary.background};
+  background-color: ${theme.colors.GRAY_200};
   flex-direction: row;
 `;
 
 export const AlterInfoButtonText = styled.Text`
-  color: ${theme.colors.button.secondary.text};
+  color: ${theme.colors.WHITE};
   font-size: ${theme.font.size.m6};
   font-weight: ${theme.font.weight.bold};
 `;

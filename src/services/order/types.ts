@@ -14,3 +14,8 @@ export type StockItem = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type getOrderProps = {
+  pageNumber: number;
+  pageSize: number;
+};
