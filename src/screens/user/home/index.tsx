@@ -1,15 +1,18 @@
-import * as S from "./styles";
-import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
-import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import { ProductName } from "src/types/stock";
+import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
 import { UserNavigatorRoutesProps } from "../../../routes/user.routes";
+import * as S from "./styles";
 
 export function Home() {
   const navigation = useNavigation<UserNavigatorRoutesProps>();
 
-  const handlePressOrder = () => {
-    navigation.navigate("userCreateOrder");
+  const handlePressOrder = (type: ProductName) => {
+    navigation.navigate("userCreateOrder", {
+      type,
+    });
   };
 
   const handlePressProfile = () => {
@@ -23,8 +26,9 @@ export function Home() {
     <LinearGradientBackground>
       <S.SafeAreaViewContainer>
         <StatusBar style="light" />
+
         <S.ButtonsContainer>
-          <S.OrderButton onPress={handlePressOrder}>
+          <S.OrderButton onPress={() => handlePressOrder("GAS")}>
             <S.ButtonImage
               source={require("../../../../assets/images/gasLogo.png")}
               placeholder={{ blurhash }}
@@ -34,7 +38,7 @@ export function Home() {
             <S.ButtonText>Pedir Gás</S.ButtonText>
           </S.OrderButton>
 
-          <S.OrderButton>
+          <S.OrderButton onPress={() => handlePressOrder("WATER")}>
             <S.ButtonImage
               source={require("../../../../assets/images/aguaLogo.png")}
               placeholder={{ blurhash }}

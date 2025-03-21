@@ -1,4 +1,4 @@
-import { Image } from "expo-image";
+import { Image, ImageBackground } from "expo-image";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
 
@@ -7,11 +7,17 @@ export const ScrollViewBackground = styled.ScrollView`
   background-color: ${theme.colors.background.orange};
 `;
 
-export const MapImage = styled(Image)`
+export const Container = styled.View`
+  flex: 1;
+  padding: ${theme.size.m7};
+`;
+
+export const MapImage = styled(ImageBackground)`
   flex: 1;
   background-color: white;
   width: 100%;
   height: 250px;
+  padding: ${theme.size.m6};
 `;
 
 export const SafeAreaViewContainer = styled.SafeAreaView`
@@ -55,7 +61,6 @@ export const Email = styled.Text`
 
 export const InfoContainer = styled.View`
   flex: 1;
-  padding-left: ${theme.size.m7};
 `;
 
 export const TitleSubtitleContainer = styled.View`
@@ -82,8 +87,8 @@ export const InfoSubitle = styled.Text`
 `;
 
 export const AlterInfoButtonContainer = styled.View`
-  padding: ${theme.size.m7};
   gap: ${theme.size.m1};
+  margin-top: ${theme.size.m7};
 `;
 
 export const AlterInfoButton = styled.TouchableOpacity`

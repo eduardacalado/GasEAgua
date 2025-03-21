@@ -1,6 +1,6 @@
+import { LinearGradientProps } from "expo-linear-gradient";
 import * as S from "./styles";
 import { LinearGradientBackgroundStyle } from "./styles";
-import { LinearGradientProps } from "expo-linear-gradient";
 
 type CustomLinearGradientProps = Omit<LinearGradientProps, "colors">;
 

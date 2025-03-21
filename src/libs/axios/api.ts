@@ -1,4 +1,3 @@
-import { API_URL } from "@env";
 import { store } from "@store/index";
 import { authActions } from "@store/modules/auth/slice";
 import { userActions } from "@store/modules/user/slice";
@@ -10,7 +9,7 @@ import axios, {
 } from "axios";
 
 const apiConfig = {
-  baseURL: API_URL,
+  baseURL: "http://69.62.89.65:3333/",
 };
 
 const api = axios.create(apiConfig);

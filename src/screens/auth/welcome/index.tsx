@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
-import * as S from "./styles";
-import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
+import { RootNavigatorRoutesProps } from "@routes/index";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { RootNavigatorRoutesProps } from "@routes/index";
+import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
+import * as S from "./styles";
 
 export function WelcomeScreen() {
   const navigation = useNavigation<RootNavigatorRoutesProps>();

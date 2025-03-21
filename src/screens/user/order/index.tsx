@@ -1,27 +1,23 @@
-import * as S from "./styles";
-import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
-import { StatusBar } from "expo-status-bar";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { CustomHeader } from "@components/custom-header";
+import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { useEffect, useState } from "react";
-import Toast from "react-native-toast-message";
-import { isAxiosError } from "axios";
-import { getStock, postOrder } from "src/services/order";
 import { useAppSelector } from "@hooks/useAppSelector";
-
-type ProductsType = {
-  id: number;
-  value: number;
-  name: "Gás" | "Água";
-};
-
-type StockData = {
-  gas: ProductsType;
-  agua: ProductsType;
-};
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { RootNavigatorRoutesProps } from "@routes/index";
+import { UserRoutes } from "@routes/user.routes";
+import { isAxiosError } from "axios";
+import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-toast-message";
+import { getStock, postOrder } from "src/services/order";
+import { ProductProps, StockData } from "src/types/stock";
+import * as S from "./styles";
 
 export function userCreateOrder() {
+  const { params } = useRoute<RouteProp<UserRoutes, "userCreateOrder">>();
+  const { navigate } = useNavigation<RootNavigatorRoutesProps>();
   const [isLoading, setIsLoading] = useState(false);
   const [waterAmount, setWaterAmount] = useState(0);
   const [gasAmount, setGasAmount] = useState(1);
@@ -40,11 +36,11 @@ export function userCreateOrder() {
     setGasAmount((prevCount) => Math.max(0, prevCount - 1));
 
   const total = () => {
-    const waterTotalValue = waterAmount * Number(stock?.agua.value);
+    const waterTotalValue = waterAmount * Number(stock?.agua?.value);
 
-    const gasTotalValue = gasAmount * Number(stock?.gas.value);
+    const gasTotalValue = gasAmount * Number(stock?.gas?.value);
     console.log(gasAmount);
-    console.log(Number(stock?.gas.value));
+    console.log(Number(stock?.gas?.value));
     console.log(waterTotalValue + gasTotalValue);
     return waterTotalValue + gasTotalValue;
   };
@@ -57,11 +53,11 @@ export function userCreateOrder() {
 
       const gasStock = data.items.find(
         (item) => item.name === "Gás"
-      ) as ProductsType;
+      ) as ProductProps;
 
       const waterStock = data.items.find(
         (item) => item.name === "Água"
-      ) as ProductsType;
+      ) as ProductProps;
 
       setStock({
         gas: gasStock,
@@ -108,116 +104,137 @@ export function userCreateOrder() {
     handleGetStock();
   }, []);
 
-  return stockLoading ? (
-    <View>
-      <ActivityIndicator />
-    </View>
-  ) : (
+  //TODO: Calcular a quantidade quando aumentar o valor inline
+
+  return (
     <LinearGradientBackground>
       <S.SafeAreaViewContainer>
         <StatusBar style="light" />
+        <CustomHeader handleBack={() => navigate("userHome")} />
+        {stockLoading ? (
+          <View>
+            <ActivityIndicator size="large" />
+          </View>
+        ) : (
+          <>
+            <S.AddressContainer>
+              <S.ImageContainer>
+                <S.OrderImage
+                  source={
+                    params.type === "GAS"
+                      ? require("../../../../assets/images/gasLogo.png")
+                      : require("../../../../assets/images/aguaLogo.png")
+                  }
+                />
+              </S.ImageContainer>
 
-        <S.AddressContainer>
-          <S.OrderImage
-            source={require("../../../../assets/images/gasLogo.png")}
-          />
-
-          <S.AddressSubContainer>
-            <S.Title>Endereço de entrega</S.Title>
-            <S.SubTitle>
-              <MaterialIcons name="location-pin" size={20} color="#7e7e7e" />
-              {address.street} {address.number}
-            </S.SubTitle>
-
-            <S.Title>Referência</S.Title>
-            <S.SubTitle>{address.reference}</S.SubTitle>
-
-            <S.AlterAddressButton>
-              <S.AlterLocationButtonText>
-                Alterar endereço de entrega
-              </S.AlterLocationButtonText>
-            </S.AlterAddressButton>
-          </S.AddressSubContainer>
-        </S.AddressContainer>
-
-        <S.OrderContainer>
-          <S.AddItemContainer>
-            <S.AddItemLeftContainer>
-              <TouchableOpacity onPress={gasDecrement}>
-                <S.MinusPlusButton>
-                  <MaterialCommunityIcons
-                    name="minus"
-                    size={25}
-                    color="#ffffff"
+              <S.AddressSubContainer>
+                <S.Title>Endereço de entrega</S.Title>
+                <S.SubTitle>
+                  <MaterialIcons
+                    name="location-pin"
+                    size={20}
+                    color="#7e7e7e"
                   />
-                </S.MinusPlusButton>
-              </TouchableOpacity>
-              <S.SecondOrderAddItemNumber>
-                {gasAmount}
-              </S.SecondOrderAddItemNumber>
+                  {address?.street} {address?.number}
+                </S.SubTitle>
 
-              <TouchableOpacity onPress={gasIncrement}>
-                <S.MinusPlusButton>
-                  <MaterialCommunityIcons
-                    name="plus"
-                    size={25}
-                    color="#ffffff"
-                  />
-                </S.MinusPlusButton>
-              </TouchableOpacity>
-            </S.AddItemLeftContainer>
+                <S.Title>Referência</S.Title>
+                <S.SubTitle>{address?.reference}</S.SubTitle>
 
-            <S.AddItemRightContainer>
-              <S.OrderTitle>{stock?.gas.name}</S.OrderTitle>
-              <S.OrderTitle>R${stock?.gas.value},00</S.OrderTitle>
-            </S.AddItemRightContainer>
-          </S.AddItemContainer>
-          <S.AddItemContainer>
-            <S.AddItemLeftContainer>
-              <TouchableOpacity onPress={waterDecrement}>
-                <S.MinusPlusButton>
-                  <MaterialCommunityIcons
-                    name="minus"
-                    size={25}
-                    color="#ffffff"
-                  />
-                </S.MinusPlusButton>
-              </TouchableOpacity>
-              <S.SecondOrderAddItemNumber>
-                {waterAmount}
-              </S.SecondOrderAddItemNumber>
+                <S.AlterAddressButton>
+                  <S.AlterLocationButtonText>
+                    Alterar endereço de entrega
+                  </S.AlterLocationButtonText>
+                </S.AlterAddressButton>
+              </S.AddressSubContainer>
+            </S.AddressContainer>
 
-              <TouchableOpacity onPress={waterIncrement}>
-                <S.MinusPlusButton>
-                  <MaterialCommunityIcons
-                    name="plus"
-                    size={25}
-                    color="#ffffff"
-                  />
-                </S.MinusPlusButton>
-              </TouchableOpacity>
-            </S.AddItemLeftContainer>
-            <S.AddItemRightContainer>
-              <S.OrderWaterTitleContainer>
-                <S.OrderTitle>{stock?.agua.name}</S.OrderTitle>
-              </S.OrderWaterTitleContainer>
-              <S.OrderTitle>R${stock?.agua.value},00</S.OrderTitle>
-            </S.AddItemRightContainer>
-          </S.AddItemContainer>
+            <S.OrderContainer>
+              <S.AddItemContainer>
+                <S.AddItemLeftContainer>
+                  <TouchableOpacity onPress={gasDecrement}>
+                    <S.MinusPlusButton>
+                      <MaterialCommunityIcons
+                        name="minus"
+                        size={25}
+                        color="#ffffff"
+                      />
+                    </S.MinusPlusButton>
+                  </TouchableOpacity>
+                  <S.SecondOrderAddItemNumber>
+                    {gasAmount}
+                  </S.SecondOrderAddItemNumber>
 
-          <S.CashContainer
-            colors={["#DB1A00", "#ED4200", "#FF6A00"]}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 1, y: 0 }}
-          >
-            <S.TotalItems>{gasAmount + waterAmount} Items</S.TotalItems>
-            <S.TotalCash>Total R${total()},00</S.TotalCash>
-          </S.CashContainer>
-        </S.OrderContainer>
+                  <TouchableOpacity onPress={gasIncrement}>
+                    <S.MinusPlusButton>
+                      <MaterialCommunityIcons
+                        name="plus"
+                        size={25}
+                        color="#ffffff"
+                      />
+                    </S.MinusPlusButton>
+                  </TouchableOpacity>
+                </S.AddItemLeftContainer>
+
+                <S.AddItemRightContainer>
+                  <S.OrderTitle>{stock?.gas?.name}</S.OrderTitle>
+                  <S.OrderTitle>R${stock?.gas?.value},00</S.OrderTitle>
+                </S.AddItemRightContainer>
+              </S.AddItemContainer>
+              <S.AddItemContainer>
+                <S.AddItemLeftContainer>
+                  <TouchableOpacity onPress={waterDecrement}>
+                    <S.MinusPlusButton>
+                      <MaterialCommunityIcons
+                        name="minus"
+                        size={25}
+                        color="#ffffff"
+                      />
+                    </S.MinusPlusButton>
+                  </TouchableOpacity>
+                  <S.SecondOrderAddItemNumber>
+                    {waterAmount}
+                  </S.SecondOrderAddItemNumber>
+
+                  <TouchableOpacity onPress={waterIncrement}>
+                    <S.MinusPlusButton>
+                      <MaterialCommunityIcons
+                        name="plus"
+                        size={25}
+                        color="#ffffff"
+                      />
+                    </S.MinusPlusButton>
+                  </TouchableOpacity>
+                </S.AddItemLeftContainer>
+                <S.AddItemRightContainer>
+                  <S.OrderWaterTitleContainer>
+                    <S.OrderTitle>{stock?.agua?.name}</S.OrderTitle>
+                  </S.OrderWaterTitleContainer>
+                  <S.OrderTitle>R${stock?.agua?.value},00</S.OrderTitle>
+                </S.AddItemRightContainer>
+              </S.AddItemContainer>
+
+              <S.CashContainer
+                colors={["#DB1A00", "#ED4200", "#FF6A00"]}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <S.TotalItems>{gasAmount + waterAmount} Items</S.TotalItems>
+                <S.TotalCash>Total R${total()},00</S.TotalCash>
+              </S.CashContainer>
+            </S.OrderContainer>
+            <S.ConfirmOrderButton
+              onPress={handleCreateOrder}
+              disabled={isLoading}
+            >
+              <S.ConfirmOrderButtonText>
+                Confirmar pedido
+              </S.ConfirmOrderButtonText>
+            </S.ConfirmOrderButton>
+          </>
+        )}
       </S.SafeAreaViewContainer>
-      <S.ConfirmOrderButton onPress={handleCreateOrder} disabled={isLoading}>
-        <S.ConfirmOrderButtonText>Confirmar pedido</S.ConfirmOrderButtonText>
-      </S.ConfirmOrderButton>
     </LinearGradientBackground>
   );
 }

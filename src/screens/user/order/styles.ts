@@ -21,8 +21,14 @@ export const OrderImage = styled.Image`
   height: ${theme.size.m13};
   border: 8px solid #e1e1e1;
   border-radius: ${theme.size.m14};
-  margin-bottom: -40px;
+`;
+
+export const ImageContainer = styled.View`
+  margin-bottom: -50px;
   z-index: ${theme.font.size.m1};
+
+  width: ${theme.size.m13};
+  height: ${theme.size.m13};
 `;
 
 export const AlterLocationButtonText = styled.Text`
@@ -91,12 +97,11 @@ export const ConfirmOrderButton = styled.TouchableOpacity`
   border-radius: ${theme.font.size.m6};
   background-color: ${theme.colors.button.primary.background};
   margin-bottom: ${theme.size.m6};
-  margin-horizontal: ${theme.size.m7};
 `;
 
 export const AddressContainer = styled.View`
   elevation: 5;
-  margin-top: ${theme.size.m10};
+  margin-top: ${theme.size.m7};
   margin-bottom: ${theme.size.m6};
   align-items: center;
   justify-content: center;
@@ -110,6 +115,12 @@ export const AddressSubContainer = styled.View`
   border-radius: ${theme.size.m6};
   gap: ${theme.size.base};
   width: 100%;
+
+  elevation: 5;
+  shadow-color: #000;
+  shadow-opacity: 0.1;
+  shadow-radius: 3px;
+  shadow-offset: 3px;
 `;
 
 export const OrderContainer = styled.View`
@@ -121,6 +132,11 @@ export const OrderContainer = styled.View`
   align-items: center;
   justify-content: center;
   width: 100%;
+
+  shadow-color: #000;
+  shadow-opacity: 0.1;
+  shadow-radius: 3px;
+  shadow-offset: 3px;
 `;
 
 export const SecondOrderAddItemNumber = styled.Text`
