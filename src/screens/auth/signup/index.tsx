@@ -59,7 +59,6 @@ export function SignUp() {
       });
 
       const authDates = await postLogin({ email, password });
-      console.log({ authDates });
 
       Toast.show({
         type: "success",
@@ -68,7 +67,6 @@ export function SignUp() {
       dispatch(authActions.updateAuthStore({ isAuthenticated: true }));
       dispatch(userActions.saveUser(authDates));
     } catch (error) {
-      console.log({ error });
       if (isAxiosError(error)) {
         Toast.show({
           type: "error",

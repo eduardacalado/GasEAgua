@@ -90,15 +90,6 @@ export const ConfirmOrderButtonText = styled.Text`
   font-weight: ${theme.font.weight.bold};
 `;
 
-export const ConfirmOrderButton = styled.TouchableOpacity`
-  padding: ${theme.font.size.m3};
-  align-items: center;
-  justify-content: center;
-  border-radius: ${theme.font.size.m6};
-  background-color: ${theme.colors.GRAY_300};
-  margin-bottom: ${theme.size.m6};
-`;
-
 export const AddressContainer = styled.View`
   elevation: 5;
   margin-top: ${theme.size.m7};

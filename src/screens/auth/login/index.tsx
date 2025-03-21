@@ -46,7 +46,6 @@ export function Login() {
     setIsLoading(true);
     try {
       const authDates = await postLogin({ email, password });
-      console.log({ authDates });
       dispatch(userActions.saveUser(authDates));
       dispatch(authActions.updateAuthStore({ isAuthenticated: true }));
     } catch (error) {

@@ -1,8 +1,9 @@
+import { TabIconContainer } from "@components/tab-icon-container";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { OrdersList } from "@screens/user/orders-list";
+import { OrdersListScreen } from "@screens/user/orders-list";
 import { UserProfile } from "@screens/user/profile";
 import theme from "src/styles/theme";
 import { Home } from "../screens/user/home";
@@ -37,16 +38,17 @@ export function UserBottomTabRoutes() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: theme.colors.ORANGE_200,
-        tabBarInactiveTintColor: theme.colors.GRAY_100,
+        tabBarActiveTintColor: theme.colors.GRAY_100,
+        tabBarInactiveTintColor: theme.colors.ORANGE_200,
         headerLeft: renderCustomBackButton,
         title: "",
         tabBarStyle: {
-          backgroundColor: "black",
+          backgroundColor: theme.colors.GRAY_100,
           borderTopWidth: 0,
+          borderColor: "transparent",
           paddingBottom: 20,
           paddingTop: 10,
-          height: 88,
+          height: 80,
         },
         animation: "shift",
       }}
@@ -55,17 +57,21 @@ export function UserBottomTabRoutes() {
         name="UserHome"
         component={Home}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Entypo name="home" size={tabBarIconWidth} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabIconContainer focused={focused}>
+              <Entypo name="home" size={tabBarIconWidth} color={color} />
+            </TabIconContainer>
           ),
         }}
       />
       <Screen
         name="UserOrders"
-        component={OrdersList}
+        component={OrdersListScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Entypo name="clock" size={tabBarIconWidth} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabIconContainer focused={focused}>
+              <Entypo name="list" size={tabBarIconWidth} color={color} />
+            </TabIconContainer>
           ),
         }}
       />
@@ -74,8 +80,10 @@ export function UserBottomTabRoutes() {
         component={UserProfile}
         options={{
           tabBarStyle: { display: "none" },
-          tabBarIcon: ({ color }) => (
-            <Entypo name="user" size={tabBarIconWidth} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabIconContainer focused={focused}>
+              <Entypo name="user" size={tabBarIconWidth} color={color} />
+            </TabIconContainer>
           ),
         }}
       />

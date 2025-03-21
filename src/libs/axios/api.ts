@@ -1,3 +1,4 @@
+import { API_URL } from "@env";
 import { store } from "@store/index";
 import { authActions } from "@store/modules/auth/slice";
 import { userActions } from "@store/modules/user/slice";
@@ -9,7 +10,7 @@ import axios, {
 } from "axios";
 
 const apiConfig = {
-  baseURL: "http://69.62.89.65:3333/",
+  baseURL: API_URL,
 };
 
 const api = axios.create(apiConfig);
@@ -24,12 +25,9 @@ api.interceptors.request.use(
       }
     }
 
-    console.log({ config });
-
     return config as InternalAxiosRequestConfig;
   },
   function (error: AxiosError) {
-    console.log({ error });
     return Promise.reject(error);
   }
 );

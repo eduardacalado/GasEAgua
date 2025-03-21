@@ -8,7 +8,7 @@ const theme = {
     GRAY_400: "#312E38",
     GRAY_300: "#373737",
     GRAY_200: "#D9D9D9",
-    GRAY_100: "#f4ede8",
+    GRAY_100: "#F5F5F5",
 
     RED_100: "#E53E3E",
     RED_200: "#F56565",

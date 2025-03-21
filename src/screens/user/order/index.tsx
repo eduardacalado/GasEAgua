@@ -1,3 +1,4 @@
+import { Button } from "@components/button";
 import { CustomHeader } from "@components/custom-header";
 import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -12,6 +13,7 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { getStock, postOrder } from "src/services/order";
+import theme from "src/styles/theme";
 import { ProductProps, StockData } from "src/types/stock";
 import * as S from "./styles";
 
@@ -39,9 +41,7 @@ export function userCreateOrder() {
     const waterTotalValue = waterAmount * Number(stock?.agua?.value);
 
     const gasTotalValue = gasAmount * Number(stock?.gas?.value);
-    console.log(gasAmount);
-    console.log(Number(stock?.gas?.value));
-    console.log(waterTotalValue + gasTotalValue);
+
     return waterTotalValue + gasTotalValue;
   };
 
@@ -64,7 +64,6 @@ export function userCreateOrder() {
         agua: waterStock,
       });
     } catch (error) {
-      console.log(JSON.stringify(error));
       if (isAxiosError(error)) {
         Toast.show({
           type: "error",
@@ -224,14 +223,15 @@ export function userCreateOrder() {
                 <S.TotalCash>Total R${total()},00</S.TotalCash>
               </S.CashContainer>
             </S.OrderContainer>
-            <S.ConfirmOrderButton
+            <Button
               onPress={handleCreateOrder}
-              disabled={isLoading}
+              isLoading={isLoading}
+              color={theme.colors.ORANGE_200}
             >
               <S.ConfirmOrderButtonText>
                 Confirmar pedido
               </S.ConfirmOrderButtonText>
-            </S.ConfirmOrderButton>
+            </Button>
           </>
         )}
       </S.SafeAreaViewContainer>

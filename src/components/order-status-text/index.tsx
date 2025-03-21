@@ -8,9 +8,9 @@ type OrderStatusTextProps = {
 
 export const OrderStatusText = ({ status }: OrderStatusTextProps) => {
   const textColor = (status: string) => {
-    if (status === "APROVADO") {
+    if (status === "INICIADO") {
       return theme.colors.GREEN;
-    } else if (status === "REPROVADO") {
+    } else if (status === "FINALIZADO") {
       return theme.colors.RED_200;
     } else {
       return theme.colors.ORANGE_100;
