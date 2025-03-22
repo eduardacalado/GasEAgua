@@ -17,7 +17,20 @@ export const OrderStatusText = ({ status }: OrderStatusTextProps) => {
     return theme.colors.ORANGE_100;
   };
 
+  const getStatustext = (status: string) => {
+    if (status === "INICIADO") {
+      return "Entrega em andamento";
+    }
+    if (status === "FINALIZADO") {
+      return "Entregue";
+    }
+
+    return "Pedido em espera";
+  };
+
   return (
-    <Styled.CustomText color={textColor(status)}>{status}</Styled.CustomText>
+    <Styled.CustomText color={textColor(status)}>
+      {getStatustext(status)}
+    </Styled.CustomText>
   );
 };

@@ -53,7 +53,7 @@ const theme = {
   },
   size: {
     base: "4px",
-    m1: "10px",
+    m1: "8px",
     m2: "12px",
     m3: "14px",
     m4: "16px",
