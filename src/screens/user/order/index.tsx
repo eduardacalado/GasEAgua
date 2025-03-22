@@ -12,6 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import Toast from "react-native-toast-message";
+import { formatToBRL } from "src/helpers/format-currency";
 import { getStock, postOrder } from "src/services/order";
 import theme from "src/styles/theme";
 import { ProductProps, StockData } from "src/types/stock";
@@ -42,7 +43,7 @@ export function userCreateOrder() {
 
     const gasTotalValue = gasAmount * Number(stock?.gas?.value);
 
-    return waterTotalValue + gasTotalValue;
+    return formatToBRL(waterTotalValue + gasTotalValue);
   };
 
   async function handleGetStock() {
@@ -178,7 +179,7 @@ export function userCreateOrder() {
 
                 <S.AddItemRightContainer>
                   <S.OrderTitle>{stock?.gas?.name}</S.OrderTitle>
-                  <S.OrderTitle>R${stock?.gas?.value},00</S.OrderTitle>
+                  <S.OrderTitle>{formatToBRL(stock?.gas?.value)}</S.OrderTitle>
                 </S.AddItemRightContainer>
               </S.AddItemContainer>
               <S.AddItemContainer>
@@ -210,7 +211,7 @@ export function userCreateOrder() {
                   <S.OrderWaterTitleContainer>
                     <S.OrderTitle>{stock?.agua?.name}</S.OrderTitle>
                   </S.OrderWaterTitleContainer>
-                  <S.OrderTitle>R${stock?.agua?.value},00</S.OrderTitle>
+                  <S.OrderTitle>{formatToBRL(stock?.agua?.value)}</S.OrderTitle>
                 </S.AddItemRightContainer>
               </S.AddItemContainer>
 
@@ -220,7 +221,7 @@ export function userCreateOrder() {
                 end={{ x: 1, y: 0 }}
               >
                 <S.TotalItems>{gasAmount + waterAmount} Items</S.TotalItems>
-                <S.TotalCash>Total R${total()},00</S.TotalCash>
+                <S.TotalCash>Total {total()}</S.TotalCash>
               </S.CashContainer>
             </S.OrderContainer>
             <Button

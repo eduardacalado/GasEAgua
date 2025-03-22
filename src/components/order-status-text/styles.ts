@@ -7,6 +7,5 @@ type CustomTextProps = {
 export const CustomText = styled.Text<CustomTextProps>`
   color: ${({ color }) => color};
   font-size: 18px;
-  text-transform: capitalize;
   font-weight: bold;
 `;

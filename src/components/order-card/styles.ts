@@ -1,41 +1,21 @@
-import { Swipeable } from "react-native-gesture-handler";
 import theme from "src/styles/theme";
 import styled from "styled-components/native";
 
-export const SwipeableCard = styled(Swipeable)`
-  elevation: 5;
-  shadow-color: #000;
-  shadow-opacity: 0.1;
-  shadow-radius: 3px;
-  shadow-offset: 3px;
-`;
-
-export const CardContainer = styled.View`
+export const CardContent = styled.View`
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  padding: 18px;
-  background: ${theme.colors.WHITE};
-  border-radius: 18px;
+  gap: 20px;
+`;
+
+export const CardRowsContainer = styled.View`
+  gap: 10px;
+`;
+
+export const CardRowContainer = styled.View`
+  width: 100%;
+  justify-content: space-between;
   flex-direction: row;
-  height: 110px;
-
-  elevation: 5;
-  shadow-color: #000;
-  shadow-opacity: 0.1;
-  shadow-radius: 3px;
-  shadow-offset: 3px;
-`;
-
-export const StatusSideContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-  gap: 10px;
-`;
-
-export const DateContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 10px;
 `;
 
 export const CardText = styled.Text`
@@ -53,6 +33,12 @@ export const LeftActionContainer = styled.View`
   align-items: center;
 `;
 
+export const Divider = styled.View`
+  height: 2px;
+  background-color: ${theme.colors.GRAY_200};
+  width: 95%;
+`;
+
 export const RightActionContainer = styled.View`
   height: 100%;
   border-radius: 10px;
@@ -60,4 +46,13 @@ export const RightActionContainer = styled.View`
   background-color: ${theme.colors.GREEN};
   justify-content: center;
   align-items: center;
+`;
+
+export const Badge = styled.View`
+  position: absolute;
+  top: -7;
+  right: -5;
+  background-color: ${theme.colors.RED_100};
+  padding: 4px;
+  border-radius: ${theme.size.m2};
 `;
