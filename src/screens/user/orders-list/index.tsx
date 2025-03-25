@@ -6,7 +6,7 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import Toast from "react-native-toast-message";
@@ -97,6 +97,10 @@ export const OrdersListScreen = () => {
     { label: "Pendente", value: "PENDENTE" },
     { label: "Iniciado", value: "INICIADO" },
   ];
+
+  useEffect(() => {
+    reloadScreenData();
+  }, []);
 
   return (
     <LinearGradientBackground>

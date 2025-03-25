@@ -1,11 +1,13 @@
+import { CustomText } from "@components/custom-text";
 import { OrderStatusText } from "@components/order-status-text";
 import { Entypo } from "@expo/vector-icons";
 import dayjs from "dayjs";
 import { TouchableOpacity } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
+import { formatToBRL } from "src/helpers/format-currency";
 import theme from "src/styles/theme";
 import { OrderProps } from "src/types/orders";
-import * as Styled from "./styles";
+import * as S from "./styles";
 
 export type CardProps = {
   showUserName?: boolean;
@@ -14,7 +16,7 @@ export type CardProps = {
   leftAction?: () => void;
 };
 
-type AdminScheduleCardProps = OrderProps & CardProps;
+type UserOrderCardProps = OrderProps & CardProps;
 
 export const OrderCard = ({
   updated_at,
@@ -23,13 +25,16 @@ export const OrderCard = ({
   showUserName,
   rightAction,
   leftAction,
-}: AdminScheduleCardProps) => {
+  waterAmount,
+  gasAmount,
+  total,
+}: UserOrderCardProps) => {
   const leftSwipe = () => {
     return (
       <TouchableOpacity onPress={leftAction} activeOpacity={0.6}>
-        <Styled.LeftActionContainer>
+        <S.LeftActionContainer>
           <Entypo name="block" size={40} color={theme.colors.WHITE} />
-        </Styled.LeftActionContainer>
+        </S.LeftActionContainer>
       </TouchableOpacity>
     );
   };
@@ -37,12 +42,31 @@ export const OrderCard = ({
   const rightSwipe = () => {
     return (
       <TouchableOpacity onPress={rightAction} activeOpacity={0.6}>
-        <Styled.RightActionContainer>
+        <S.RightActionContainer>
           <Entypo name="check" size={40} color={theme.colors.WHITE} />
-        </Styled.RightActionContainer>
+        </S.RightActionContainer>
       </TouchableOpacity>
     );
   };
+  function getProductsDescription() {
+    let description = "";
+    if (gasAmount > 0) {
+      description += `${gasAmount} Gás${gasAmount > 1 ? "es" : ""}`;
+    }
+    if (gasAmount > 0 && waterAmount > 0) {
+      description += " e ";
+    }
+    if (waterAmount > 0) {
+      description += `${waterAmount} Água${waterAmount > 1 ? "s" : ""}`;
+    }
+    return description;
+  }
+
+  const expirationDate = dayjs(updated_at).add(30, "day").format("DD/MM/YYYY");
+
+  const isExpired = dayjs(dayjs().date()).isAfter(expirationDate);
+
+  const productsDescription = getProductsDescription();
 
   return (
     <Swipeable
@@ -53,24 +77,60 @@ export const OrderCard = ({
       overshootLeft={false}
       overshootRight={false}
       containerStyle={{
-        height: 112,
+        backgroundColor: theme.colors.WHITE,
+        elevation: 5,
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        shadowOffset: { height: 2, width: 2 },
+        borderRadius: 10,
+        padding: 18,
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      <Styled.CardContainer>
-        <Styled.StatusSideContainer>
-          <OrderStatusText status={status} />
-          <Styled.CardText>1 Gas e 2 Agua</Styled.CardText>
-          {showUserName && <Styled.CardText>{username}</Styled.CardText>}
-        </Styled.StatusSideContainer>
-        <Styled.DateContainer>
-          <Styled.CardText>
-            {dayjs(updated_at).format("DD/MM/YYYY")}{" "}
-          </Styled.CardText>
-          <Styled.CardText>
-            {dayjs(updated_at).format("HH:mm")}{" "}
-          </Styled.CardText>
-        </Styled.DateContainer>
-      </Styled.CardContainer>
+      <S.CardContent>
+        <OrderStatusText status={status} />
+        {isExpired && (
+          <S.Badge>
+            <CustomText
+              color={theme.colors.WHITE}
+              fontWeight={theme.font.weight.bold}
+            >
+              Vencido
+            </CustomText>
+          </S.Badge>
+        )}
+        <S.CardRowsContainer>
+          <S.CardRowContainer>
+            <S.CardText>Data do pedido</S.CardText>
+            <S.CardText>
+              {dayjs(updated_at).format("DD/MM/YYYY")}{" "}
+              {dayjs(updated_at).format("HH:mm")}
+            </S.CardText>
+          </S.CardRowContainer>
+          <S.Divider />
+          <S.CardRowContainer>
+            <S.CardText>Vencimento</S.CardText>
+            <CustomText
+              color={isExpired ? theme.colors.RED_100 : theme.colors.GRAY_600}
+              fontWeight={theme.font.weight.extrabold}
+            >
+              {expirationDate}{" "}
+            </CustomText>
+          </S.CardRowContainer>
+          <S.Divider />
+          <S.CardRowContainer>
+            <S.CardText>Descrição</S.CardText>
+            <S.CardText>{productsDescription}</S.CardText>
+            {showUserName && <S.CardText>{username}</S.CardText>}
+          </S.CardRowContainer>
+          <S.Divider />
+          <S.CardRowContainer>
+            <S.CardText>Valor</S.CardText>
+            <S.CardText>{formatToBRL(total)}</S.CardText>
+          </S.CardRowContainer>
+        </S.CardRowsContainer>
+      </S.CardContent>
     </Swipeable>
   );
 };
