@@ -28,6 +28,7 @@ export const OrderCard = ({
   waterAmount,
   gasAmount,
   total,
+  payment_state,
 }: UserOrderCardProps) => {
   const leftSwipe = () => {
     return (
@@ -68,6 +69,20 @@ export const OrderCard = ({
 
   const productsDescription = getProductsDescription();
 
+  function getStatus() {
+    if (isExpired) {
+      return "Vencido";
+    }
+
+    if (payment_state === "PENDENTE") {
+      return "Pedente";
+    }
+
+    if (payment_state === "PAGO") {
+      return "Pedente";
+    }
+  }
+
   return (
     <Swipeable
       renderLeftActions={leftSwipe}
@@ -90,16 +105,14 @@ export const OrderCard = ({
     >
       <S.CardContent>
         <OrderStatusText status={status} />
-        {isExpired && (
-          <S.Badge>
-            <CustomText
-              color={theme.colors.WHITE}
-              fontWeight={theme.font.weight.bold}
-            >
-              Vencido
-            </CustomText>
-          </S.Badge>
-        )}
+        <S.Badge>
+          <CustomText
+            color={theme.colors.WHITE}
+            fontWeight={theme.font.weight.bold}
+          >
+            {getStatus()}
+          </CustomText>
+        </S.Badge>
         <S.CardRowsContainer>
           <S.CardRowContainer>
             <S.CardText>Data do pedido</S.CardText>
