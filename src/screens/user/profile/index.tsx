@@ -1,5 +1,6 @@
 import { CustomHeader } from "@components/custom-header";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useAppSelector } from "@hooks/useAppSelector";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigatorRoutesProps } from "@routes/index";
 import { authActions } from "@store/modules/auth/slice";
@@ -16,6 +17,9 @@ export function UserProfile() {
   function handleLogout() {
     dispatch(authActions.clearAuthData());
   }
+    const {
+      user: { address, name, email },
+    } = useAppSelector((state) => state.user);
 
   return (
     <S.SafeAreaViewContainer>
@@ -35,18 +39,18 @@ export function UserProfile() {
             </S.ProfileImageButton>
           </S.ProfileImageContainer>
 
-          <S.Name>Eduardo Florêncio</S.Name>
-          <S.Email>eduardogas2013@hotmail.com</S.Email>
+          <S.Name>{name}</S.Name>
+          <S.Email>{email}</S.Email>
 
           <S.InfoContainer>
             <S.TitleSubtitleContainer>
               <S.InfoTitle>Endereço</S.InfoTitle>
-              <S.InfoSubitle>Rua José Bezerra, N23 B</S.InfoSubitle>
+              <S.InfoSubitle>{address?.street}, {address?.number}</S.InfoSubitle>
             </S.TitleSubtitleContainer>
 
             <S.TitleSubtitleContainer>
               <S.InfoTitle>Referência</S.InfoTitle>
-              <S.InfoSubitle>Ao lado da loja de panelas</S.InfoSubitle>
+              <S.InfoSubitle>{address?.reference}</S.InfoSubitle>
             </S.TitleSubtitleContainer>
           </S.InfoContainer>
 

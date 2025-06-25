@@ -1,3 +1,4 @@
+import { useAppSelector } from "@hooks/useAppSelector";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { ProductName } from "src/types/stock";
@@ -7,6 +8,14 @@ import * as S from "./styles";
 
 export function Home() {
   const navigation = useNavigation<UserNavigatorRoutesProps>();
+
+  const {
+    user: { name },
+  } = useAppSelector((state) => state.user);
+
+  const formattedName = name
+    ?.split(" ")?.[0]
+
 
   const handlePressOrder = (type: ProductName) => {
     navigation.navigate("userCreateOrder", {
@@ -48,7 +57,7 @@ export function Home() {
           </S.OrderButton>
         </S.ButtonsContainer>
 
-        <S.Title>Olá, Eduardo!</S.Title>
+        <S.Title>Olá, {formattedName}!</S.Title>
 
         <S.SubTitle>O que gostaria de pedir?</S.SubTitle>
       </S.SafeAreaViewContainer>
