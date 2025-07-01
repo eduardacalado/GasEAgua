@@ -5,10 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 import { RootNavigatorRoutesProps } from "@routes/index";
 import { authActions } from "@store/modules/auth/slice";
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import theme from "src/styles/theme";
 import * as S from "./styles";
 
 export function UserProfile() {
+  const [isInputDisabled, setIsInputDisabled] = useState(true);
   const { navigate } = useNavigation<RootNavigatorRoutesProps>();
   const dispatch = useAppDispatch();
   const blurhash =
@@ -17,9 +19,14 @@ export function UserProfile() {
   function handleLogout() {
     dispatch(authActions.clearAuthData());
   }
-    const {
-      user: { address, name, email },
-    } = useAppSelector((state) => state.user);
+  
+  const {
+    user: { address, name, email },
+  } = useAppSelector((state) => state.user);
+
+  function handleEditProfile() {
+    setIsInputDisabled(false);
+  }
 
   return (
     <S.SafeAreaViewContainer>
@@ -44,19 +51,22 @@ export function UserProfile() {
 
           <S.InfoContainer>
             <S.TitleSubtitleContainer>
-              <S.InfoTitle>Endereço</S.InfoTitle>
-              <S.InfoSubitle>{address?.street}, {address?.number}</S.InfoSubitle>
+              <S.InfoTitle>Eneço</S.InfoTitle>
+              <S.InfoInput
+                editable={!isInputDisabled}
+                value={`${address?.street}, ${address?.number}`}
+              />
             </S.TitleSubtitleContainer>
 
             <S.TitleSubtitleContainer>
               <S.InfoTitle>Referência</S.InfoTitle>
-              <S.InfoSubitle>{address?.reference}</S.InfoSubitle>
+              <S.InfoInput>{address?.reference}</S.InfoInput>
             </S.TitleSubtitleContainer>
           </S.InfoContainer>
 
           <S.AlterInfoButtonContainer>
             <S.AlterInfoButton>
-              <S.AlterInfoButtonText>Editar perfil</S.AlterInfoButtonText>
+              <S.AlterInfoButtonText onPress={handleEditProfile}>Editar perfil</S.AlterInfoButtonText>
             </S.AlterInfoButton>
             <S.AlterInfoButton onPress={handleLogout}>
               <S.AlterInfoButtonText>Deslogar</S.AlterInfoButtonText>

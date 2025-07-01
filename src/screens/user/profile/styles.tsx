@@ -76,7 +76,7 @@ export const InfoTitle = styled.Text`
   padding-top: ${theme.size.m7};
 `;
 
-export const InfoSubitle = styled.Text`
+export const InfoInput = styled.TextInput`
   color: ${theme.colors.WHITE};
   justify-content: center;
   text-align: center;
