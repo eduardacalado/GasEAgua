@@ -85,6 +85,7 @@ export function SignUp() {
           <StatusBar style="light" />
 
           <S.Container>
+            <S.Title>Preencha os campos para fazer cadastro!</S.Title>
             <Controller
               control={control}
               name="username"

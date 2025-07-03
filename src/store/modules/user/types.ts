@@ -2,13 +2,15 @@ export type UserDatesProps = {
   name: string;
   email: string;
   isAdmin: boolean;
-  id: string;
+  id: number;
   address: {
-    street: string,
-    reference: string,
-    number: string,
-    local: string | undefined,
-  }
+    street: string;
+    reference: string;
+    number: string;
+    local: string;
+  };
+  telephone: string;
+  password: string;
 };
 
 export type UserDates = {

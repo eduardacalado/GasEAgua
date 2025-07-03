@@ -97,7 +97,18 @@ export const AlterInfoButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-radius: ${theme.size.m4};
-  background-color: ${theme.colors.GRAY_200};
+  background-color: ${theme.colors.GREEN};
+  flex-direction: row;
+  cursor: pointer;
+`;
+
+export const LogoutButton = styled.TouchableOpacity`
+  padding: ${theme.size.m2};
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: ${theme.size.m4};
+  background-color: ${theme.colors.RED_200};
   flex-direction: row;
 `;
 
