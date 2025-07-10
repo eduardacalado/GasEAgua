@@ -5,12 +5,14 @@ import { useNavigation } from "@react-navigation/native";
 import { RootNavigatorRoutesProps } from "@routes/index";
 import { authActions } from "@store/modules/auth/slice";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import theme from "src/styles/theme";
 import * as S from "./styles";
 import { postUpdateUser } from "src/services/user";
 import Toast from "react-native-toast-message";
 import { isAxiosError } from "axios";
+import { Touchable, TouchableOpacity } from "react-native";
+import { ENGENHO_OPTIONS } from "src/constants/engenhoOptions";
 
 export function UserProfile() {
   const [isInputDisabled, setIsInputDisabled] = useState(true);
@@ -32,8 +34,15 @@ export function UserProfile() {
     street: address?.street || "",
     number: address?.number || "",
     reference: address?.reference,
-    local: address?.local,
+    local: address?.local || "Jaqueira",
   });
+
+  const [mainLocal, setMainLocal] = useState(
+    address?.local === "Jaqueira" ? "Jaqueira" : "Engenho"
+  );
+  const [selectedEngenho, setSelectedEngenho] = useState(
+    address?.local?.startsWith("Engenho") ? address.local : "Engenho AM"
+  );
 
   function handleEditProfile() {
     setIsInputDisabled(false);
@@ -42,10 +51,16 @@ export function UserProfile() {
   async function handleUpdateUserData() {
     setIsLoading(true);
     try {
+      const localToSend =
+        mainLocal === "Jaqueira" ? "Jaqueira" : selectedEngenho;
+
       await postUpdateUser({
         username,
         telephone,
-        address: addressFields,
+        address: {
+          ...addressFields,
+          local: localToSend,
+        },
       });
 
       Toast.show({
@@ -64,6 +79,7 @@ export function UserProfile() {
       setIsInputDisabled(true);
     }
   }
+
   return (
     <S.SafeAreaViewContainer>
       <StatusBar style="dark" />
@@ -76,73 +92,119 @@ export function UserProfile() {
           <CustomHeader color={theme.colors.ORANGE_300} />
         </S.MapImage>
         <S.Container>
-          <S.ProfileImageContainer>
-            <S.ProfileImageButton>
-              <S.ProfileImage />
-            </S.ProfileImageButton>
-          </S.ProfileImageContainer>
-
           <S.Name>{username}</S.Name>
           <S.Email>{email}</S.Email>
 
           <S.InfoContainer>
-            <S.TitleSubtitleContainer>
-              <S.InfoTitle>Local</S.InfoTitle>
-              <S.InfoInput
-                editable={!isInputDisabled}
-                value={addressFields.local}
-                onChangeText={(text: string) =>
-                  setAddressFields({ ...addressFields, local: text })
-                }
-              />
-            </S.TitleSubtitleContainer>
-            <S.TitleSubtitleContainer>
-              <S.InfoTitle>Rua</S.InfoTitle>
-              <S.InfoInput
-                editable={!isInputDisabled}
-                value={addressFields.street}
-                onChangeText={(text: string) =>
-                  setAddressFields({ ...addressFields, street: text })
-                }
-              />
-            </S.TitleSubtitleContainer>
-            <S.TitleSubtitleContainer>
-              <S.InfoTitle>Número</S.InfoTitle>
-              <S.InfoInput
-                editable={!isInputDisabled}
-                value={addressFields.number}
-                onChangeText={(text: string) =>
-                  setAddressFields({ ...addressFields, number: text })
-                }
-              />
-            </S.TitleSubtitleContainer>
-            <S.TitleSubtitleContainer>
+            {!isInputDisabled && (
+              <S.TitleInfoContainer>
+                <S.InfoTitle>Local</S.InfoTitle>
+                <S.InfoInputContainer>
+                  <S.SelectInput
+                    selectedValue={mainLocal}
+                    onValueChange={(value: string) => setMainLocal(value)}
+                  >
+                    <S.SelectInput.Item label="Jaqueira" value="Jaqueira" />
+                    <S.SelectInput.Item label="Engenho" value="Engenho" />
+                  </S.SelectInput>
+                </S.InfoInputContainer>
+              </S.TitleInfoContainer>
+            )}
+            {mainLocal === "Engenho" && (
+              <S.TitleInfoContainer>
+                <S.InfoTitle>Engenho</S.InfoTitle>
+                <S.InfoInputContainer>
+                  <S.SelectInput
+                    selectedValue={selectedEngenho}
+                    onValueChange={(value: string) => setSelectedEngenho(value)}
+                  >
+                    {ENGENHO_OPTIONS.map((option) => (
+                      <S.SelectInput.Item
+                        key={option}
+                        label={option}
+                        value={option}
+                      />
+                    ))}
+                  </S.SelectInput>
+                </S.InfoInputContainer>
+              </S.TitleInfoContainer>
+            )}
+            {mainLocal === "Jaqueira" && (
+              <S.StreetNumberInputContainer>
+                <S.TitleInfoContainer>
+                  <S.InfoTitle>Rua</S.InfoTitle>
+                  <S.InfoInputContainer>
+                    <S.InfoInput
+                      editable={!isInputDisabled}
+                      value={addressFields.street}
+                      onChangeText={(text: string) =>
+                        setAddressFields({ ...addressFields, street: text })
+                      }
+                    />
+                  </S.InfoInputContainer>
+                </S.TitleInfoContainer>
+                <S.TitleInfoContainer>
+                  <S.InfoTitle>Número</S.InfoTitle>
+                  <S.InfoInputContainer>
+                    <S.InfoInput
+                      editable={!isInputDisabled}
+                      value={addressFields.number}
+                      onChangeText={(text: string) =>
+                        setAddressFields({ ...addressFields, number: text })
+                      }
+                    />
+                  </S.InfoInputContainer>
+                </S.TitleInfoContainer>
+              </S.StreetNumberInputContainer>
+            )}
+            <S.TitleInfoContainer>
               <S.InfoTitle>Referência</S.InfoTitle>
-              <S.InfoInput
-                editable={!isInputDisabled}
-                value={addressFields.reference}
-                onChangeText={(text: string) =>
-                  setAddressFields({ ...addressFields, reference: text })
-                }
-              />
-            </S.TitleSubtitleContainer>
+              <S.InfoInputContainer>
+                <S.InfoInput
+                  editable={!isInputDisabled}
+                  value={addressFields.reference}
+                  onChangeText={(text: string) =>
+                    setAddressFields({ ...addressFields, reference: text })
+                  }
+                />
+              </S.InfoInputContainer>
+            </S.TitleInfoContainer>
           </S.InfoContainer>
 
-          <S.AlterInfoButtonContainer>
-            <S.AlterInfoButton
+          <S.ButtonsContainer>
+            <TouchableOpacity
               onPress={
                 isInputDisabled ? handleEditProfile : handleUpdateUserData
               }
-              isLoading={isLoading}
+              disabled={isLoading}
             >
-              <S.AlterInfoButtonText>
-                {isInputDisabled ? "Editar perfil" : "Salvar"}
-              </S.AlterInfoButtonText>
-            </S.AlterInfoButton>
-            <S.LogoutButton onPress={handleLogout} disabled={isInputDisabled}>
-              <S.AlterInfoButtonText>Deslogar</S.AlterInfoButtonText>
-            </S.LogoutButton>
-          </S.AlterInfoButtonContainer>
+              <S.AlterInfoButton
+                colors={["#1F7F75", "#34958C", "#5FC3B9"]}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <S.ButtonText>
+                  {isInputDisabled ? "Editar perfil" : "Salvar"}
+                </S.ButtonText>
+              </S.AlterInfoButton>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleLogout}
+              disabled={!isInputDisabled}
+            >
+              <S.LogoutButton
+                colors={
+                  isInputDisabled
+                    ? ["#DB1A00", "#ED4200", "#FF6A00"]
+                    : ["#929292", "#c5c0c0", "#EEEEEE"]
+                }
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <S.ButtonText>Deslogar</S.ButtonText>
+              </S.LogoutButton>
+            </TouchableOpacity>
+          </S.ButtonsContainer>
         </S.Container>
       </S.ScrollViewBackground>
     </S.SafeAreaViewContainer>
