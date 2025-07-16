@@ -4,6 +4,7 @@ import { useAppSelector } from "@hooks/useAppSelector";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigatorRoutesProps } from "@routes/index";
 import { authActions } from "@store/modules/auth/slice";
+import { safetyString } from "@utils/safety-string";
 import { isAxiosError } from "axios";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
@@ -31,10 +32,10 @@ export function UserProfile() {
   } = useAppSelector((state) => state.user);
 
   const [addressFields, setAddressFields] = useState({
-    street: address?.street || "",
-    number: address?.number || "",
-    reference: address?.reference,
-    local: address?.local || "Jaqueira",
+    street: safetyString(address?.street),
+    number: safetyString(address?.number),
+    reference: safetyString(address?.reference),
+    local: safetyString(address?.local, "Jaqueira"),
   });
 
   const defaultLocal = address?.local === "Jaqueira" ? "Jaqueira" : "Engenho";
