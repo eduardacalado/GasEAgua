@@ -4,15 +4,15 @@ import { useAppSelector } from "@hooks/useAppSelector";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigatorRoutesProps } from "@routes/index";
 import { authActions } from "@store/modules/auth/slice";
+import { isAxiosError } from "axios";
 import { StatusBar } from "expo-status-bar";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { TouchableOpacity } from "react-native";
+import Toast from "react-native-toast-message";
+import { ENGENHO_OPTIONS } from "src/constants/engenhoOptions";
+import { postUpdateUser } from "src/services/user";
 import theme from "src/styles/theme";
 import * as S from "./styles";
-import { postUpdateUser } from "src/services/user";
-import Toast from "react-native-toast-message";
-import { isAxiosError } from "axios";
-import { Touchable, TouchableOpacity } from "react-native";
-import { ENGENHO_OPTIONS } from "src/constants/engenhoOptions";
 
 export function UserProfile() {
   const [isInputDisabled, setIsInputDisabled] = useState(true);
@@ -37,12 +37,13 @@ export function UserProfile() {
     local: address?.local || "Jaqueira",
   });
 
-  const [mainLocal, setMainLocal] = useState(
-    address?.local === "Jaqueira" ? "Jaqueira" : "Engenho"
-  );
-  const [selectedEngenho, setSelectedEngenho] = useState(
-    address?.local?.startsWith("Engenho") ? address.local : "Engenho AM"
-  );
+  const defaultLocal = address?.local === "Jaqueira" ? "Jaqueira" : "Engenho";
+
+  const [mainLocal, setMainLocal] = useState(defaultLocal);
+
+  const defaultEngenho = address?.local && address?.local !== "Jaqueira" ? address.local : ENGENHO_OPTIONS[0]
+
+  const [selectedEngenho, setSelectedEngenho] = useState(defaultEngenho);
 
   function handleEditProfile() {
     setIsInputDisabled(false);
