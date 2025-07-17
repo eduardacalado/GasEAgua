@@ -10,7 +10,7 @@ import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import Toast from "react-native-toast-message";
-import { ENGENHO_OPTIONS } from "src/constants/engenhoOptions";
+import { DEFAULT_CITY, ENGENHO_OPTIONS } from "src/constants/localOptions";
 import { postUpdateUser } from "src/services/user";
 import theme from "src/styles/theme";
 import * as S from "./styles";
@@ -35,14 +35,14 @@ export function UserProfile() {
     street: safetyString(address?.street),
     number: safetyString(address?.number),
     reference: safetyString(address?.reference),
-    local: safetyString(address?.local, "Jaqueira"),
+    local: safetyString(address?.local, DEFAULT_CITY),
   });
 
-  const defaultLocal = address?.local === "Jaqueira" ? "Jaqueira" : "Engenho";
+  const defaultLocal = address?.local === DEFAULT_CITY ? DEFAULT_CITY : "Engenho";
 
   const [mainLocal, setMainLocal] = useState(defaultLocal);
 
-  const defaultEngenho = address?.local && address?.local !== "Jaqueira" ? address.local : ENGENHO_OPTIONS[0]
+  const defaultEngenho = address?.local && address?.local !== DEFAULT_CITY ? address.local : ENGENHO_OPTIONS[0]
 
   const [selectedEngenho, setSelectedEngenho] = useState(defaultEngenho);
 
@@ -54,7 +54,7 @@ export function UserProfile() {
     setIsLoading(true);
     try {
       const localToSend =
-        mainLocal === "Jaqueira" ? "Jaqueira" : selectedEngenho;
+        mainLocal === DEFAULT_CITY ? DEFAULT_CITY : selectedEngenho;
 
       await postUpdateUser({
         username,
@@ -106,7 +106,7 @@ export function UserProfile() {
                     selectedValue={mainLocal}
                     onValueChange={(value: string) => setMainLocal(value)}
                   >
-                    <S.SelectInput.Item label="Jaqueira" value="Jaqueira" />
+                    <S.SelectInput.Item label={DEFAULT_CITY} value={DEFAULT_CITY} />
                     <S.SelectInput.Item label="Engenho" value="Engenho" />
                   </S.SelectInput>
                 </S.InfoInputContainer>
@@ -131,7 +131,7 @@ export function UserProfile() {
                 </S.InfoInputContainer>
               </S.TitleInfoContainer>
             )}
-            {mainLocal === "Jaqueira" && (
+            {mainLocal === DEFAULT_CITY && (
               <S.StreetNumberInputContainer>
                 <S.TitleInfoContainer>
                   <S.InfoTitle>Rua</S.InfoTitle>

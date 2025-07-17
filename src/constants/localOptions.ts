@@ -24,3 +24,5 @@ export const ENGENHO_OPTIONS = [
   "Usina Frei Caneca",
   "Vila Agro Vila",
 ];
+
+export const DEFAULT_CITY = "Jaqueira";
