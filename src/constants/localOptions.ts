@@ -26,3 +26,5 @@ export const ENGENHO_OPTIONS = [
 ];
 
 export const DEFAULT_CITY = "Jaqueira";
+
+export const DEFAULT_ENGENHO = "Engenho";

@@ -10,7 +10,7 @@ import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import Toast from "react-native-toast-message";
-import { DEFAULT_CITY, ENGENHO_OPTIONS } from "src/constants/localOptions";
+import { DEFAULT_CITY, DEFAULT_ENGENHO, ENGENHO_OPTIONS } from "src/constants/localOptions";
 import { postUpdateUser } from "src/services/user";
 import theme from "src/styles/theme";
 import * as S from "./styles";
@@ -38,11 +38,11 @@ export function UserProfile() {
     local: safetyString(address?.local, DEFAULT_CITY),
   });
 
-  const defaultLocal = address?.local === DEFAULT_CITY ? DEFAULT_CITY : "Engenho";
+  const defaultLocal = address?.local === DEFAULT_CITY ? DEFAULT_CITY : DEFAULT_ENGENHO;
 
   const [mainLocal, setMainLocal] = useState(defaultLocal);
 
-  const defaultEngenho = address?.local && address?.local !== DEFAULT_CITY ? address.local : ENGENHO_OPTIONS[0]
+  const defaultEngenho = address?.local && address?.local !== DEFAULT_CITY ? address.local : DEFAULT_ENGENHO
 
   const [selectedEngenho, setSelectedEngenho] = useState(defaultEngenho);
 
@@ -107,12 +107,12 @@ export function UserProfile() {
                     onValueChange={(value: string) => setMainLocal(value)}
                   >
                     <S.SelectInput.Item label={DEFAULT_CITY} value={DEFAULT_CITY} />
-                    <S.SelectInput.Item label="Engenho" value="Engenho" />
+                    <S.SelectInput.Item label={DEFAULT_ENGENHO} value={DEFAULT_ENGENHO} />
                   </S.SelectInput>
                 </S.InfoInputContainer>
               </S.TitleInfoContainer>
             )}
-            {mainLocal === "Engenho" && (
+            {mainLocal === DEFAULT_ENGENHO && (
               <S.TitleInfoContainer>
                 <S.InfoTitle>Engenho</S.InfoTitle>
                 <S.InfoInputContainer>
