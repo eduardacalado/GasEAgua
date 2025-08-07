@@ -8,8 +8,6 @@ export const postLogin = async (
   return api.post("/login", loginData).then((response) => response.data);
 };
 
-export const postSignup = async (
-  data: SignupPayload
-) => {
+export const postSignup = async (data: SignupPayload) => {
   return api.post("/users/create", data).then((response) => response.data);
-}
+};

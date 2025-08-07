@@ -7,21 +7,12 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
-import { networkLogger } from "react-native-httptrace";
 
 const apiConfig = {
   baseURL: "http://69.62.89.65:3333/",
 };
 
 const api = axios.create(apiConfig);
-
-networkLogger.configure({
-  baseUrl: "http://69.62.89.65:3333/",
-  maxRequests: 1000,
-  enableConsoleLogs: __DEV__,
-});
-
-networkLogger.createAxiosInterceptors(api);
 
 api.interceptors.request.use(
   function (config: AxiosRequestConfig) {

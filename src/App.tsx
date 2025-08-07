@@ -1,9 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
-  NetworkLoggerButton,
-  NetworkLoggerModal,
+  HttpTraceBadge,
+  HttpTraceButton,
+  HttpTraceShake,
+  HttpTraceStatusIndicator,
+  HttpTraceToast,
+  useHttpTrace,
 } from "react-native-httptrace";
 import Toast from "react-native-toast-message";
 import { Provider } from "react-redux";
@@ -13,7 +17,7 @@ import { store } from "./store";
 import theme from "./styles/theme";
 
 export default function App() {
-  const [isNetworkModalVisible, setIsNetworkModalVisible] = useState(false);
+  useHttpTrace();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -28,14 +32,25 @@ export default function App() {
 
         {__DEV__ && (
           <>
-            <NetworkLoggerButton
-              onPress={() => setIsNetworkModalVisible(true)}
+            <HttpTraceButton />
+            <HttpTraceShake />
+            <HttpTraceBadge
+              position="top-right"
+              showOnlyErrors={false}
+              autoHide={false}
             />
-            <NetworkLoggerModal
-              visible={isNetworkModalVisible}
-              onClose={() => setIsNetworkModalVisible(false)}
-              title="HTTP Trace Debug"
-              showCloseButton={true}
+            <HttpTraceStatusIndicator
+              showPendingCount={true}
+              showErrorCount={true}
+              compact={true}
+              color="#32CD32"
+              backgroundColor="rgba(50,205,50,0.1)"
+            />
+            <HttpTraceToast
+              position="top"
+              duration={3000}
+              showOnlyErrors={false}
+              maxWidth={350}
             />
           </>
         )}
