@@ -69,8 +69,10 @@ export const InfoInputContainer = styled.View`
   border-radius: ${theme.size.m1};
   border-color: ${theme.colors.ORANGE_100};
   align-items: flex-start;
+  justify-content: center;
   width: 100%;
   padding-inline: ${theme.size.base};
+  height: ${theme.size.m10};
 `;
 
 export const InfoInput = styled.TextInput`
@@ -80,6 +82,7 @@ export const InfoInput = styled.TextInput`
   font-size: ${theme.font.size.m6};
   border-radius: ${theme.size.m1};
   width: 100%;
+  line-clamp: 1;
 `;
 
 export const SelectInput = styled(Picker)`

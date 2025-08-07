@@ -1,4 +1,5 @@
 import { CustomHeader } from "@components/custom-header";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { useNavigation } from "@react-navigation/native";
@@ -8,15 +9,26 @@ import { safetyString } from "@utils/safety-string";
 import { isAxiosError } from "axios";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { TouchableOpacity } from "react-native";
 import Toast from "react-native-toast-message";
 import { DEFAULT_CITY, DEFAULT_ENGENHO, ENGENHO_OPTIONS } from "src/constants/localOptions";
 import { postUpdateUser } from "src/services/user";
 import theme from "src/styles/theme";
+import * as yup from "yup";
 import * as S from "./styles";
 
+
+const schema = yup.object({
+  engenho: yup.string(),
+  mainLocal: yup.string(),
+  street: yup.string().required("Informe a rua"),
+  number: yup.number().required("Informe o número"),
+  reference: yup.string().required("Informe a referência"),
+});
+
 export function UserProfile() {
-  const [isInputDisabled, setIsInputDisabled] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { navigate } = useNavigation<RootNavigatorRoutesProps>();
   const dispatch = useAppDispatch();
@@ -27,15 +39,29 @@ export function UserProfile() {
     dispatch(authActions.clearAuthData());
   }
 
+  
   const {
     user: { address, email, name: username, telephone },
   } = useAppSelector((state) => state.user);
-
+  
   const [addressFields, setAddressFields] = useState({
     street: safetyString(address?.street),
     number: safetyString(address?.number),
     reference: safetyString(address?.reference),
     local: safetyString(address?.local, DEFAULT_CITY),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      street: addressFields.street,
+      number: addressFields.number ? Number(addressFields.number) : undefined,
+      reference: addressFields.reference,
+    },
   });
 
   const defaultLocal = address?.local === DEFAULT_CITY ? DEFAULT_CITY : DEFAULT_ENGENHO;
@@ -47,14 +73,16 @@ export function UserProfile() {
   const [selectedEngenho, setSelectedEngenho] = useState(defaultEngenho);
 
   function handleEditProfile() {
-    setIsInputDisabled(false);
+    setIsEditing(true);
+    console.log("Editing profile");
   }
 
   async function handleUpdateUserData() {
+    console.log("User data updated successfully");
     setIsLoading(true);
     try {
       const localToSend =
-        mainLocal === DEFAULT_CITY ? DEFAULT_CITY : selectedEngenho;
+        mainLocal
 
       await postUpdateUser({
         username,
@@ -64,6 +92,7 @@ export function UserProfile() {
           local: localToSend,
         },
       });
+
 
       Toast.show({
         type: "success",
@@ -78,7 +107,7 @@ export function UserProfile() {
       }
     } finally {
       setIsLoading(false);
-      setIsInputDisabled(true);
+      setIsEditing(false);
     }
   }
 
@@ -98,85 +127,117 @@ export function UserProfile() {
           <S.Email>{email}</S.Email>
 
           <S.InfoContainer>
-            {!isInputDisabled && (
               <S.TitleInfoContainer>
                 <S.InfoTitle>Local</S.InfoTitle>
+                <Controller
+                  control={control}
+                  name="mainLocal"
+                  render={({ field: { onChange, value } }) => (
                 <S.InfoInputContainer>
                   <S.SelectInput
                     selectedValue={mainLocal}
-                    onValueChange={(value: string) => setMainLocal(value)}
+                    onValueChange={(value: string) => {onChange(value); setMainLocal(value)}}
+                    enabled={isEditing}
                   >
-                    <S.SelectInput.Item label={DEFAULT_CITY} value={DEFAULT_CITY} />
-                    <S.SelectInput.Item label={DEFAULT_ENGENHO} value={DEFAULT_ENGENHO} />
+                    <S.SelectInput.Item label={DEFAULT_CITY} value={value} />
+                    <S.SelectInput.Item label={DEFAULT_ENGENHO} value={value} />
                   </S.SelectInput>
                 </S.InfoInputContainer>
+                  )}
+                />
               </S.TitleInfoContainer>
-            )}
             {mainLocal === DEFAULT_ENGENHO && (
               <S.TitleInfoContainer>
                 <S.InfoTitle>Engenho</S.InfoTitle>
-                <S.InfoInputContainer>
+                  <Controller
+                    control={control}
+                    name="engenho"
+                    render={({ field: { onChange, value } }) => (
+                      <S.InfoInputContainer>
                   <S.SelectInput
                     selectedValue={selectedEngenho}
                     onValueChange={(value: string) => setSelectedEngenho(value)}
+                    enabled={isEditing}
                   >
                     {ENGENHO_OPTIONS.map((option) => (
                       <S.SelectInput.Item
                         key={option}
                         label={option}
-                        value={option}
+                        value={value}
                       />
                     ))}
                   </S.SelectInput>
                 </S.InfoInputContainer>
+                  )} />
               </S.TitleInfoContainer>
             )}
             {mainLocal === DEFAULT_CITY && (
               <S.StreetNumberInputContainer>
                 <S.TitleInfoContainer>
                   <S.InfoTitle>Rua</S.InfoTitle>
+                  <Controller
+                    control={control}
+                    name="street"
+                    render={({ field: { onChange, value } }) => (
                   <S.InfoInputContainer>
                     <S.InfoInput
-                      editable={!isInputDisabled}
-                      value={addressFields.street}
-                      onChangeText={(text: string) =>
-                        setAddressFields({ ...addressFields, street: text })
-                      }
+                      editable={isEditing}
+                      value={value}
+                      onChangeText={(text: string) => {
+                        onChange(text);
+                        setAddressFields({ ...addressFields, street: text });
+                      }}
                     />
                   </S.InfoInputContainer>
+                    )}
+                  />
                 </S.TitleInfoContainer>
                 <S.TitleInfoContainer>
                   <S.InfoTitle>Número</S.InfoTitle>
+                  <Controller
+                    control={control}
+                    name="number"
+                    render={({ field: { onChange, value } }) => (
                   <S.InfoInputContainer>
                     <S.InfoInput
-                      editable={!isInputDisabled}
-                      value={addressFields.number}
-                      onChangeText={(text: string) =>
-                        setAddressFields({ ...addressFields, number: text })
-                      }
+                      editable={isEditing}
+                      value={value}
+                      onChangeText={(text: string) => {
+                        onChange(text);
+                        setAddressFields({ ...addressFields, number: text });
+                      }}
                     />
                   </S.InfoInputContainer>
+                    )}
+                  />
                 </S.TitleInfoContainer>
               </S.StreetNumberInputContainer>
             )}
             <S.TitleInfoContainer>
               <S.InfoTitle>Referência</S.InfoTitle>
+              <Controller
+                control={control}
+                name="reference"
+                render={({ field: { onChange, value } }) => (
               <S.InfoInputContainer>
                 <S.InfoInput
-                  editable={!isInputDisabled}
-                  value={addressFields.reference}
-                  onChangeText={(text: string) =>
-                    setAddressFields({ ...addressFields, reference: text })
-                  }
+                  editable={isEditing}
+                  value={value}
+                  onChangeText={(text: string) => {
+                    onChange(text);
+                    setAddressFields({ ...addressFields, reference: text });
+                  }}
                 />
               </S.InfoInputContainer>
+                )}
+              />
             </S.TitleInfoContainer>
           </S.InfoContainer>
 
           <S.ButtonsContainer>
             <TouchableOpacity
               onPress={
-                isInputDisabled ? handleEditProfile : handleUpdateUserData
+                !isEditing ? handleEditProfile : handleUpdateUserData
               }
               disabled={isLoading}
             >
@@ -186,19 +247,19 @@ export function UserProfile() {
                 end={{ x: 1, y: 0 }}
               >
                 <S.ButtonText>
-                  {isInputDisabled ? "Editar perfil" : "Salvar"}
+                  {!isEditing ? "Editar perfil" : "Salvar"}
                 </S.ButtonText>
               </S.AlterInfoButton>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleLogout}
-              disabled={!isInputDisabled}
+              disabled={isEditing}
             >
               <S.LogoutButton
                 colors={
-                  isInputDisabled
-                    ? ["#DB1A00", "#ED4200", "#FF6A00"]
-                    : ["#929292", "#c5c0c0", "#EEEEEE"]
+                  isEditing
+                    ? ["#929292", "#c5c0c0", "#EEEEEE"]
+                    : ["#DB1A00", "#ED4200", "#FF6A00"]
                 }
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
