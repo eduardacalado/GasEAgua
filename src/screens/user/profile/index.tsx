@@ -23,7 +23,7 @@ const schema = yup.object({
   engenho: yup.string(),
   mainLocal: yup.string(),
   street: yup.string().required("Informe a rua"),
-  number: yup.number().required("Informe o número"),
+  number: yup.string().required("Informe o número"),
   reference: yup.string().required("Informe a referência"),
 });
 
@@ -59,7 +59,7 @@ export function UserProfile() {
     resolver: yupResolver(schema),
     defaultValues: {
       street: addressFields.street,
-      number: addressFields.number ? Number(addressFields.number) : undefined,
+      number: addressFields.number,
       reference: addressFields.reference,
     },
   });
@@ -81,8 +81,24 @@ export function UserProfile() {
     console.log("User data updated successfully");
     setIsLoading(true);
     try {
-      const localToSend =
-        mainLocal
+      let localToSend = mainLocal
+      let addressToSend = { ...addressFields };
+      
+      if (mainLocal === DEFAULT_ENGENHO) {
+        localToSend = selectedEngenho;
+        addressToSend = {
+          street: "",
+          number: "",
+          reference: "",
+          local: localToSend,
+        };
+      } else if (mainLocal === DEFAULT_CITY) {
+        localToSend = DEFAULT_CITY;
+        addressToSend = {
+          ...addressFields,
+          local: localToSend,
+        }
+      };
 
       await postUpdateUser({
         username,
@@ -139,8 +155,8 @@ export function UserProfile() {
                     onValueChange={(value: string) => {onChange(value); setMainLocal(value)}}
                     enabled={isEditing}
                   >
-                    <S.SelectInput.Item label={DEFAULT_CITY} value={value} />
-                    <S.SelectInput.Item label={DEFAULT_ENGENHO} value={value} />
+                    <S.SelectInput.Item label={DEFAULT_CITY} value={DEFAULT_CITY} />
+                    <S.SelectInput.Item label={DEFAULT_ENGENHO} value={DEFAULT_ENGENHO} />
                   </S.SelectInput>
                 </S.InfoInputContainer>
                   )}
@@ -163,7 +179,7 @@ export function UserProfile() {
                       <S.SelectInput.Item
                         key={option}
                         label={option}
-                        value={value}
+                        value={option}
                       />
                     ))}
                   </S.SelectInput>
@@ -237,7 +253,7 @@ export function UserProfile() {
           <S.ButtonsContainer>
             <TouchableOpacity
               onPress={
-                !isEditing ? handleEditProfile : handleUpdateUserData
+                !isEditing ? handleEditProfile : handleSubmit(handleUpdateUserData)
               }
               disabled={isLoading}
             >
