@@ -68,7 +68,6 @@ export function useUpdateProfile() {
   }
 
   async function handleUpdateUserData() {
-    console.log("User data updated successfully");
     setIsLoading(true);
     try {
       let localToSend = mainLocal;
