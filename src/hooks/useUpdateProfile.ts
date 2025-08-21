@@ -2,8 +2,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { authActions } from "@store/modules/auth/slice";
+import { errorHandler } from "@utils/error-handler";
 import { safetyString } from "@utils/safety-string";
-import { isAxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
@@ -102,12 +102,7 @@ export function useUpdateProfile() {
         text1: "Dados atualizados com sucesso!",
       });
     } catch (error) {
-      if (isAxiosError(error)) {
-        Toast.show({
-          type: "error",
-          text2: error.response?.data.message,
-        });
-      }
+        errorHandler(error, "Erro ao atualizar os dados do usuário.");
     } finally {
       setIsLoading(false);
       setIsEditing(false);
