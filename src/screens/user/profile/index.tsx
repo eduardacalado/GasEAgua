@@ -1,7 +1,7 @@
 import { CustomHeader } from "@components/custom-header";
-import { useUpdateProfile } from "@hooks/useUpdateProfile";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigatorRoutesProps } from "@routes/index";
+import { useUpdateProfile } from "@screens/user/profile/useUpdateProfile";
 import { StatusBar } from "expo-status-bar";
 import { Controller } from "react-hook-form";
 import { TouchableOpacity } from "react-native";
