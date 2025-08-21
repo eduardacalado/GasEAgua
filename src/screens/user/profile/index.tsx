@@ -1,15 +1,17 @@
 import { CustomHeader } from "@components/custom-header";
-import { useNavigation } from "@react-navigation/native";
-import { RootNavigatorRoutesProps } from "@routes/index";
 import { useUpdateProfile } from "@screens/user/profile/useUpdateProfile";
 import { StatusBar } from "expo-status-bar";
 import { Controller } from "react-hook-form";
 import { TouchableOpacity } from "react-native";
+import {
+  DEFAULT_CITY,
+  DEFAULT_ENGENHO,
+  ENGENHO_OPTIONS,
+} from "src/constants/localOptions";
 import theme from "src/styles/theme";
 import * as S from "./styles";
 
 export function UserProfile() {
-  const { navigate } = useNavigation<RootNavigatorRoutesProps>();
   const blurhash =
     "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
@@ -29,9 +31,6 @@ export function UserProfile() {
     setSelectedEngenho,
     username,
     email,
-    DEFAULT_CITY,
-    DEFAULT_ENGENHO,
-    ENGENHO_OPTIONS,
   } = useUpdateProfile();
 
   return (

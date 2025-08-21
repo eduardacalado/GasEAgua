@@ -8,9 +8,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
 import {
-    DEFAULT_CITY,
-    DEFAULT_ENGENHO,
-    ENGENHO_OPTIONS,
+  DEFAULT_CITY,
+  DEFAULT_ENGENHO,
 } from "src/constants/localOptions";
 import { postUpdateUser } from "src/services/user";
 import * as yup from "yup";
@@ -125,8 +124,5 @@ export function useUpdateProfile() {
     setSelectedEngenho,
     username,
     email,
-    DEFAULT_CITY,
-    DEFAULT_ENGENHO,
-    ENGENHO_OPTIONS,
   };
 }
