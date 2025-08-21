@@ -15,15 +15,24 @@ import Toast from "react-native-toast-message";
 import { formatToBRL } from "src/helpers/format-currency";
 import { getStock, postOrder } from "src/services/order";
 import theme from "src/styles/theme";
-import { ProductProps, StockData } from "src/types/stock";
+import { ProductName, ProductProps, StockData } from "src/types/stock";
 import * as S from "./styles";
 
 export function userCreateOrder() {
   const { params } = useRoute<RouteProp<UserRoutes, "userCreateOrder">>();
   const { navigate } = useNavigation<RootNavigatorRoutesProps>();
+
+  function handleDefaultOrderAmount(type: ProductName) {
+    if (type === params.type) {
+      return 1;
+    } 
+
+    return 0;
+  }
+
   const [isLoading, setIsLoading] = useState(false);
-  const [waterAmount, setWaterAmount] = useState(0);
-  const [gasAmount, setGasAmount] = useState(1);
+  const [waterAmount, setWaterAmount] = useState(handleDefaultOrderAmount("WATER"));
+  const [gasAmount, setGasAmount] = useState(handleDefaultOrderAmount("GAS"));
   const [stock, setStock] = useState<StockData>();
   const [stockLoading, setIsStockLoading] = useState(false);
   const {
@@ -45,6 +54,8 @@ export function userCreateOrder() {
 
     return formatToBRL(waterTotalValue + gasTotalValue);
   };
+
+
 
   async function handleGetStock() {
     setIsStockLoading(true);

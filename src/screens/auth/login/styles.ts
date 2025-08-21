@@ -8,7 +8,7 @@ export const ScrollViewContainer = styled.ScrollView`
 `;
 
 export const Container = styled.View`
-  padding: ${theme.size.m7};
+  padding: ${theme.size.m2};
   background-color: ${theme.colors.WHITE};
   border-radius: ${theme.size.m6};
   align-items: center;
@@ -18,25 +18,33 @@ export const Container = styled.View`
   elevation: 5;
 `;
 
+export const Title = styled.Text`
+  color: ${theme.colors.GRAY_300};
+  font-weight: ${theme.font.weight.bold};
+  font-size: ${theme.font.size.m7};
+  text-align: center;
+`;
+
 export const InputArea = styled.View`
-  padding: ${theme.size.m2};
+  padding: ${theme.size.base};
   width: 100%;
   align-items: center;
-  border-radius: ${theme.size.m7};
-  background-color: ${theme.colors.GRAY_200};
+  border-radius: ${theme.size.m4};
+  border: ${theme.colors.GRAY_200};
+  background-color: ${theme.colors.GRAY_100};
   flex-direction: row;
 `;
 
 export const Input = styled.TextInput`
   flex: 1;
   font-size: ${theme.size.m4};
-  margin-left: ${theme.size.m2};
+  margin-left: ${theme.size.base};
 `;
 
 export const LoginButton = styled(LinearGradient)`
   padding: ${theme.size.m2};
   width: 200px;
-  margin-top: ${theme.size.m9};
+  margin-top: ${theme.size.m5};
   align-items: center;
   border-radius: ${theme.size.m7};
 `;
