@@ -10,15 +10,18 @@ export const getStock = async (): Promise<StockData> => {
   return api.get("/stock").then((response) => response.data);
 };
 
-export const getOrders = async (): Promise<OrderProps[]> => {
-  return api.get("/orders/list/all").then((response) => response.data);
-};
-
-export const getUserOrders = async ({
+export const getOrders = async ({
   pageNumber,
   pageSize,
 }: getOrderProps): Promise<OrderProps[]> => {
   return api
-    .get(`/orders/user/list/${pageNumber}/${pageSize}`)
-    .then((response) => response.data.items);
+    .get("/orders", {
+      params: {
+        page: pageNumber,
+        size: pageSize,
+      },
+    })
+    .then((response) => {
+      return response.data.items;
+    });
 };
