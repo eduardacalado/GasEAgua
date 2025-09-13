@@ -7,7 +7,7 @@ import { OrderProps, OrderStatusProps } from "src/types/orders";
 
 export function useOrdersList() {
   const [orders, setOrders] = useState<OrderProps[]>([]);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<OrderStatusProps>();
   const [haveMoreOperations, setHaveMoreOperations] = useState(true);
   const [openDatePicker, setOpenDatePicker] = useState(false);
