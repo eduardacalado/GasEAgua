@@ -1,5 +1,5 @@
 import { CustomHeader } from "@components/custom-header";
-import { useUpdateProfile } from "@screens/user/profile/useUpdateProfile";
+import { useUpdateProfile } from "@screens/user/profile/use-update-profile";
 import { StatusBar } from "expo-status-bar";
 import { Controller } from "react-hook-form";
 import { TouchableOpacity } from "react-native";
