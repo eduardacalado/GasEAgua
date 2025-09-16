@@ -1,18 +1,32 @@
 export type OrderPayload = {
-  waterAmount: number;
-  gasAmount: number;
+  items: Array<{
+    id: number;
+    type: string;
+    quantity: number;
+  }>;
+  addons?: Array<{
+    id: number;
+    type: string;
+    quantity: number;
+  }>;
 };
 
 export type StockData = {
   items: StockItem[];
+  gas?: StockItem;
+  agua?: StockItem;
+  gasVessel?: StockItem;
+  aguaVessel?: StockItem;
 };
 
 export type StockItem = {
   id: number;
   value: number;
   name: string;
-  createdAt: string;
-  updatedAt: string;
+  type: string;
+  quantity: number;
+  created_at: string;
+  updated_at: string;
 };
 
 export type getOrderProps = {

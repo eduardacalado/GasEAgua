@@ -1,3 +1,4 @@
+import { config } from "@config/environment";
 import { store } from "@store/index";
 import { authActions } from "@store/modules/auth/slice";
 import { userActions } from "@store/modules/user/slice";
@@ -9,7 +10,7 @@ import axios, {
 } from "axios";
 
 const apiConfig = {
-  baseURL: "http://69.62.89.65:3333/",
+  baseURL: config.API_URL,
 };
 
 const api = axios.create(apiConfig);
@@ -17,6 +18,7 @@ const api = axios.create(apiConfig);
 api.interceptors.request.use(
   function (config: AxiosRequestConfig) {
     const token = store.getState().user.token;
+    console.log({ config });
 
     if (token && token !== "") {
       if (config.headers) {
@@ -36,6 +38,8 @@ api.interceptors.response.use(
     return response;
   },
   function (error: AxiosError<any>) {
+    console.log(JSON.stringify(error, null, 2));
+
     if (error.response?.status === 401) {
       store.dispatch(userActions.clearUserData());
       store.dispatch(authActions.clearAuthData());

@@ -3,12 +3,13 @@ export type UserDatesProps = {
   email: string;
   isAdmin: boolean;
   id: number;
-  address: {
+  addresses: {
     street: string;
     reference: string;
     number: string;
     local: string;
-  };
+    isDefault: boolean;
+  }[];
   telephone: string;
   password: string;
 };

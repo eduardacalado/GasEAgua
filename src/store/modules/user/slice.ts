@@ -5,9 +5,23 @@ type UserState = UserDates;
 
 const initialState: UserState = {
   token: "",
-  user: { id: "", isAdmin: false, email: "", name: "", address: {
-    street: "", reference: "", number: "", local: ""
-  } },
+  user: {
+    id: 0,
+    isAdmin: false,
+    email: "",
+    name: "",
+    telephone: "",
+    password: "",
+    addresses: [
+      {
+        street: "",
+        reference: "",
+        number: "",
+        local: "",
+        isDefault: false,
+      },
+    ],
+  },
 } as const;
 
 export const userSlice = createSlice({

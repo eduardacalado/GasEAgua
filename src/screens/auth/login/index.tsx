@@ -38,6 +38,10 @@ export function Login() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      email: "eduardogas2013@hotmail.com",
+      password: "eduardo@2304",
+    },
   });
 
   const handleLogin = async (data: yup.InferType<typeof schema>) => {
