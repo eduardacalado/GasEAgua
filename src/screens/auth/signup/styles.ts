@@ -1,3 +1,4 @@
+import { Picker } from "@react-native-picker/picker";
 import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
@@ -19,6 +20,20 @@ export const Container = styled.View`
   elevation: 5;
 `;
 
+export const SelectInput = styled(Picker)`
+  color: ${theme.colors.GRAY_500};
+  justify-content: center;
+  text-align: start;
+  font-size: ${theme.font.size.m6};
+  border-radius: ${theme.size.m1};
+  width: 100%;
+`;
+
+export const StreetNumberInputContainer = styled.View`
+  flex-direction: row;
+  gap: ${theme.size.m3};
+`;
+
 export const Title = styled.Text`
   color: ${theme.colors.GRAY_300};
   font-weight: ${theme.font.weight.bold};
@@ -34,6 +49,8 @@ export const InputArea = styled.View`
   border: ${theme.colors.GRAY_200};
   background-color: ${theme.colors.GRAY_100};
   flex-direction: row;
+  flex: 1;
+  max-height: 55px;
 `;
 
 export const Input = styled.TextInput`
