@@ -26,3 +26,9 @@ export const ordersFilter = ({ orders, status, date }: OrdersFilterProps) => {
 
   return orders;
 };
+
+export const NumberOrZero = (value?: unknown): number => {
+  const n = Number(value);
+  if (!Number.isFinite(n) || Number.isNaN(n)) return 0;
+  return n;
+};
