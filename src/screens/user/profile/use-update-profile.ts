@@ -66,7 +66,6 @@ export function useUpdateProfile() {
 
   function handleEditProfile() {
     setIsEditing(true);
-    console.log("Editing profile");
   }
 
   async function handleUpdateUserData() {
