@@ -1,6 +1,6 @@
 export type UserPayload = {
   username: string;
-  telephone: string;
+  telephone?: string;
   address: {
     street: string;
     reference: string;

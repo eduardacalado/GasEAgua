@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { authActions } from "@store/modules/auth/slice";
 import { userActions } from "@store/modules/user/slice";
-import { isAxiosError } from "axios";
+import { errorHandler } from "@utils/error-handler";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
@@ -69,17 +69,7 @@ export function useSignup() {
       dispatch(authActions.updateAuthStore({ isAuthenticated: true }));
       dispatch(userActions.saveUser(authDates));
     } catch (error) {
-      if (isAxiosError(error)) {
-        Toast.show({
-          type: "error",
-          text2: error.response?.data.message,
-        });
-      } else {
-        Toast.show({
-          type: "error",
-          text2: "Ocorreu um erro inesperado. Tente novamente mais tarde.",
-        });
-      }
+      errorHandler(error, "Erro ao cadastrar usuário.");
     } finally {
       setIsLoading(false);
     }

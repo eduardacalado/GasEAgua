@@ -7,10 +7,7 @@ import { safetyString } from "@utils/safety-string";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
-import {
-  DEFAULT_CITY,
-  DEFAULT_ENGENHO,
-} from "src/constants/localOptions";
+import { DEFAULT_CITY, DEFAULT_ENGENHO } from "src/constants/localOptions";
 import { postUpdateUser } from "src/services/user";
 import * as yup from "yup";
 
@@ -28,14 +25,17 @@ export function useUpdateProfile() {
   const dispatch = useAppDispatch();
 
   const {
-    user: { address, email, name: username, telephone },
+    user: { addresses = [], email, name: username, telephone },
   } = useAppSelector((state) => state.user);
 
+  const defaultAddress =
+    addresses.find((addr) => addr.isDefault) || addresses[0] || {};
+
   const [addressFields, setAddressFields] = useState({
-    street: safetyString(address?.street),
-    number: safetyString(address?.number),
-    reference: safetyString(address?.reference),
-    local: safetyString(address?.local, DEFAULT_CITY),
+    street: safetyString(defaultAddress?.street),
+    number: safetyString(defaultAddress?.number),
+    reference: safetyString(defaultAddress?.reference),
+    local: safetyString(defaultAddress?.local, DEFAULT_CITY),
   });
 
   const {
@@ -51,11 +51,13 @@ export function useUpdateProfile() {
     },
   });
 
-  const defaultLocal = address?.local || DEFAULT_CITY;
+  const defaultLocal = defaultAddress?.local || DEFAULT_CITY;
   const [mainLocal, setMainLocal] = useState(defaultLocal);
 
   const defaultEngenho =
-    address?.local !== DEFAULT_CITY ? address.local : DEFAULT_ENGENHO;
+    defaultAddress?.local !== DEFAULT_CITY
+      ? defaultAddress.local
+      : DEFAULT_ENGENHO;
   const [selectedEngenho, setSelectedEngenho] = useState(defaultEngenho);
 
   function handleLogout() {
@@ -89,18 +91,23 @@ export function useUpdateProfile() {
         };
       }
 
-      await postUpdateUser({
+      const updateData: any = {
         username,
-        telephone,
         address: addressToSend,
-      });
+      };
+
+      if (telephone && telephone.trim() !== "") {
+        updateData.telephone = telephone;
+      }
+
+      await postUpdateUser(updateData);
 
       Toast.show({
         type: "success",
         text1: "Dados atualizados com sucesso!",
       });
     } catch (error) {
-        errorHandler(error, "Erro ao atualizar os dados do usuário.");
+      errorHandler(error, "Erro ao atualizar os dados do usuário.");
     } finally {
       setIsLoading(false);
       setIsEditing(false);
@@ -123,5 +130,6 @@ export function useUpdateProfile() {
     setSelectedEngenho,
     username,
     email,
+    telephone,
   };
 }
