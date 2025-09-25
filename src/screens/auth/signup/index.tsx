@@ -23,6 +23,7 @@ export function SignUp() {
     setMainLocal,
     selectedEngenho,
     setSelectedEngenho,
+    setValue,
   } = useSignup();
   return (
     <LinearGradientBackground>
@@ -60,6 +61,9 @@ export function SignUp() {
                     onValueChange={(value: string) => {
                       onChange(value);
                       setMainLocal(value);
+                      if (value === DEFAULT_CITY) {
+                        setValue("address.local", DEFAULT_CITY);
+                      }
                     }}
                   >
                     <S.SelectInput.Item
@@ -83,9 +87,10 @@ export function SignUp() {
                   <S.InputArea>
                     <S.SelectInput
                       selectedValue={selectedEngenho}
-                      onValueChange={(value: string) =>
-                        setSelectedEngenho(value)
-                      }
+                      onValueChange={(value: string) => {
+                        setSelectedEngenho(value);
+                        onChange(value);
+                      }}
                     >
                       {ENGENHO_OPTIONS.map((option) => (
                         <S.SelectInput.Item

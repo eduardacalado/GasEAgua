@@ -38,8 +38,14 @@ export function useSignup() {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      address: {
+        local: DEFAULT_CITY,
+      },
+    },
   });
   async function handlePressHome(data: yup.InferType<typeof schema>) {
     const { username, email, password, phonenumber, address } = data;
@@ -68,6 +74,11 @@ export function useSignup() {
           type: "error",
           text2: error.response?.data.message,
         });
+      } else {
+        Toast.show({
+          type: "error",
+          text2: "Ocorreu um erro inesperado. Tente novamente mais tarde.",
+        });
       }
     } finally {
       setIsLoading(false);
@@ -84,5 +95,6 @@ export function useSignup() {
     setMainLocal,
     selectedEngenho,
     setSelectedEngenho,
+    setValue,
   };
 }
