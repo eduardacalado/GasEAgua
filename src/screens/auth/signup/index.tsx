@@ -80,29 +80,23 @@ export function SignUp() {
             />
 
             {mainLocal === DEFAULT_ENGENHO && (
-              <Controller
-                control={control}
-                name="address.local"
-                render={({ field: { onChange, value } }) => (
-                  <S.InputArea>
-                    <S.SelectInput
-                      selectedValue={selectedEngenho}
-                      onValueChange={(value: string) => {
-                        setSelectedEngenho(value);
-                        onChange(value);
-                      }}
-                    >
-                      {ENGENHO_OPTIONS.map((option) => (
-                        <S.SelectInput.Item
-                          key={option}
-                          label={option}
-                          value={option}
-                        />
-                      ))}
-                    </S.SelectInput>
-                  </S.InputArea>
-                )}
-              />
+              <S.InputArea>
+                <S.SelectInput
+                  selectedValue={selectedEngenho}
+                  onValueChange={(value: string) => {
+                    setSelectedEngenho(value);
+                    setValue("address.local", value);
+                  }}
+                >
+                  {ENGENHO_OPTIONS.map((option) => (
+                    <S.SelectInput.Item
+                      key={option}
+                      label={option}
+                      value={option}
+                    />
+                  ))}
+                </S.SelectInput>
+              </S.InputArea>
             )}
 
             {mainLocal !== DEFAULT_ENGENHO && (
