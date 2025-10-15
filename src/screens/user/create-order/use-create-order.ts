@@ -1,9 +1,8 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RootNavigatorRoutesProps } from "@routes/index";
 import { UserRoutes } from "@routes/user.routes";
-import { isAxiosError } from "axios";
+import { errorHandler } from "@utils/error-handler";
 import React, { useEffect, useMemo, useState } from "react";
-import Toast from "react-native-toast-message";
 import { formatToBRL } from "src/helpers/format-currency";
 import { getAddons } from "src/services/addon";
 import { getStock } from "src/services/order";
@@ -87,12 +86,10 @@ export const useCreateOrder = () => {
       setProducts(data.items || []);
       setAddons(addonsData || []);
     } catch (error) {
-      if (isAxiosError(error)) {
-        Toast.show({
-          type: "error",
-          text2: error.response?.data.message,
-        });
-      }
+      errorHandler(
+        error,
+        "Erro ao criar o pedido. Tente novamente mais tarde."
+      );
     } finally {
       setIsStockLoading(false);
     }
