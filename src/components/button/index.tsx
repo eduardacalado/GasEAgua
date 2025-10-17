@@ -3,13 +3,13 @@ import theme from "src/styles/theme";
 import * as S from "./styles";
 
 type ButtonProps = {
-  isLoading: boolean;
+  isLoading?: boolean;
   color: string;
 } & TouchableOpacityProps;
 
 export const Button = ({
   onPress,
-  isLoading,
+  isLoading = false,
   children,
   color = theme.colors.ORANGE_200,
   ...props

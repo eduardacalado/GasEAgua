@@ -8,7 +8,8 @@ import {
 import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { ProductName } from "src/types/stock";
-import { userCreateOrder } from "../screens/user/order";
+import { UserCreateOrder } from "../screens/user/create-order";
+import { OrderAddress } from "../screens/user/order-address";
 import { UserProfile } from "../screens/user/profile";
 import { UserBottomTabRoutes } from "./user-bottom-tab.routes";
 
@@ -16,6 +17,24 @@ export type UserRoutes = {
   userHome: undefined;
   schedule: undefined;
   userCreateOrder: { type: ProductName };
+  orderAddress: {
+    type: ProductName;
+    orderPayload: {
+      items: Array<{
+        id: number;
+        type: string;
+        name: string;
+        quantity: number;
+      }>;
+      addons?: Array<{
+        id: number;
+        type: string;
+        name: string;
+        quantity: number;
+      }>;
+    };
+    totalValue: string;
+  };
   userProfile: undefined;
 };
 
@@ -55,7 +74,8 @@ export function UserRoutes() {
             animation: "slide_from_right",
           }}
         />
-        <Screen name="userCreateOrder" component={userCreateOrder} />
+        <Screen name="userCreateOrder" component={UserCreateOrder} />
+        <Screen name="orderAddress" component={OrderAddress} />
         <Screen name="userProfile" component={UserProfile} />
       </Navigator>
     </LinearGradientBackground>
