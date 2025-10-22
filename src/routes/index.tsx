@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthRoutes } from "./auth.routes";
 import { UserRoutes } from "./user.routes";
+import { AdminRoutes } from "./admin.routes";
 
 export type RootNavigatorRoutesProps = NativeStackNavigationProp<
   AuthRoutes & UserRoutes
@@ -12,11 +13,11 @@ export function RootRoutes() {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const {
-    user: { isAdmin },
+    user: { role },
   } = useAppSelector((state) => state.user);
 
-  // const authenticatedRoutes = !isAdmin && <UserRoutes />;
-  const authenticatedRoutes = <UserRoutes />;
+  const authenticatedRoutes =
+    role === "ADMIN" ? <AdminRoutes /> : <UserRoutes />;
 
   return (
     <>

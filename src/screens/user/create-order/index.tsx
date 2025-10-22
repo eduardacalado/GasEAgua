@@ -34,6 +34,7 @@ export function UserCreateOrder() {
     name: string;
     value: number;
   }) => {
+    console.log("addon", addon.value);
     const subtotal =
       NumberOrZero(addonQuantities[addon.id]) * NumberOrZero(addon.value);
     return (
