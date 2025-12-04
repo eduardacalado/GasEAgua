@@ -7,27 +7,45 @@ import { AdminNavigatorRoutesProps } from "../../../routes/admin.routes";
 import * as S from "./styles";
 
 export function Home() {
-  const navigation = useNavigation<AdminNavigatorRoutesProps>();
-
   const {
     user: { name },
   } = useAppSelector((state) => state.user);
 
   const formattedName = name?.split(" ")?.[0];
-
-  const handlePressProfile = () => {
-    navigation.navigate("userProfile");
-  };
-
-  const blurhash =
-    "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
-
   return (
     <LinearGradientBackground>
       <S.SafeAreaViewContainer>
         <StatusBar style="light" />
 
         <S.Title>Olá, {formattedName}!</S.Title>
+
+        <S.SubTitle>Como estão as vendas hoje?</S.SubTitle>
+
+        <S.AnalysisContainer>
+          <S.DataContainer>
+            <S.DataItem>Total de pedidos feitos pelo aplicativo</S.DataItem>
+            <S.DataItemValueTextContainer>
+              <S.DataItemValue>10</S.DataItemValue>
+              <S.DataItemValueText>pedidos feitos hoje</S.DataItemValueText>
+            </S.DataItemValueTextContainer>
+          </S.DataContainer>
+          <S.GasAndWaterAnalysisContainer>
+            <S.DataContainer>
+              <S.DataItem>Total de pedidos de água</S.DataItem>
+              <S.DataItemValueTextContainer>
+                <S.DataItemValue>6</S.DataItemValue>
+                <S.DataItemValueText>pedidos feitos hoje</S.DataItemValueText>
+              </S.DataItemValueTextContainer>
+            </S.DataContainer>
+            <S.DataContainer>
+              <S.DataItem>Total de pedidos de gás</S.DataItem>
+              <S.DataItemValueTextContainer>
+                <S.DataItemValue>4</S.DataItemValue>
+                <S.DataItemValueText>pedidos feitos hoje</S.DataItemValueText>
+              </S.DataItemValueTextContainer>
+            </S.DataContainer>
+          </S.GasAndWaterAnalysisContainer>
+        </S.AnalysisContainer>
       </S.SafeAreaViewContainer>
     </LinearGradientBackground>
   );
