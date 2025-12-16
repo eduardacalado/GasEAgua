@@ -22,8 +22,9 @@ export const SubTitle = styled.Text`
 
 export const AnalysisContainer = styled.View`
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: ${theme.size.m5};
+  width: 100%;
 `;
 
 export const DataContainer = styled.View`
@@ -31,7 +32,6 @@ export const DataContainer = styled.View`
   border-radius: ${theme.size.m6};
   padding: ${theme.size.m6};
   elevation: 5;
-  flex: 1;
 `;
 
 export const DataItem = styled.Text`
@@ -63,6 +63,11 @@ export const DataItemValueTextContainer = styled.View`
 
 export const GasAndWaterAnalysisContainer = styled.View`
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   gap: ${theme.size.m2};
+  width: 100%;
+`;
+
+export const SideBySideDataContainer = styled(DataContainer)`
+  flex: 1;
 `;

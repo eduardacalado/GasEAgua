@@ -30,20 +30,20 @@ export function Home() {
             </S.DataItemValueTextContainer>
           </S.DataContainer>
           <S.GasAndWaterAnalysisContainer>
-            <S.DataContainer>
+            <S.SideBySideDataContainer>
               <S.DataItem>Total de pedidos de água</S.DataItem>
               <S.DataItemValueTextContainer>
                 <S.DataItemValue>6</S.DataItemValue>
                 <S.DataItemValueText>pedidos feitos hoje</S.DataItemValueText>
               </S.DataItemValueTextContainer>
-            </S.DataContainer>
-            <S.DataContainer>
+            </S.SideBySideDataContainer>
+            <S.SideBySideDataContainer>
               <S.DataItem>Total de pedidos de gás</S.DataItem>
               <S.DataItemValueTextContainer>
                 <S.DataItemValue>4</S.DataItemValue>
                 <S.DataItemValueText>pedidos feitos hoje</S.DataItemValueText>
               </S.DataItemValueTextContainer>
-            </S.DataContainer>
+            </S.SideBySideDataContainer>
           </S.GasAndWaterAnalysisContainer>
         </S.AnalysisContainer>
       </S.SafeAreaViewContainer>
