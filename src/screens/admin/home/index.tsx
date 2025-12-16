@@ -1,9 +1,6 @@
 import { useAppSelector } from "@hooks/useAppSelector";
-import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { ProductName } from "src/types/stock";
 import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
-import { AdminNavigatorRoutesProps } from "../../../routes/admin.routes";
 import * as S from "./styles";
 
 export function Home() {
@@ -45,6 +42,29 @@ export function Home() {
               </S.DataItemValueTextContainer>
             </S.SideBySideDataContainer>
           </S.GasAndWaterAnalysisContainer>
+          <S.GasAndWaterAnalysisContainer>
+            <S.SideBySideDataContainer>
+              <S.DataItem>Estoque de água</S.DataItem>
+              <S.DataItemValueTextContainer>
+                <S.DataItemValue>50</S.DataItemValue>
+                <S.DataItemValueText>unidades</S.DataItemValueText>
+              </S.DataItemValueTextContainer>
+            </S.SideBySideDataContainer>
+            <S.SideBySideDataContainer>
+              <S.DataItem>Estoque de gás</S.DataItem>
+              <S.DataItemValueTextContainer>
+                <S.DataItemValue>30</S.DataItemValue>
+                <S.DataItemValueText>unidades</S.DataItemValueText>
+              </S.DataItemValueTextContainer>
+            </S.SideBySideDataContainer>
+          </S.GasAndWaterAnalysisContainer>
+          <S.DataContainer>
+            <S.DataItem>Total apurado</S.DataItem>
+            <S.DataItemValueTextContainer>
+              <S.DataItemValue>R$ 10000,00</S.DataItemValue>
+              <S.DataItemValueText>Reais</S.DataItemValueText>
+            </S.DataItemValueTextContainer>
+          </S.DataContainer>
         </S.AnalysisContainer>
       </S.SafeAreaViewContainer>
     </LinearGradientBackground>
