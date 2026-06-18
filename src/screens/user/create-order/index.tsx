@@ -36,6 +36,7 @@ export function UserCreateOrder() {
   }) => {
     const subtotal =
       NumberOrZero(addonQuantities[addon.id]) * NumberOrZero(addon.value);
+
     return (
       <S.AddonItemContainer key={`addon-${addon.id}`}>
         <S.AddonItemTopContainer>
