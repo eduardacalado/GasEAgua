@@ -2,8 +2,8 @@ import { useAppSelector } from "@hooks/useAppSelector";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
 import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
-import { useAdminHome } from "./use-admin-home";
 import * as S from "./styles";
+import { useAdminHome } from "./use-admin-home";
 
 export function Home() {
   const {
@@ -39,7 +39,9 @@ export function Home() {
             <S.DataContainer>
               <S.DataItem>Total de pedidos feitos pelo aplicativo</S.DataItem>
               <S.DataItemValueTextContainer>
-                <S.DataItemValue>{dashboardData.totalOrdersToday}</S.DataItemValue>
+                <S.DataItemValue>
+                  {dashboardData.totalOrdersToday}
+                </S.DataItemValue>
                 <S.DataItemValueText>pedidos feitos hoje</S.DataItemValueText>
               </S.DataItemValueTextContainer>
             </S.DataContainer>
@@ -47,14 +49,18 @@ export function Home() {
               <S.SideBySideDataContainer>
                 <S.DataItem>Total de pedidos de água</S.DataItem>
                 <S.DataItemValueTextContainer>
-                  <S.DataItemValue>{dashboardData.waterOrdersToday}</S.DataItemValue>
+                  <S.DataItemValue>
+                    {dashboardData.waterOrdersToday}
+                  </S.DataItemValue>
                   <S.DataItemValueText>pedidos feitos hoje</S.DataItemValueText>
                 </S.DataItemValueTextContainer>
               </S.SideBySideDataContainer>
               <S.SideBySideDataContainer>
                 <S.DataItem>Total de pedidos de gás</S.DataItem>
                 <S.DataItemValueTextContainer>
-                  <S.DataItemValue>{dashboardData.gasOrdersToday}</S.DataItemValue>
+                  <S.DataItemValue>
+                    {dashboardData.gasOrdersToday}
+                  </S.DataItemValue>
                   <S.DataItemValueText>pedidos feitos hoje</S.DataItemValueText>
                 </S.DataItemValueTextContainer>
               </S.SideBySideDataContainer>
@@ -63,14 +69,18 @@ export function Home() {
               <S.SideBySideDataContainer>
                 <S.DataItem>Estoque de água</S.DataItem>
                 <S.DataItemValueTextContainer>
-                  <S.DataItemValue>{dashboardData.waterStockQuantity}</S.DataItemValue>
+                  <S.DataItemValue>
+                    {dashboardData.waterStockQuantity}
+                  </S.DataItemValue>
                   <S.DataItemValueText>unidades</S.DataItemValueText>
                 </S.DataItemValueTextContainer>
               </S.SideBySideDataContainer>
               <S.SideBySideDataContainer>
                 <S.DataItem>Estoque de gás</S.DataItem>
                 <S.DataItemValueTextContainer>
-                  <S.DataItemValue>{dashboardData.gasStockQuantity}</S.DataItemValue>
+                  <S.DataItemValue>
+                    {dashboardData.gasStockQuantity}
+                  </S.DataItemValue>
                   <S.DataItemValueText>unidades</S.DataItemValueText>
                 </S.DataItemValueTextContainer>
               </S.SideBySideDataContainer>

@@ -8,11 +8,10 @@ import {
 import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { ProductName } from "src/types/stock";
+import { OrderDetailScreen } from "../screens/order-detail";
 import { UserCreateOrder } from "../screens/user/create-order";
 import { OrderAddress } from "../screens/user/order-address";
 import { UserProfile } from "../screens/user/profile";
-import { OrderDetailScreen } from "../screens/order-detail";
-import { UserBottomTabRoutes } from "./user-bottom-tab.routes";
 import { AdminBottomTabRoutes } from "./admin-bottom-tab.routes";
 
 export type AdminRoutes = {
