@@ -8,7 +8,7 @@ import {
 import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { ProductName } from "src/types/stock";
-import { OrderDetailScreen } from "../screens/order-detail";
+import { AdminOrderDetailScreen } from "../screens/admin/order-detail";
 import { UserCreateOrder } from "../screens/user/create-order";
 import { OrderAddress } from "../screens/user/order-address";
 import { UserProfile } from "../screens/user/profile";
@@ -79,7 +79,7 @@ export function AdminRoutes() {
         <Screen name="userCreateOrder" component={UserCreateOrder} />
         <Screen name="orderAddress" component={OrderAddress} />
         <Screen name="userProfile" component={UserProfile} />
-        <Screen name="orderDetail" component={OrderDetailScreen} />
+        <Screen name="orderDetail" component={AdminOrderDetailScreen} />
       </Navigator>
     </LinearGradientBackground>
   );

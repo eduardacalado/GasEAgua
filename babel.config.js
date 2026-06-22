@@ -1,5 +1,8 @@
 module.exports = function (api) {
-  api.cache(true);
+  const appEnvironment = process.env.APP_ENV || "develop";
+
+  api.cache.using(() => appEnvironment);
+
   return {
     presets: ["babel-preset-expo"],
     plugins: [
@@ -28,7 +31,7 @@ module.exports = function (api) {
         {
           envName: "APP_ENV",
           moduleName: "@env",
-          path: ".env",
+          path: `.env.${appEnvironment}`,
           verbose: false,
         },
       ],

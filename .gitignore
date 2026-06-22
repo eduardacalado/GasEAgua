@@ -12,6 +12,8 @@ web-build/
 
 .env
 !.env.example
+!.env.develop
+!.env.prd
 
 # macOS
 .DS_Store

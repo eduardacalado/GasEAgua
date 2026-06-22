@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "expo start -c",
-    "android": "expo start --android -c",
-    "ios": "expo start --ios -c",
+    "start:dev": "APP_ENV=develop expo start -c",
+    "start:prd": "APP_ENV=prd expo start -c",
     "web": "expo start --web",
     "reset-project": "node ./scripts/reset-project.js",
     "test": "jest --watchAll",

@@ -4,27 +4,27 @@ import {
   getOrderStatusSurfaceColor,
 } from "src/helpers/order-status";
 import theme from "src/styles/theme";
-import { OrderStatusProps } from "src/types/orders";
-import * as S from "./styles";
+import { OrderDetailProps, OrderStatusProps } from "src/types/orders";
+import * as S from "../styles";
 
 type OrderStatusOption = {
   label: string;
   value: OrderStatusProps;
 };
 
-type OrderStatusSelectProps = {
+type StatusSelectProps = {
   value: OrderStatusProps;
   options: OrderStatusOption[];
   disabled?: boolean;
   onChange: (status: OrderStatusProps) => void;
 };
 
-export function OrderStatusSelect({
+function StatusSelect({
   value,
   options,
   disabled,
   onChange,
-}: OrderStatusSelectProps) {
+}: StatusSelectProps) {
   const selectedStatusColor = getOrderStatusColor(value);
   const selectedStatusSurface = getOrderStatusSurfaceColor(value);
 
@@ -85,5 +85,31 @@ export function OrderStatusSelect({
         }}
       />
     </S.StatusDropdown>
+  );
+}
+
+type OrderDetailStatusActionProps = {
+  orderDetail: OrderDetailProps;
+  orderStatusOptions: Array<{ label: string; value: OrderStatusProps }>;
+  isUpdatingStatus: boolean;
+  onStatusChange: (status: OrderStatusProps) => void;
+};
+
+export function OrderDetailStatusAction({
+  orderDetail,
+  orderStatusOptions,
+  isUpdatingStatus,
+  onStatusChange,
+}: OrderDetailStatusActionProps) {
+  return (
+    <S.StatusActionCard>
+      <S.StatusActionLabel>Alterar status do pedido</S.StatusActionLabel>
+      <StatusSelect
+        value={orderDetail.status}
+        options={orderStatusOptions}
+        disabled={isUpdatingStatus}
+        onChange={onStatusChange}
+      />
+    </S.StatusActionCard>
   );
 }
