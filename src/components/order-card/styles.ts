@@ -8,6 +8,20 @@ export const CardContent = styled.View`
   gap: 20px;
 `;
 
+export const CardSurface = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.85,
+})`
+  background-color: ${theme.colors.WHITE};
+  border-radius: 10px;
+  padding: 18px;
+  width: 100%;
+  elevation: 5;
+  shadow-color: #000;
+  shadow-opacity: 0.1;
+  shadow-radius: 5px;
+  shadow-offset: 2px 2px;
+`;
+
 export const CardRowsContainer = styled.View`
   gap: 10px;
 `;
@@ -25,7 +39,7 @@ export const CardText = styled.Text`
 `;
 
 export const LeftActionContainer = styled.View`
-  height: 100%;
+  flex: 1;
   border-radius: 10px;
   width: 80px;
   background-color: ${theme.colors.RED_100};
@@ -40,7 +54,7 @@ export const Divider = styled.View`
 `;
 
 export const RightActionContainer = styled.View`
-  height: 100%;
+  flex: 1;
   border-radius: 10px;
   width: 80px;
   background-color: ${theme.colors.GREEN};

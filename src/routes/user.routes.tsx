@@ -11,6 +11,7 @@ import { ProductName } from "src/types/stock";
 import { UserCreateOrder } from "../screens/user/create-order";
 import { OrderAddress } from "../screens/user/order-address";
 import { UserProfile } from "../screens/user/profile";
+import { OrderDetailScreen } from "../screens/order-detail";
 import { UserBottomTabRoutes } from "./user-bottom-tab.routes";
 
 export type UserRoutes = {
@@ -36,6 +37,7 @@ export type UserRoutes = {
     totalValue: string;
   };
   userProfile: undefined;
+  orderDetail: { orderId: number };
 };
 
 export type UserNavigatorRoutesProps = NativeStackNavigationProp<UserRoutes>;
@@ -77,6 +79,7 @@ export function UserRoutes() {
         <Screen name="userCreateOrder" component={UserCreateOrder} />
         <Screen name="orderAddress" component={OrderAddress} />
         <Screen name="userProfile" component={UserProfile} />
+        <Screen name="orderDetail" component={OrderDetailScreen} />
       </Navigator>
     </LinearGradientBackground>
   );

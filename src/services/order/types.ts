@@ -32,4 +32,10 @@ export type StockItem = {
 export type getOrderProps = {
   pageNumber: number;
   pageSize: number;
+  scope?: "me" | "all";
+};
+
+export type ConcludeOrderPayload = {
+  orderId: number;
+  status: "INICIADO" | "FINALIZADO" | "PENDENTE" | "CANCELADO";
 };

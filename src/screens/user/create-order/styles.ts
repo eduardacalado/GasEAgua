@@ -96,6 +96,11 @@ export const OrderTitle = styled.Text`
   font-weight: ${theme.font.weight.bold};
 `;
 
+export const UnavailableStockMessage = styled(OrderTitle)`
+  text-align: center;
+  padding: ${theme.size.m8} ${theme.size.m4};
+`;
+
 export const ValueText = styled.Text`
   color: ${theme.colors.GRAY_700};
   font-size: ${theme.font.size.m5};

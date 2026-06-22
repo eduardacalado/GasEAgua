@@ -14,7 +14,7 @@ type OrderListProps = {
   onRefresh: () => void;
   onEndList?: () => void;
   refreshing: boolean;
-  listHeaderComponent: React.ReactElement | null;
+  listHeaderComponent?: React.ReactElement | null;
   itemSeparatorComponent: React.ComponentType<any>;
   rightButtonAction?: (id: string) => void;
   leftButtonAction?: (id: string) => void;
