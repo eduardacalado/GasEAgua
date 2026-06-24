@@ -1,12 +1,19 @@
+import { API_URL, APP_ENV } from "@env";
+
+export type AppEnvironment = "develop" | "prd";
+
+const appEnvironment = (APP_ENV || "develop") as AppEnvironment;
+
 export const config = {
-  API_URL: process.env.API_URL,
-  NODE_ENV: process.env.NODE_ENV || "development",
+  API_URL,
+  appEnvironment,
 };
 
 if (!config.API_URL) {
-  throw new Error("API_URL é obrigatória. Configure no arquivo .env");
+  throw new Error(
+    "API_URL é obrigatória. Use yarn start:dev ou yarn start:prd."
+  );
 }
 
-export const isDevelopment = config.NODE_ENV === "development";
-export const isTest = config.NODE_ENV === "test";
-export const isProduction = config.NODE_ENV === "production";
+export const isDevelopEnvironment = config.appEnvironment === "develop";
+export const isProductionEnvironment = config.appEnvironment === "prd";

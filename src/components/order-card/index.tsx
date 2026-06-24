@@ -14,6 +14,7 @@ export type CardProps = {
   username?: string;
   rightAction?: () => void;
   leftAction?: () => void;
+  onPress?: () => void;
 };
 
 type UserOrderCardProps = OrderProps & CardProps;
@@ -25,11 +26,16 @@ export const OrderCard = ({
   showUserName,
   rightAction,
   leftAction,
+  onPress,
   waterAmount,
   gasAmount,
   total,
 }: UserOrderCardProps) => {
   const leftSwipe = () => {
+    if (!leftAction) {
+      return null;
+    }
+
     return (
       <TouchableOpacity onPress={leftAction} activeOpacity={0.6}>
         <S.LeftActionContainer>
@@ -40,8 +46,16 @@ export const OrderCard = ({
   };
 
   const rightSwipe = () => {
+    if (!rightAction) {
+      return null;
+    }
+
     return (
-      <TouchableOpacity onPress={rightAction} activeOpacity={0.6}>
+      <TouchableOpacity
+        onPress={rightAction}
+        activeOpacity={0.6}
+        style={{ alignSelf: "stretch" }}
+      >
         <S.RightActionContainer>
           <Entypo name="check" size={40} color={theme.colors.WHITE} />
         </S.RightActionContainer>
@@ -70,67 +84,62 @@ export const OrderCard = ({
 
   return (
     <Swipeable
-      renderLeftActions={leftSwipe}
-      renderRightActions={rightSwipe}
-      enabled={rightAction || leftAction ? true : false}
+      renderLeftActions={leftAction ? leftSwipe : undefined}
+      renderRightActions={rightAction ? rightSwipe : undefined}
+      enabled={Boolean(rightAction || leftAction)}
       friction={2}
       overshootLeft={false}
       overshootRight={false}
       containerStyle={{
-        backgroundColor: theme.colors.WHITE,
-        elevation: 5,
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
-        shadowOffset: { height: 2, width: 2 },
         borderRadius: 10,
-        padding: 18,
-        justifyContent: "center",
-        alignItems: "center",
+        overflow: "hidden",
       }}
     >
-      <S.CardContent>
-        <OrderStatusText status={status} />
-        {isExpired && (
-          <S.Badge>
-            <CustomText
-              color={theme.colors.WHITE}
-              fontWeight={theme.font.weight.bold}
-            >
-              Vencido
-            </CustomText>
-          </S.Badge>
-        )}
-        <S.CardRowsContainer>
-          <S.CardRowContainer>
-            <S.CardText>Data do pedido</S.CardText>
-            <S.CardText>
-              {dayjs(updated_at).format("DD/MM/YYYY")}{" "}
-              {dayjs(updated_at).format("HH:mm")}
-            </S.CardText>
-          </S.CardRowContainer>
-          <S.Divider />
-          <S.CardRowContainer>
-            <S.CardText>Vencimento</S.CardText>
-            <CustomText
-              color={isExpired ? theme.colors.RED_100 : theme.colors.GRAY_600}
-              fontWeight={theme.font.weight.extrabold}
-            >
-              {expirationDate}{" "}
-            </CustomText>
-          </S.CardRowContainer>
-          <S.Divider />
-          <S.CardRowContainer>
-            <S.CardText>Descrição</S.CardText>
-            <S.CardText>{productsDescription}</S.CardText>
-            {showUserName && <S.CardText>{username}</S.CardText>}
-          </S.CardRowContainer>
-          <S.Divider />
-          <S.CardRowContainer>
-            <S.CardText>Valor</S.CardText>
-            <S.CardText>{formatToBRL(total)}</S.CardText>
-          </S.CardRowContainer>
-        </S.CardRowsContainer>
-      </S.CardContent>
+      <S.CardSurface onPress={onPress} disabled={!onPress}>
+        <S.CardContent>
+          <OrderStatusText status={status} />
+          {isExpired && (
+            <S.Badge>
+              <CustomText
+                color={theme.colors.WHITE}
+                fontWeight={theme.font.weight.bold}
+              >
+                Vencido
+              </CustomText>
+            </S.Badge>
+          )}
+          <S.CardRowsContainer>
+            <S.CardRowContainer>
+              <S.CardText>Data do pedido</S.CardText>
+              <S.CardText>
+                {dayjs(updated_at).format("DD/MM/YYYY")}{" "}
+                {dayjs(updated_at).format("HH:mm")}
+              </S.CardText>
+            </S.CardRowContainer>
+            <S.Divider />
+            <S.CardRowContainer>
+              <S.CardText>Vencimento</S.CardText>
+              <CustomText
+                color={isExpired ? theme.colors.RED_100 : theme.colors.GRAY_600}
+                fontWeight={theme.font.weight.extrabold}
+              >
+                {expirationDate}{" "}
+              </CustomText>
+            </S.CardRowContainer>
+            <S.Divider />
+            <S.CardRowContainer>
+              <S.CardText>Descrição</S.CardText>
+              <S.CardText>{productsDescription}</S.CardText>
+              {showUserName && <S.CardText>{username}</S.CardText>}
+            </S.CardRowContainer>
+            <S.Divider />
+            <S.CardRowContainer>
+              <S.CardText>Valor</S.CardText>
+              <S.CardText>{formatToBRL(total)}</S.CardText>
+            </S.CardRowContainer>
+          </S.CardRowsContainer>
+        </S.CardContent>
+      </S.CardSurface>
     </Swipeable>
   );
 };

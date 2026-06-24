@@ -18,6 +18,7 @@ const theme = {
     ORANGE_300: "#ED4200",
 
     GREEN: "#68D391",
+    BLUE: "#4299E1",
   },
   font: {
     lineHeight: {

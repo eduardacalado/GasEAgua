@@ -6,6 +6,16 @@ export const SafeAreaViewContainer = styled.View`
   padding: ${theme.size.m7};
 `;
 
+export const ScrollViewContainer = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+    paddingBottom: 100,
+  },
+  showsVerticalScrollIndicator: false,
+})`
+  flex: 1;
+`;
+
 export const Title = styled.Text`
   color: ${theme.colors.WHITE};
   font-size: ${theme.font.size.m9};

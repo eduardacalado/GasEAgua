@@ -10,7 +10,9 @@ type OrdersFilterProps = {
 export const ordersFilter = ({ orders, status, date }: OrdersFilterProps) => {
   if (date && status) {
     return orders.filter(
-      (order) => order.status === status && dayjs().isSame(date, "day")
+      (order) =>
+        order.status === status &&
+        dayjs(order.updated_at).isSame(date, "day")
     );
   }
 

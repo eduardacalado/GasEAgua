@@ -13,7 +13,7 @@ export const useCreateOrder = () => {
 
   const [stockLoading, setIsStockLoading] = useState(false);
   const [products, setProducts] = useState<
-    Array<{ id: number; name: string; value: number; type: string }>
+    Array<{ id: number; name: string; value: number; type: string; quantity: number }>
   >([]);
   const [addons, setAddons] = useState<
     Array<{ id: number; name: string; value: number; type: string }>
@@ -29,16 +29,34 @@ export const useCreateOrder = () => {
   const updateQuantity = (
     id: number,
     change: number,
-    setter: React.Dispatch<React.SetStateAction<Record<number, number>>>
+    setter: React.Dispatch<React.SetStateAction<Record<number, number>>>,
+    maxQuantity?: number
   ) => {
-    setter((prev) => ({
-      ...prev,
-      [id]: Math.max(0, (prev[id] || 0) + change),
-    }));
+    setter((prev) => {
+      const currentQuantity = prev[id] || 0;
+      const nextQuantity = currentQuantity + change;
+      const limitedQuantity =
+        maxQuantity !== undefined
+          ? Math.min(nextQuantity, maxQuantity)
+          : nextQuantity;
+
+      return {
+        ...prev,
+        [id]: Math.max(0, limitedQuantity),
+      };
+    });
   };
 
-  const incrementProduct = (id: number) =>
-    updateQuantity(id, 1, setProductQuantities);
+  const incrementProduct = (productId: number) => {
+    const selectedProduct = products.find((product) => product.id === productId);
+
+    updateQuantity(
+      productId,
+      1,
+      setProductQuantities,
+      selectedProduct?.quantity
+    );
+  };
   const decrementProduct = (id: number) =>
     updateQuantity(id, -1, setProductQuantities);
   const incrementAddon = (id: number) =>
@@ -75,6 +93,11 @@ export const useCreateOrder = () => {
     );
     return productsCount + addonsCount;
   }, [productQuantities, addonQuantities]);
+
+  const hasAvailableStock = useMemo(
+    () => products.some((product) => product.quantity > 0),
+    [products]
+  );
 
   async function handleGetStock() {
     setIsStockLoading(true);
@@ -142,7 +165,7 @@ export const useCreateOrder = () => {
         (product) => product.type === params.type
       );
 
-      if (selectedProduct) {
+      if (selectedProduct && selectedProduct.quantity > 0) {
         setProductQuantities((prev) => ({
           ...prev,
           [selectedProduct.id]: 1,
@@ -160,6 +183,7 @@ export const useCreateOrder = () => {
     navigateToOrderAddress,
     total,
     totalItemsCount,
+    hasAvailableStock,
     incrementProduct,
     decrementProduct,
     incrementAddon,

@@ -8,10 +8,10 @@ import {
 import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { ProductName } from "src/types/stock";
+import { AdminOrderDetailScreen } from "../screens/admin/order-detail";
 import { UserCreateOrder } from "../screens/user/create-order";
 import { OrderAddress } from "../screens/user/order-address";
 import { UserProfile } from "../screens/user/profile";
-import { UserBottomTabRoutes } from "./user-bottom-tab.routes";
 import { AdminBottomTabRoutes } from "./admin-bottom-tab.routes";
 
 export type AdminRoutes = {
@@ -37,6 +37,7 @@ export type AdminRoutes = {
     totalValue: string;
   };
   userProfile: undefined;
+  orderDetail: { orderId: number };
 };
 
 export type AdminNavigatorRoutesProps = NativeStackNavigationProp<AdminRoutes>;
@@ -78,6 +79,7 @@ export function AdminRoutes() {
         <Screen name="userCreateOrder" component={UserCreateOrder} />
         <Screen name="orderAddress" component={OrderAddress} />
         <Screen name="userProfile" component={UserProfile} />
+        <Screen name="orderDetail" component={AdminOrderDetailScreen} />
       </Navigator>
     </LinearGradientBackground>
   );

@@ -4,7 +4,7 @@ import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import { OrderTotal } from "@components/order-total";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { StatusBar } from "expo-status-bar";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { formatToBRL } from "src/helpers/format-currency";
 import { NumberOrZero } from "src/helpers/utils";
 import theme from "src/styles/theme";
@@ -26,6 +26,7 @@ export function UserCreateOrder() {
     incrementAddon,
     decrementAddon,
     totalItemsCount,
+    hasAvailableStock,
     params,
   } = useCreateOrder();
 
@@ -74,14 +75,21 @@ export function UserCreateOrder() {
     id: number;
     name: string;
     value: number;
+    quantity: number;
   }) => {
     const qty = NumberOrZero(productQuantities[item.id]);
     const unit = NumberOrZero(item.value);
     const subtotal = qty * unit;
+    const isProductOutOfStock = item.quantity <= 0;
+    const hasReachedStockLimit = qty >= item.quantity;
+
     return (
       <S.AddItemContainer key={`product-${item.id}`}>
         <S.AddItemLeftContainer>
-          <TouchableOpacity onPress={() => decrementProduct(item.id)}>
+          <TouchableOpacity
+            onPress={() => decrementProduct(item.id)}
+            disabled={isProductOutOfStock}
+          >
             <S.MinusPlusButton>
               <MaterialCommunityIcons name="minus" size={25} color="#ffffff" />
             </S.MinusPlusButton>
@@ -90,7 +98,10 @@ export function UserCreateOrder() {
             {productQuantities[item.id] || 0}
           </S.SecondOrderAddItemNumber>
 
-          <TouchableOpacity onPress={() => incrementProduct(item.id)}>
+          <TouchableOpacity
+            onPress={() => incrementProduct(item.id)}
+            disabled={isProductOutOfStock || hasReachedStockLimit}
+          >
             <S.MinusPlusButton>
               <MaterialCommunityIcons name="plus" size={25} color="#ffffff" />
             </S.MinusPlusButton>
@@ -112,9 +123,9 @@ export function UserCreateOrder() {
           <StatusBar style="light" />
           <CustomHeader handleBack={() => navigate("userHome")} />
           {stockLoading ? (
-            <View>
-              <ActivityIndicator size="large" />
-            </View>
+            <S.AddressContainer>
+              <ActivityIndicator size="large" color={theme.colors.WHITE} />
+            </S.AddressContainer>
           ) : (
             <>
               <S.AddressContainer>
@@ -129,25 +140,44 @@ export function UserCreateOrder() {
                 </S.ImageContainer>
 
                 <S.OrderContainer>
-                  {products.map(renderProductItem)}
+                  {hasAvailableStock ? (
+                    products.map(renderProductItem)
+                  ) : (
+                    <S.UnavailableStockMessage>
+                      No momento não há produtos disponíveis em estoque.
+                    </S.UnavailableStockMessage>
+                  )}
                 </S.OrderContainer>
-                <S.AddonBoxContainer>
-                  {addons.map(renderAddonItem)}
-                </S.AddonBoxContainer>
+
+                {hasAvailableStock && (
+                  <S.AddonBoxContainer>
+                    {addons.map(renderAddonItem)}
+                  </S.AddonBoxContainer>
+                )}
               </S.AddressContainer>
 
-              <S.OrderTotalContainer>
-                <OrderTotal totalItems={totalItemsCount} totalValue={total} />
-              </S.OrderTotalContainer>
+              {hasAvailableStock && (
+                <>
+                  <S.OrderTotalContainer>
+                    <OrderTotal
+                      totalItems={totalItemsCount}
+                      totalValue={total}
+                    />
+                  </S.OrderTotalContainer>
 
-              <S.ButtonContainer>
-                <Button
-                  onPress={navigateToOrderAddress}
-                  color={theme.colors.ORANGE_200}
-                >
-                  <S.ConfirmOrderButtonText>Continuar</S.ConfirmOrderButtonText>
-                </Button>
-              </S.ButtonContainer>
+                  <S.ButtonContainer>
+                    <Button
+                      onPress={navigateToOrderAddress}
+                      color={theme.colors.ORANGE_200}
+                      disabled={totalItemsCount === 0}
+                    >
+                      <S.ConfirmOrderButtonText>
+                        Continuar
+                      </S.ConfirmOrderButtonText>
+                    </Button>
+                  </S.ButtonContainer>
+                </>
+              )}
             </>
           )}
         </S.ScrollViewContainer>
