@@ -31,24 +31,30 @@ export function UserBottomTabRoutes() {
     />
   );
 
-  const tabBarIconWidth = 28;
+  const tabBarIconWidth = 24;
 
   return (
     <Navigator
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: theme.colors.GRAY_100,
-        tabBarInactiveTintColor: theme.colors.ORANGE_200,
+        tabBarShowLabel: true,
+        tabBarActiveTintColor: theme.colors.ORANGE_200,
+        tabBarInactiveTintColor: theme.colors.GRAY_300,
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: "700",
+          marginTop: 4,
+          marginBottom: 2,
+        },
         headerLeft: renderCustomBackButton,
         title: "",
         tabBarStyle: {
           backgroundColor: theme.colors.GRAY_100,
           borderTopWidth: 0,
           borderColor: "transparent",
-          paddingBottom: 20,
-          paddingTop: 10,
-          height: 80,
+          paddingBottom: 16,
+          paddingTop: 8,
+          height: 88,
         },
         animation: "shift",
       }}
@@ -57,9 +63,14 @@ export function UserBottomTabRoutes() {
         name="UserHome"
         component={Home}
         options={{
-          tabBarIcon: ({ color, focused }) => (
+          tabBarLabel: "Início",
+          tabBarIcon: ({ focused }) => (
             <TabIconContainer focused={focused}>
-              <Entypo name="home" size={tabBarIconWidth} color={color} />
+              <Entypo
+                name="home"
+                size={tabBarIconWidth}
+                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+              />
             </TabIconContainer>
           ),
         }}
@@ -68,9 +79,14 @@ export function UserBottomTabRoutes() {
         name="UserOrders"
         component={OrdersListScreen}
         options={{
-          tabBarIcon: ({ color, focused }) => (
+          tabBarLabel: "Pedidos",
+          tabBarIcon: ({ focused }) => (
             <TabIconContainer focused={focused}>
-              <Entypo name="list" size={tabBarIconWidth} color={color} />
+              <Entypo
+                name="list"
+                size={tabBarIconWidth}
+                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+              />
             </TabIconContainer>
           ),
         }}
@@ -79,10 +95,15 @@ export function UserBottomTabRoutes() {
         name="UserProfile"
         component={UserProfile}
         options={{
+          tabBarLabel: "Perfil",
           tabBarStyle: { display: "none" },
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <TabIconContainer focused={focused}>
-              <Entypo name="user" size={tabBarIconWidth} color={color} />
+              <Entypo
+                name="user"
+                size={tabBarIconWidth}
+                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+              />
             </TabIconContainer>
           ),
         }}
