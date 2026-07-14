@@ -18,7 +18,7 @@ export const getUsersList = async ({
   page,
   limit,
   search,
-  sort = "open_first",
+  sort = "highest_debt_first",
 }: GetUsersListParams): Promise<ListUsersResponse> => {
   return api
     .get("/users/list/1/10", {
@@ -40,7 +40,7 @@ export const getUserById = async (
 
 export const getUserAccounts = async ({
   userId,
-  sort = "open_first",
+  sort = "unpaid_first",
 }: GetUserAccountsParams): Promise<UserAccountProps[]> => {
   return api
     .get(`/users/${userId}/orders`, {

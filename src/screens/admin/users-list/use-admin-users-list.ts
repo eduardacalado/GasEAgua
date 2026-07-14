@@ -33,7 +33,7 @@ export function useAdminUsersList() {
           page: pageNumber,
           limit: pageSize,
           search: debouncedSearchTerm || undefined,
-          sort: "open_first",
+          sort: "highest_debt_first",
         });
 
         setUsers((previousUsers) =>

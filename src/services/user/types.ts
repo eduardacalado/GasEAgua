@@ -40,11 +40,11 @@ export type GetUsersListParams = {
   page: number;
   limit: number;
   search?: string;
-  sort?: "open_first" | "name_asc";
+  sort?: "highest_debt_first" | "name_asc";
 };
 
 export type AccountSortOption =
-  | "open_first"
+  | "unpaid_first"
   | "date_desc"
   | "date_asc"
   | "balance_desc"
