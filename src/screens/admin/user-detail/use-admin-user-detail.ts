@@ -24,7 +24,7 @@ export function useAdminUserDetail(userId: number) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingAccounts, setIsLoadingAccounts] = useState(false);
   const [isLoadingTransactions, setIsLoadingTransactions] = useState(false);
-  const [accountSort, setAccountSort] = useState<AccountSortOption>("open_first");
+  const [accountSort, setAccountSort] = useState<AccountSortOption>("unpaid_first");
   const [transactionSort, setTransactionSort] =
     useState<TransactionSortOption>("date_desc");
   const [selectedAccountFilter, setSelectedAccountFilter] = useState<
@@ -160,7 +160,7 @@ export function useAdminUserDetail(userId: number) {
   ];
 
   const accountSortOptions = [
-    { label: "Em aberto primeiro", value: "open_first" as AccountSortOption },
+    { label: "Em aberto primeiro", value: "unpaid_first" as AccountSortOption },
     { label: "Mais recentes", value: "date_desc" as AccountSortOption },
     { label: "Mais antigas", value: "date_asc" as AccountSortOption },
     { label: "Maior saldo", value: "balance_desc" as AccountSortOption },
