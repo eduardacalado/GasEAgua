@@ -8,7 +8,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import { StyleSheet } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-import { getOrderStatusColor } from "src/helpers/order-status";
+import {
+  getOrderStatusColor,
+  getOrderStatusIconName,
+  getOrderStatusSurfaceColor,
+} from "src/helpers/order-status";
 import theme from "src/styles/theme";
 import { OrderStatusProps } from "src/types/orders";
 import * as S from "./styles";
@@ -39,6 +43,27 @@ export const OrdersListScreen = () => {
     loadError,
   } = useOrdersList();
 
+  const hasSelectedStatus = Boolean(selectedStatus);
+  const hasSelectedDate = Boolean(date);
+  const statusFilterColor = selectedStatus
+    ? getOrderStatusColor(selectedStatus)
+    : theme.colors.GRAY_300;
+  const statusFilterSurface = selectedStatus
+    ? getOrderStatusSurfaceColor(selectedStatus)
+    : theme.colors.GRAY_100;
+  const dateFilterColor = hasSelectedDate
+    ? theme.colors.ORANGE_200
+    : theme.colors.GRAY_300;
+  const dateFilterSurface = hasSelectedDate
+    ? theme.colors.ORANGE_50
+    : theme.colors.GRAY_100;
+  const clearFilterBackgroundColor = haveFilters
+    ? theme.colors.RED_100
+    : "#C5C5C5";
+  const clearFilterIconColor = haveFilters
+    ? theme.colors.WHITE
+    : "#F2F2F2";
+
   return (
     <LinearGradientBackground>
       {openDatePicker && (
@@ -52,76 +77,112 @@ export const OrdersListScreen = () => {
       )}
       <S.Container>
         <S.FilterContainer>
-          <S.FilterControlShell>
-              <Dropdown
-                style={styles.dropdown}
-                placeholderStyle={styles.placeholder}
-                selectedTextStyle={[
-                  styles.selectedText,
-                  {
-                    color: selectedStatus
-                      ? getOrderStatusColor(selectedStatus)
-                      : theme.colors.GRAY_600,
-                  },
-                ]}
-                iconStyle={[
-                  styles.icon,
-                  {
-                    tintColor: selectedStatus
-                      ? getOrderStatusColor(selectedStatus)
-                      : theme.colors.GRAY_300,
-                  },
-                ]}
-                containerStyle={styles.menuContainer}
-                itemContainerStyle={styles.menuItemContainer}
-                activeColor={theme.colors.GRAY_100}
-                data={selectStatusData}
-                maxHeight={220}
-                labelField="label"
-                valueField="value"
-                placeholder="Status"
-                value={selectedStatus}
-                renderItem={(item, selected) => {
-                  const statusColor = getOrderStatusColor(item.value);
+          <S.FilterControlShell
+            backgroundColor={
+              hasSelectedStatus ? statusFilterSurface : theme.colors.WHITE
+            }
+            isActive={hasSelectedStatus}
+          >
+            <Dropdown
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholder}
+              selectedTextStyle={[
+                styles.selectedText,
+                {
+                  color: hasSelectedStatus
+                    ? statusFilterColor
+                    : theme.colors.GRAY_600,
+                },
+              ]}
+              iconStyle={[
+                styles.icon,
+                {
+                  tintColor: hasSelectedStatus
+                    ? statusFilterColor
+                    : theme.colors.GRAY_300,
+                },
+              ]}
+              containerStyle={styles.menuContainer}
+              itemContainerStyle={styles.menuItemContainer}
+              activeColor={theme.colors.GRAY_100}
+              data={selectStatusData}
+              maxHeight={220}
+              labelField="label"
+              valueField="value"
+              placeholder="Status"
+              value={selectedStatus}
+              renderLeftIcon={() => (
+                <S.FilterIconBadge backgroundColor={statusFilterSurface}>
+                  <Feather
+                    name={
+                      selectedStatus
+                        ? getOrderStatusIconName(selectedStatus)
+                        : "filter"
+                    }
+                    size={14}
+                    color={statusFilterColor}
+                  />
+                </S.FilterIconBadge>
+              )}
+              renderItem={(item, selected) => {
+                const statusColor = getOrderStatusColor(item.value);
+                const statusSurface = getOrderStatusSurfaceColor(item.value);
 
-                  return (
-                    <S.StatusFilterOption>
-                      <S.StatusFilterDot color={statusColor} />
-                      <S.StatusFilterLabel
-                        color={
-                          selected ? statusColor : theme.colors.GRAY_600
-                        }
-                        numberOfLines={1}
-                      >
-                        {item.label}
-                      </S.StatusFilterLabel>
-                    </S.StatusFilterOption>
-                  );
-                }}
-                onChange={({ value }: { value: OrderStatusProps }) => {
-                  setSelectedStatus(value);
-                }}
-              />
-            </S.FilterControlShell>
-            <S.FilterButton onPress={toggleDatePicker}>
-              <S.ButtonText>
-                {date ? dayjs(date).format("DD/MM/YY") : "Filtrar por data"}
-              </S.ButtonText>
-            </S.FilterButton>
-            <S.ClearFilterButton
-              onPress={clearFilter}
+                return (
+                  <S.StatusFilterOption>
+                    <S.StatusFilterIconBadge backgroundColor={statusSurface}>
+                      <Feather
+                        name={getOrderStatusIconName(item.value)}
+                        size={14}
+                        color={statusColor}
+                      />
+                    </S.StatusFilterIconBadge>
+                    <S.StatusFilterLabel
+                      color={selected ? statusColor : theme.colors.GRAY_600}
+                      numberOfLines={1}
+                    >
+                      {item.label}
+                    </S.StatusFilterLabel>
+                  </S.StatusFilterOption>
+                );
+              }}
+              onChange={({ value }: { value: OrderStatusProps }) => {
+                setSelectedStatus(value);
+              }}
+            />
+          </S.FilterControlShell>
+
+          <S.FilterButton
+            onPress={toggleDatePicker}
+            backgroundColor={
+              hasSelectedDate ? dateFilterSurface : theme.colors.WHITE
+            }
+            isActive={hasSelectedDate}
+          >
+            <S.FilterIconBadge backgroundColor={dateFilterSurface}>
+              <Feather name="calendar" size={14} color={dateFilterColor} />
+            </S.FilterIconBadge>
+            <S.ButtonText
               color={
-                haveFilters ? theme.colors.RED_100 : theme.colors.GRAY_200
+                hasSelectedDate
+                  ? theme.colors.ORANGE_200
+                  : theme.colors.GRAY_600
               }
+              numberOfLines={1}
             >
-              <Feather
-                name="trash-2"
-                size={26}
-                color={
-                  haveFilters ? theme.colors.WHITE : theme.colors.GRAY_400
-                }
-              />
-            </S.ClearFilterButton>
+              {date ? dayjs(date).format("DD/MM/YY") : "Filtrar por data"}
+            </S.ButtonText>
+          </S.FilterButton>
+
+          <S.ClearFilterButton
+            onPress={clearFilter}
+            disabled={!haveFilters}
+            isEnabled={haveFilters}
+            backgroundColor={clearFilterBackgroundColor}
+            activeOpacity={0.8}
+          >
+            <Feather name="trash-2" size={22} color={clearFilterIconColor} />
+          </S.ClearFilterButton>
         </S.FilterContainer>
         <OrderList
           emptyArrayMessage={
@@ -172,19 +233,20 @@ export const OrdersListScreen = () => {
 const styles = StyleSheet.create({
   dropdown: {
     height: 50,
+    paddingLeft: 4,
   },
   placeholder: {
-    fontSize: 16,
+    fontSize: 13,
     color: theme.colors.GRAY_300,
-    fontWeight: "bold",
+    fontWeight: "700",
   },
   selectedText: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 13,
+    fontWeight: "700",
   },
   icon: {
-    width: 20,
-    height: 20,
+    width: 18,
+    height: 18,
   },
   menuContainer: {
     borderRadius: 12,
