@@ -15,6 +15,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import Toast from "react-native-toast-message";
+import { authSessionStorage } from "src/libs/storage/authSessionStorage";
 import { postLogin } from "src/services/auth";
 import * as yup from "yup";
 import { LinearGradientBackground } from "../../../components/LinearGradientBackground";
@@ -46,6 +47,7 @@ export function Login() {
     setIsLoading(true);
     try {
       const authDates = await postLogin({ email, password });
+      await authSessionStorage.save(authDates);
       dispatch(userActions.saveUser(authDates));
       dispatch(authActions.updateAuthStore({ isAuthenticated: true }));
     } catch (error) {

@@ -2,12 +2,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { authActions } from "@store/modules/auth/slice";
+import { userActions } from "@store/modules/user/slice";
 import { errorHandler } from "@utils/error-handler";
 import { safetyString } from "@utils/safety-string";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
 import { DEFAULT_CITY, DEFAULT_ENGENHO } from "src/constants/localOptions";
+import { authSessionStorage } from "src/libs/storage/authSessionStorage";
 import { postUpdateUser } from "src/services/user";
 import * as yup from "yup";
 
@@ -60,7 +62,9 @@ export function useUpdateProfile() {
       : DEFAULT_ENGENHO;
   const [selectedEngenho, setSelectedEngenho] = useState(defaultEngenho);
 
-  function handleLogout() {
+  async function handleLogout() {
+    await authSessionStorage.clear();
+    dispatch(userActions.clearUserData());
     dispatch(authActions.clearAuthData());
   }
 
