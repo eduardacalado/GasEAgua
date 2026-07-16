@@ -2,11 +2,11 @@ import theme from "src/styles/theme";
 import styled from "styled-components/native";
 
 export const Divider = styled.View`
-  height: 10px;
+  height: 12px;
 `;
 
 export const Container = styled.View`
-  padding-horizontal: ${theme.size.m3};
+  padding-horizontal: ${theme.size.m4};
   flex: 1;
 `;
 
@@ -17,53 +17,86 @@ export const FilterContainer = styled.View`
   margin-top: ${theme.size.m11};
   flex-direction: row;
   align-items: center;
-  gap: 15px;
+  gap: ${theme.size.m3};
 `;
 
-export const FilterButton = styled.TouchableOpacity`
+export const FilterControlShell = styled.View<{
+  backgroundColor?: string;
+  isActive?: boolean;
+}>`
   flex: 1;
   height: 50px;
-  padding: 0px 12px;
-  border-radius: 10px;
-  background-color: ${theme.colors.WHITE};
+  border-radius: ${theme.size.m4};
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor ?? theme.colors.WHITE};
+  padding-horizontal: ${theme.size.m3};
+  justify-content: center;
+  elevation: 3;
+  shadow-color: ${theme.colors.GRAY_700};
+  shadow-opacity: 0.12;
+  shadow-radius: 8px;
+  shadow-offset: 0px 2px;
+  border-width: ${({ isActive }) => (isActive ? "1.5px" : "0px")};
+  border-color: ${({ isActive }) =>
+    isActive ? theme.colors.ORANGE_200 : "transparent"};
+`;
+
+export const FilterButton = styled.TouchableOpacity<{
+  backgroundColor?: string;
+  isActive?: boolean;
+}>`
+  flex: 1;
+  height: 50px;
+  padding: 0 ${theme.size.m3};
+  border-radius: ${theme.size.m4};
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor ?? theme.colors.WHITE};
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  elevation: 5;
-  shadow-color: #000;
-  shadow-opacity: 0.1;
-  shadow-radius: 5px;
-  shadow-offset: 2px 2px;
+  gap: ${theme.size.m2};
+  elevation: 3;
+  shadow-color: ${theme.colors.GRAY_700};
+  shadow-opacity: 0.12;
+  shadow-radius: 8px;
+  shadow-offset: 0px 2px;
+  border-width: ${({ isActive }) => (isActive ? "1.5px" : "0px")};
+  border-color: ${({ isActive }) =>
+    isActive ? theme.colors.ORANGE_200 : "transparent"};
 `;
 
-export const FilterControlShell = styled.View`
-  flex: 1;
-  height: 50px;
-  border-radius: 10px;
-  background-color: ${theme.colors.WHITE};
-  padding-horizontal: 12px;
+export const FilterIconBadge = styled.View<{ backgroundColor: string }>`
+  width: 28px;
+  height: 28px;
+  border-radius: ${theme.size.m2};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  align-items: center;
   justify-content: center;
-  elevation: 5;
-  shadow-color: #000;
-  shadow-opacity: 0.1;
-  shadow-radius: 5px;
-  shadow-offset: 2px 2px;
 `;
 
-export const ClearFilterButton = styled.TouchableOpacity<{ color: string }>`
+export const ClearFilterButton = styled.TouchableOpacity<{
+  backgroundColor: string;
+  isEnabled: boolean;
+}>`
   width: 50px;
   height: 50px;
-  background: ${({ color }) => color};
-  border-radius: 14px;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  border-radius: ${theme.size.m4};
   justify-content: center;
   align-items: center;
+  elevation: ${({ isEnabled }) => (isEnabled ? 3 : 0)};
+  shadow-color: ${theme.colors.GRAY_700};
+  shadow-opacity: ${({ isEnabled }) => (isEnabled ? 0.08 : 0)};
+  shadow-radius: 8px;
+  shadow-offset: 0px 2px;
 `;
 
-export const ButtonText = styled.Text`
-  color: ${theme.colors.GRAY_600};
-  font-size: 16px;
-  width: 100%;
+export const ButtonText = styled.Text<{ color?: string }>`
+  color: ${({ color }) => color ?? theme.colors.GRAY_600};
+  font-size: ${theme.font.size.m3};
+  flex-shrink: 1;
   text-align: center;
-  font-weight: bold;
+  font-weight: ${theme.font.weight.bold};
 `;
 
 export const StatusFilterOption = styled.View`
@@ -74,11 +107,13 @@ export const StatusFilterOption = styled.View`
   min-height: 44px;
 `;
 
-export const StatusFilterDot = styled.View<{ color: string }>`
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: ${({ color }) => color};
+export const StatusFilterIconBadge = styled.View<{ backgroundColor: string }>`
+  width: 28px;
+  height: 28px;
+  border-radius: ${theme.size.m2};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  align-items: center;
+  justify-content: center;
 `;
 
 export const StatusFilterLabel = styled.Text<{ color: string }>`

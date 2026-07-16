@@ -1,10 +1,15 @@
 import { CustomText } from "@components/custom-text";
 import { OrderStatusText } from "@components/order-status-text";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Feather } from "@expo/vector-icons";
 import dayjs from "dayjs";
 import { TouchableOpacity } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { formatToBRL } from "src/helpers/format-currency";
+import {
+  getOrderStatusColor,
+  getOrderStatusIconName,
+  getOrderStatusSurfaceColor,
+} from "src/helpers/order-status";
 import theme from "src/styles/theme";
 import { OrderProps } from "src/types/orders";
 import * as S from "./styles";
@@ -18,6 +23,9 @@ export type CardProps = {
 };
 
 type UserOrderCardProps = OrderProps & CardProps;
+
+const ROW_ICON_BADGE_COLOR = theme.colors.GRAY_100;
+const ROW_ICON_COLOR = theme.colors.GRAY_300;
 
 export const OrderCard = ({
   updated_at,
@@ -62,6 +70,7 @@ export const OrderCard = ({
       </TouchableOpacity>
     );
   };
+
   function getProductsDescription() {
     let description = "";
     if (gasAmount > 0) {
@@ -77,10 +86,11 @@ export const OrderCard = ({
   }
 
   const expirationDate = dayjs(updated_at).add(30, "day").format("DD/MM/YYYY");
-
   const isExpired = dayjs(dayjs().date()).isAfter(expirationDate);
-
   const productsDescription = getProductsDescription();
+  const statusColor = getOrderStatusColor(status);
+  const statusSurfaceColor = getOrderStatusSurfaceColor(status);
+  const statusIconName = getOrderStatusIconName(status);
 
   return (
     <Swipeable
@@ -91,13 +101,18 @@ export const OrderCard = ({
       overshootLeft={false}
       overshootRight={false}
       containerStyle={{
-        borderRadius: 10,
+        borderRadius: 16,
         overflow: "hidden",
       }}
     >
       <S.CardSurface onPress={onPress} disabled={!onPress}>
         <S.CardContent>
-          <OrderStatusText status={status} />
+          <S.StatusHeader>
+            <S.IconBadge backgroundColor={statusSurfaceColor}>
+              <Feather name={statusIconName} size={14} color={statusColor} />
+            </S.IconBadge>
+            <OrderStatusText status={status} />
+          </S.StatusHeader>
           {isExpired && (
             <S.Badge>
               <CustomText
@@ -108,34 +123,74 @@ export const OrderCard = ({
               </CustomText>
             </S.Badge>
           )}
+
           <S.CardRowsContainer>
             <S.CardRowContainer>
-              <S.CardText>Data do pedido</S.CardText>
-              <S.CardText>
+              <S.LabelGroup>
+                <S.IconBadge backgroundColor={ROW_ICON_BADGE_COLOR}>
+                  <Feather name="calendar" size={14} color={ROW_ICON_COLOR} />
+                </S.IconBadge>
+                <S.CardLabel>Data do pedido</S.CardLabel>
+              </S.LabelGroup>
+              <S.CardValue>
                 {dayjs(updated_at).format("DD/MM/YYYY")}{" "}
                 {dayjs(updated_at).format("HH:mm")}
-              </S.CardText>
+              </S.CardValue>
             </S.CardRowContainer>
+
             <S.Divider />
+
             <S.CardRowContainer>
-              <S.CardText>Vencimento</S.CardText>
-              <CustomText
-                color={isExpired ? theme.colors.RED_100 : theme.colors.GRAY_600}
-                fontWeight={theme.font.weight.extrabold}
+              <S.LabelGroup>
+                <S.IconBadge backgroundColor={ROW_ICON_BADGE_COLOR}>
+                  <Feather name="clock" size={14} color={ROW_ICON_COLOR} />
+                </S.IconBadge>
+                <S.CardLabel>Vencimento</S.CardLabel>
+              </S.LabelGroup>
+              <S.CardValue
+                style={{
+                  color: isExpired
+                    ? theme.colors.RED_100
+                    : theme.colors.GRAY_700,
+                }}
               >
-                {expirationDate}{" "}
-              </CustomText>
+                {expirationDate}
+              </S.CardValue>
             </S.CardRowContainer>
+
             <S.Divider />
+
             <S.CardRowContainer>
-              <S.CardText>Descrição</S.CardText>
-              <S.CardText>{productsDescription}</S.CardText>
-              {showUserName && <S.CardText>{username}</S.CardText>}
+              <S.LabelGroup>
+                <S.IconBadge backgroundColor={ROW_ICON_BADGE_COLOR}>
+                  <Feather name="package" size={14} color={ROW_ICON_COLOR} />
+                </S.IconBadge>
+                <S.CardLabel>Descrição</S.CardLabel>
+              </S.LabelGroup>
+              <S.ValueGroup>
+                {!!productsDescription && (
+                  <S.CardValue>{productsDescription}</S.CardValue>
+                )}
+                {showUserName && !!username && (
+                  <S.CardValue>{username}</S.CardValue>
+                )}
+              </S.ValueGroup>
             </S.CardRowContainer>
+
             <S.Divider />
+
             <S.CardRowContainer>
-              <S.CardText>Valor</S.CardText>
-              <S.CardText>{formatToBRL(total)}</S.CardText>
+              <S.LabelGroup>
+                <S.IconBadge backgroundColor={ROW_ICON_BADGE_COLOR}>
+                  <Feather
+                    name="dollar-sign"
+                    size={14}
+                    color={ROW_ICON_COLOR}
+                  />
+                </S.IconBadge>
+                <S.CardLabel>Valor</S.CardLabel>
+              </S.LabelGroup>
+              <S.CardValue>{formatToBRL(total)}</S.CardValue>
             </S.CardRowContainer>
           </S.CardRowsContainer>
         </S.CardContent>

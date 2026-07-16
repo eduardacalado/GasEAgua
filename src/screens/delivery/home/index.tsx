@@ -1,9 +1,35 @@
+import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import { useAppSelector } from "@hooks/useAppSelector";
+import { Feather } from "@expo/vector-icons";
+import dayjs from "dayjs";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
-import { LinearGradientBackground } from "@components/LinearGradientBackground";
+import theme from "src/styles/theme";
 import * as S from "./styles";
 import { useDeliveryHome } from "./use-delivery-home";
+
+const WEEKDAY_LABELS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+const MONTH_LABELS = [
+  "jan",
+  "fev",
+  "mar",
+  "abr",
+  "mai",
+  "jun",
+  "jul",
+  "ago",
+  "set",
+  "out",
+  "nov",
+  "dez",
+];
+
+function formatTodayChipLabel() {
+  const today = dayjs();
+  const weekdayLabel = WEEKDAY_LABELS[today.day()];
+  const monthLabel = MONTH_LABELS[today.month()];
+  return `${weekdayLabel}, ${today.date()} ${monthLabel}`;
+}
 
 export function DeliveryHomeScreen() {
   const {
@@ -13,6 +39,7 @@ export function DeliveryHomeScreen() {
   const { summaryData, isLoading } = useDeliveryHome();
 
   const formattedName = name?.split(" ")?.[0];
+  const todayChipLabel = formatTodayChipLabel();
 
   if (isLoading) {
     return (
@@ -35,25 +62,54 @@ export function DeliveryHomeScreen() {
 
           <S.SubTitle>Resumo das entregas de hoje</S.SubTitle>
 
+          <S.DateChip>
+            <Feather name="calendar" size={14} color={theme.colors.WHITE} />
+            <S.DateChipText>{todayChipLabel}</S.DateChipText>
+          </S.DateChip>
+
           <S.CardsContainer>
-            <S.DataCard>
-              <S.DataLabel>Total de pedidos hoje</S.DataLabel>
+            <S.HighlightCard>
+              <S.CardHeader>
+                <S.IconBadge backgroundColor={theme.colors.ORANGE_50}>
+                  <Feather
+                    name="package"
+                    size={14}
+                    color={theme.colors.ORANGE_200}
+                  />
+                </S.IconBadge>
+                <S.DataLabel>Total de pedidos hoje</S.DataLabel>
+              </S.CardHeader>
               <S.DataValueRow>
                 <S.DataValue>{summaryData.totalOrdersToday}</S.DataValue>
                 <S.DataValueDescription>pedidos</S.DataValueDescription>
               </S.DataValueRow>
-            </S.DataCard>
+            </S.HighlightCard>
 
             <S.SideBySideContainer>
               <S.SideBySideCard>
-                <S.DataLabel>Pendentes</S.DataLabel>
+                <S.CardHeader>
+                  <S.IconBadge backgroundColor={theme.colors.ORANGE_50}>
+                    <Feather
+                      name="clock"
+                      size={14}
+                      color={theme.colors.ORANGE_100}
+                    />
+                  </S.IconBadge>
+                  <S.DataLabel numberOfLines={1}>Pendentes</S.DataLabel>
+                </S.CardHeader>
                 <S.DataValueRow>
                   <S.DataValue>{summaryData.pendingCount}</S.DataValue>
                   <S.DataValueDescription>aguardando</S.DataValueDescription>
                 </S.DataValueRow>
               </S.SideBySideCard>
+
               <S.SideBySideCard>
-                <S.DataLabel>Em andamento</S.DataLabel>
+                <S.CardHeader>
+                  <S.IconBadge backgroundColor="rgba(66, 153, 225, 0.15)">
+                    <Feather name="truck" size={14} color={theme.colors.BLUE} />
+                  </S.IconBadge>
+                  <S.DataLabel numberOfLines={1}>Em andamento</S.DataLabel>
+                </S.CardHeader>
                 <S.DataValueRow>
                   <S.DataValue>{summaryData.inProgressCount}</S.DataValue>
                   <S.DataValueDescription>em entrega</S.DataValueDescription>
@@ -62,7 +118,16 @@ export function DeliveryHomeScreen() {
             </S.SideBySideContainer>
 
             <S.DataCard>
-              <S.DataLabel>Finalizados</S.DataLabel>
+              <S.CardHeader>
+                <S.IconBadge backgroundColor="rgba(104, 211, 145, 0.2)">
+                  <Feather
+                    name="check-circle"
+                    size={14}
+                    color={theme.colors.GREEN}
+                  />
+                </S.IconBadge>
+                <S.DataLabel>Finalizados</S.DataLabel>
+              </S.CardHeader>
               <S.DataValueRow>
                 <S.DataValue>{summaryData.completedCount}</S.DataValue>
                 <S.DataValueDescription>entregues hoje</S.DataValueDescription>

@@ -1,35 +1,78 @@
 import theme from "src/styles/theme";
 import styled from "styled-components/native";
 
-export const CardContent = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: 20px;
-`;
-
 export const CardSurface = styled.TouchableOpacity.attrs({
   activeOpacity: 0.85,
 })`
   background-color: ${theme.colors.WHITE};
-  border-radius: 10px;
-  padding: 18px;
+  border-radius: ${theme.size.m5};
+  padding: ${theme.size.m5};
   width: 100%;
-  elevation: 5;
-  shadow-color: #000;
-  shadow-opacity: 0.1;
-  shadow-radius: 5px;
-  shadow-offset: 2px 2px;
+  elevation: 2;
+  shadow-color: ${theme.colors.GRAY_700};
+  shadow-opacity: 0.08;
+  shadow-radius: 8px;
+  shadow-offset: 0px 2px;
+`;
+
+export const CardContent = styled.View`
+  width: 100%;
+  gap: ${theme.size.m4};
+  position: relative;
+`;
+
+export const StatusHeader = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: ${theme.size.m2};
+  align-self: flex-start;
+`;
+
+export const IconBadge = styled.View<{ backgroundColor: string }>`
+  width: 28px;
+  height: 28px;
+  border-radius: ${theme.size.m2};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  align-items: center;
+  justify-content: center;
 `;
 
 export const CardRowsContainer = styled.View`
-  gap: 10px;
+  gap: ${theme.size.m3};
 `;
 
 export const CardRowContainer = styled.View`
   width: 100%;
-  justify-content: space-between;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${theme.size.m3};
+`;
+
+export const LabelGroup = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: ${theme.size.m2};
+  flex-shrink: 1;
+`;
+
+export const ValueGroup = styled.View`
+  align-items: flex-end;
+  flex-shrink: 1;
+  gap: 2px;
+`;
+
+export const CardLabel = styled.Text`
+  color: ${theme.colors.GRAY_300};
+  font-size: ${theme.font.size.m3};
+  font-weight: ${theme.font.weight.medium};
+`;
+
+export const CardValue = styled.Text`
+  color: ${theme.colors.GRAY_700};
+  font-size: ${theme.font.size.m4};
+  font-weight: ${theme.font.weight.bold};
+  text-align: right;
 `;
 
 export const CardText = styled.Text`
@@ -40,22 +83,16 @@ export const CardText = styled.Text`
 
 export const LeftActionContainer = styled.View`
   flex: 1;
-  border-radius: 10px;
+  border-radius: ${theme.size.m5};
   width: 80px;
   background-color: ${theme.colors.RED_100};
   justify-content: center;
   align-items: center;
 `;
 
-export const Divider = styled.View`
-  height: 2px;
-  background-color: ${theme.colors.GRAY_200};
-  width: 95%;
-`;
-
 export const RightActionContainer = styled.View`
   flex: 1;
-  border-radius: 10px;
+  border-radius: ${theme.size.m5};
   width: 80px;
   background-color: ${theme.colors.GREEN};
   justify-content: center;
@@ -69,4 +106,10 @@ export const Badge = styled.View`
   background-color: ${theme.colors.RED_100};
   padding: 4px;
   border-radius: ${theme.size.m2};
+`;
+
+export const Divider = styled.View`
+  height: 1px;
+  background-color: ${theme.colors.GRAY_100};
+  width: 100%;
 `;
