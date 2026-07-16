@@ -13,6 +13,7 @@ const theme = {
     RED_100: "#E53E3E",
     RED_200: "#F56565",
 
+    ORANGE_50: "#FFDAD4",
     ORANGE_100: "#FF9000",
     ORANGE_200: "#DB1A00",
     ORANGE_300: "#ED4200",

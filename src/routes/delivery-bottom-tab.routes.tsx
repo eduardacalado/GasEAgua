@@ -38,8 +38,8 @@ export function DeliveryBottomTabRoutes() {
         title: "",
         tabBarStyle: {
           backgroundColor: theme.colors.GRAY_100,
-          borderTopWidth: 0,
-          borderColor: "transparent",
+          borderTopWidth: 1,
+          borderTopColor: theme.colors.GRAY_200,
           paddingBottom: 16,
           paddingTop: 8,
           height: 88,
@@ -57,7 +57,7 @@ export function DeliveryBottomTabRoutes() {
               <Entypo
                 name="home"
                 size={TAB_BAR_ICON_SIZE}
-                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+                color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
           ),
@@ -73,7 +73,7 @@ export function DeliveryBottomTabRoutes() {
               <Entypo
                 name="list"
                 size={TAB_BAR_ICON_SIZE}
-                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+                color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
           ),
@@ -90,7 +90,7 @@ export function DeliveryBottomTabRoutes() {
               <Entypo
                 name="user"
                 size={TAB_BAR_ICON_SIZE}
-                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+                color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
           ),
