@@ -122,3 +122,41 @@ export const StatusFilterLabel = styled.Text<{ color: string }>`
   font-size: 15px;
   font-weight: bold;
 `;
+
+export const dropdownStyle = {
+  height: 50,
+  paddingLeft: 4,
+};
+
+export const dropdownPlaceholderStyle = {
+  fontSize: 13,
+  color: theme.colors.GRAY_300,
+  fontWeight: "700" as const,
+};
+
+export const dropdownSelectedTextStyle = {
+  fontSize: 13,
+  fontWeight: "700" as const,
+};
+
+export const dropdownIconStyle = {
+  width: 18,
+  height: 18,
+};
+
+export const dropdownMenuContainerStyle = {
+  borderRadius: 12,
+  backgroundColor: theme.colors.WHITE,
+  marginTop: 6,
+  paddingVertical: 4,
+  minWidth: 200,
+  elevation: 8,
+  shadowColor: "#000",
+  shadowOpacity: 0.12,
+  shadowRadius: 8,
+  shadowOffset: { width: 0, height: 4 },
+};
+
+export const dropdownMenuItemContainerStyle = {
+  paddingHorizontal: 0,
+};

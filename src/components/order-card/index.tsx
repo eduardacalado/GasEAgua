@@ -24,9 +24,6 @@ export type CardProps = {
 
 type UserOrderCardProps = OrderProps & CardProps;
 
-const ROW_ICON_BADGE_COLOR = theme.colors.GRAY_100;
-const ROW_ICON_COLOR = theme.colors.GRAY_300;
-
 export const OrderCard = ({
   updated_at,
   status,
@@ -59,15 +56,11 @@ export const OrderCard = ({
     }
 
     return (
-      <TouchableOpacity
-        onPress={rightAction}
-        activeOpacity={0.6}
-        style={{ alignSelf: "stretch" }}
-      >
+      <S.RightActionTouchable onPress={rightAction}>
         <S.RightActionContainer>
           <Entypo name="check" size={40} color={theme.colors.WHITE} />
         </S.RightActionContainer>
-      </TouchableOpacity>
+      </S.RightActionTouchable>
     );
   };
 
@@ -100,10 +93,7 @@ export const OrderCard = ({
       friction={2}
       overshootLeft={false}
       overshootRight={false}
-      containerStyle={{
-        borderRadius: 16,
-        overflow: "hidden",
-      }}
+      containerStyle={S.swipeableContainerStyle}
     >
       <S.CardSurface onPress={onPress} disabled={!onPress}>
         <S.CardContent>
@@ -127,8 +117,8 @@ export const OrderCard = ({
           <S.CardRowsContainer>
             <S.CardRowContainer>
               <S.LabelGroup>
-                <S.IconBadge backgroundColor={ROW_ICON_BADGE_COLOR}>
-                  <Feather name="calendar" size={14} color={ROW_ICON_COLOR} />
+                <S.IconBadge backgroundColor={S.ROW_ICON_BADGE_COLOR}>
+                  <Feather name="calendar" size={14} color={S.ROW_ICON_COLOR} />
                 </S.IconBadge>
                 <S.CardLabel>Data do pedido</S.CardLabel>
               </S.LabelGroup>
@@ -142,28 +132,22 @@ export const OrderCard = ({
 
             <S.CardRowContainer>
               <S.LabelGroup>
-                <S.IconBadge backgroundColor={ROW_ICON_BADGE_COLOR}>
-                  <Feather name="clock" size={14} color={ROW_ICON_COLOR} />
+                <S.IconBadge backgroundColor={S.ROW_ICON_BADGE_COLOR}>
+                  <Feather name="clock" size={14} color={S.ROW_ICON_COLOR} />
                 </S.IconBadge>
                 <S.CardLabel>Vencimento</S.CardLabel>
               </S.LabelGroup>
-              <S.CardValue
-                style={{
-                  color: isExpired
-                    ? theme.colors.RED_100
-                    : theme.colors.GRAY_700,
-                }}
-              >
+              <S.ExpirationCardValue isExpired={isExpired}>
                 {expirationDate}
-              </S.CardValue>
+              </S.ExpirationCardValue>
             </S.CardRowContainer>
 
             <S.Divider />
 
             <S.CardRowContainer>
               <S.LabelGroup>
-                <S.IconBadge backgroundColor={ROW_ICON_BADGE_COLOR}>
-                  <Feather name="package" size={14} color={ROW_ICON_COLOR} />
+                <S.IconBadge backgroundColor={S.ROW_ICON_BADGE_COLOR}>
+                  <Feather name="package" size={14} color={S.ROW_ICON_COLOR} />
                 </S.IconBadge>
                 <S.CardLabel>Descrição</S.CardLabel>
               </S.LabelGroup>
@@ -181,11 +165,11 @@ export const OrderCard = ({
 
             <S.CardRowContainer>
               <S.LabelGroup>
-                <S.IconBadge backgroundColor={ROW_ICON_BADGE_COLOR}>
+                <S.IconBadge backgroundColor={S.ROW_ICON_BADGE_COLOR}>
                   <Feather
                     name="dollar-sign"
                     size={14}
-                    color={ROW_ICON_COLOR}
+                    color={S.ROW_ICON_COLOR}
                   />
                 </S.IconBadge>
                 <S.CardLabel>Valor</S.CardLabel>

@@ -1,35 +1,12 @@
 import { useAppSelector } from "@hooks/useAppSelector";
 import { Feather } from "@expo/vector-icons";
-import dayjs from "dayjs";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
+import { formatTodayChipLabel } from "src/helpers/date";
 import theme from "src/styles/theme";
 import { LinearGradientBackground } from "../../../components/LinearGradientBackground/index";
 import * as S from "./styles";
 import { useAdminHome } from "./use-admin-home";
-
-const WEEKDAY_LABELS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-const MONTH_LABELS = [
-  "jan",
-  "fev",
-  "mar",
-  "abr",
-  "mai",
-  "jun",
-  "jul",
-  "ago",
-  "set",
-  "out",
-  "nov",
-  "dez",
-];
-
-function formatTodayChipLabel() {
-  const today = dayjs();
-  const weekdayLabel = WEEKDAY_LABELS[today.day()];
-  const monthLabel = MONTH_LABELS[today.month()];
-  return `${weekdayLabel}, ${today.date()} ${monthLabel}`;
-}
 
 export function Home() {
   const {

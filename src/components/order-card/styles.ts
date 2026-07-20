@@ -1,6 +1,14 @@
 import theme from "src/styles/theme";
 import styled from "styled-components/native";
 
+export const ROW_ICON_BADGE_COLOR = theme.colors.GRAY_100;
+export const ROW_ICON_COLOR = theme.colors.GRAY_300;
+
+export const swipeableContainerStyle = {
+  borderRadius: 16,
+  overflow: "hidden" as const,
+};
+
 export const CardSurface = styled.TouchableOpacity.attrs({
   activeOpacity: 0.85,
 })`
@@ -75,10 +83,21 @@ export const CardValue = styled.Text`
   text-align: right;
 `;
 
+export const ExpirationCardValue = styled(CardValue)<{ isExpired: boolean }>`
+  color: ${({ isExpired }) =>
+    isExpired ? theme.colors.RED_100 : theme.colors.GRAY_700};
+`;
+
 export const CardText = styled.Text`
   color: ${theme.colors.GRAY_300};
   font-size: 16px;
   font-weight: bold;
+`;
+
+export const RightActionTouchable = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.6,
+})`
+  align-self: stretch;
 `;
 
 export const LeftActionContainer = styled.View`
