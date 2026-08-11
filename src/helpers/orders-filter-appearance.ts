@@ -30,6 +30,27 @@ export function getOrdersFilterAppearance({
   const dateFilterSurface = hasSelectedDate
     ? theme.colors.ORANGE_50
     : theme.colors.GRAY_100;
+  const statusShellBackgroundColor = hasSelectedStatus
+    ? statusFilterSurface
+    : theme.colors.WHITE;
+  const dateButtonBackgroundColor = hasSelectedDate
+    ? dateFilterSurface
+    : theme.colors.WHITE;
+  const dateButtonTextColor = hasSelectedDate
+    ? theme.colors.ORANGE_200
+    : theme.colors.GRAY_600;
+  const selectedTextColor = hasSelectedStatus
+    ? statusFilterColor
+    : theme.colors.GRAY_600;
+  const iconTintColor = hasSelectedStatus
+    ? statusFilterColor
+    : theme.colors.GRAY_300;
+  const clearFilterBackgroundColor = hasActiveFilters
+    ? theme.colors.RED_100
+    : "#C5C5C5";
+  const clearFilterIconColor = hasActiveFilters
+    ? theme.colors.WHITE
+    : "#F2F2F2";
 
   return {
     hasSelectedStatus,
@@ -38,26 +59,12 @@ export function getOrdersFilterAppearance({
     statusFilterSurface,
     dateFilterColor,
     dateFilterSurface,
-    statusShellBackgroundColor: hasSelectedStatus
-      ? statusFilterSurface
-      : theme.colors.WHITE,
-    dateButtonBackgroundColor: hasSelectedDate
-      ? dateFilterSurface
-      : theme.colors.WHITE,
-    dateButtonTextColor: hasSelectedDate
-      ? theme.colors.ORANGE_200
-      : theme.colors.GRAY_600,
-    selectedTextColor: hasSelectedStatus
-      ? statusFilterColor
-      : theme.colors.GRAY_600,
-    iconTintColor: hasSelectedStatus
-      ? statusFilterColor
-      : theme.colors.GRAY_300,
-    clearFilterBackgroundColor: hasActiveFilters
-      ? theme.colors.RED_100
-      : "#C5C5C5",
-    clearFilterIconColor: hasActiveFilters
-      ? theme.colors.WHITE
-      : "#F2F2F2",
+    statusShellBackgroundColor,
+    dateButtonBackgroundColor,
+    dateButtonTextColor,
+    selectedTextColor,
+    iconTintColor,
+    clearFilterBackgroundColor,
+    clearFilterIconColor,
   };
 }
