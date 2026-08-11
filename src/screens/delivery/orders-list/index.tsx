@@ -16,37 +16,44 @@ import {
 import theme from "src/styles/theme";
 import { OrderStatusProps } from "src/types/orders";
 import * as S from "./styles";
-import { useOrdersList } from "./use-orders-list";
+import { useDeliveryOrdersList } from "./use-delivery-orders-list";
 
-type OrderDetailNavigationProp = NativeStackNavigationProp<{
+type DeliveryOrderDetailNavigationProp = NativeStackNavigationProp<{
   orderDetail: { orderId: number };
 }>;
 
-export const OrdersListScreen = () => {
-  const navigation = useNavigation<OrderDetailNavigationProp>();
+function getNextDeliveryStatus(
+  currentStatus: OrderStatusProps
+): OrderStatusProps | null {
+  if (currentStatus === "PENDENTE") return "INICIADO";
+  if (currentStatus === "INICIADO") return "FINALIZADO";
+  return null;
+}
+
+export function DeliveryOrdersListScreen() {
+  const navigation = useNavigation<DeliveryOrderDetailNavigationProp>();
   const {
     openDatePicker,
     handleDateChange,
     refreshing,
-    filteredSchedules,
-    reloadScreenData,
-    onEndList,
+    filteredOrders,
+    reloadOrders,
+    loadNextPage,
     selectStatusData,
     selectedStatus,
     date,
     toggleDatePicker,
     clearFilter,
-    haveFilters,
+    hasActiveFilters,
     setSelectedStatus,
-    isAdminView,
     updateOrderStatus,
     loadError,
-  } = useOrdersList();
+  } = useDeliveryOrdersList();
 
   const filterAppearance = getOrdersFilterAppearance({
     selectedStatus,
     date,
-    hasActiveFilters: haveFilters,
+    hasActiveFilters,
   });
 
   return (
@@ -153,8 +160,8 @@ export const OrdersListScreen = () => {
 
           <S.ClearFilterButton
             onPress={clearFilter}
-            disabled={!haveFilters}
-            isEnabled={haveFilters}
+            disabled={!hasActiveFilters}
+            isEnabled={hasActiveFilters}
             backgroundColor={filterAppearance.clearFilterBackgroundColor}
             activeOpacity={0.8}
           >
@@ -169,44 +176,34 @@ export const OrdersListScreen = () => {
           emptyArrayMessage={
             loadError
               ? "Não foi possível carregar os pedidos. Verifique se o servidor está rodando e puxe para atualizar."
-              : isAdminView
-                ? "Não há pedidos"
-                : "Você ainda não possui pedidos"
+              : "Não há pedidos"
           }
           refreshing={refreshing}
-          orders={filteredSchedules}
-          onRefresh={() => reloadScreenData()}
+          orders={filteredOrders}
+          onRefresh={() => reloadOrders()}
           renderItem={({ item }) => {
-            const canUpdateOrderStatus =
-              isAdminView &&
-              item.status !== "FINALIZADO" &&
-              item.status !== "CANCELADO";
+            const nextStatus = getNextDeliveryStatus(item.status);
 
             return (
               <OrderCard
                 {...item}
-                showUserName={isAdminView}
+                showUserName
                 username={item.user?.username}
                 onPress={() =>
                   navigation.navigate("orderDetail", { orderId: item.id })
                 }
-                leftAction={
-                  canUpdateOrderStatus
-                    ? () => updateOrderStatus(item.id, "CANCELADO")
-                    : undefined
-                }
                 rightAction={
-                  canUpdateOrderStatus
-                    ? () => updateOrderStatus(item.id, "FINALIZADO")
+                  nextStatus
+                    ? () => updateOrderStatus(item.id, nextStatus)
                     : undefined
                 }
               />
             );
           }}
           itemSeparatorComponent={() => <S.Divider />}
-          onEndList={onEndList}
+          onEndList={loadNextPage}
         />
       </S.Container>
     </LinearGradientBackground>
   );
-};
+}

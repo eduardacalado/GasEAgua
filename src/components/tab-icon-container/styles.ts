@@ -8,9 +8,9 @@ type TabIconContainerProps = {
 export const Container = styled.View<TabIconContainerProps>`
   justify-content: center;
   align-items: center;
-  width: 36px;
+  width: 64px;
   height: 32px;
-  border-radius: 10px;
+  border-radius: 16px;
   background-color: ${({ focused }) =>
-    focused ? theme.colors.ORANGE_200 : "transparent"};
+    focused ? theme.colors.ORANGE_50 : "transparent"};
 `;

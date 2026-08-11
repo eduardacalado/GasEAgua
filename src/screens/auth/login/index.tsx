@@ -15,7 +15,9 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import Toast from "react-native-toast-message";
+import { authSessionStorage } from "src/libs/storage/authSessionStorage";
 import { postLogin } from "src/services/auth";
+import theme from "src/styles/theme";
 import * as yup from "yup";
 import { LinearGradientBackground } from "../../../components/LinearGradientBackground";
 import * as S from "./styles";
@@ -30,6 +32,7 @@ const schema = yup.object({
 
 export function Login() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const dispatch = useAppDispatch();
 
   const {
@@ -46,6 +49,7 @@ export function Login() {
     setIsLoading(true);
     try {
       const authDates = await postLogin({ email, password });
+      await authSessionStorage.save(authDates);
       dispatch(userActions.saveUser(authDates));
       dispatch(authActions.updateAuthStore({ isAuthenticated: true }));
     } catch (error) {
@@ -64,14 +68,14 @@ export function Login() {
   return (
     <LinearGradientBackground>
       <S.ScrollViewContainer
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         keyboardShouldPersistTaps="handled"
       >
         <StatusBar style="light" />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{ flex: 1 }}
+            style={{ flex: 1, justifyContent: "center" }}
           >
             <S.Container>
               <S.Title>Preencha os campos para fazer login!</S.Title>
@@ -80,15 +84,20 @@ export function Login() {
                 name="email"
                 render={({ field: { onChange, value } }) => (
                   <S.InputArea>
-                    <MaterialIcons
-                      name="alternate-email"
-                      size={20}
-                      color="#7e7e7e"
-                    />
+                    <S.InputIconBadge>
+                      <MaterialIcons
+                        name="alternate-email"
+                        size={16}
+                        color={theme.colors.ORANGE_200}
+                      />
+                    </S.InputIconBadge>
                     <S.Input
                       placeholder="Email"
+                      placeholderTextColor={theme.colors.GRAY_300}
                       onChangeText={onChange}
                       value={value}
+                      keyboardType="email-address"
+                      autoCapitalize="none"
                     />
                   </S.InputArea>
                 )}
@@ -102,16 +111,35 @@ export function Login() {
                 name="password"
                 render={({ field: { onChange, value } }) => (
                   <S.InputArea>
-                    <MaterialIcons
-                      name="lock-outline"
-                      size={20}
-                      color="#7e7e7e"
-                    />
+                    <S.InputIconBadge>
+                      <MaterialIcons
+                        name="lock-outline"
+                        size={16}
+                        color={theme.colors.ORANGE_200}
+                      />
+                    </S.InputIconBadge>
                     <S.Input
                       placeholder="Senha"
+                      placeholderTextColor={theme.colors.GRAY_300}
                       onChangeText={onChange}
                       value={value}
+                      secureTextEntry={!isPasswordVisible}
                     />
+                    <TouchableOpacity
+                      onPress={() =>
+                        setIsPasswordVisible((isVisible) => !isVisible)
+                      }
+                      hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                      activeOpacity={0.7}
+                    >
+                      <MaterialIcons
+                        name={
+                          isPasswordVisible ? "visibility" : "visibility-off"
+                        }
+                        size={22}
+                        color={theme.colors.GRAY_300}
+                      />
+                    </TouchableOpacity>
                   </S.InputArea>
                 )}
               />
@@ -122,6 +150,7 @@ export function Login() {
               <TouchableOpacity
                 onPress={handleSubmit(handleLogin)}
                 disabled={isLoading}
+                activeOpacity={0.85}
               >
                 <S.LoginButton
                   colors={["#DB1A00", "#ED4200", "#FF6A00"]}

@@ -52,8 +52,8 @@ export function AdminBottomTabRoutes() {
         title: "",
         tabBarStyle: {
           backgroundColor: theme.colors.GRAY_100,
-          borderTopWidth: 0,
-          borderColor: "transparent",
+          borderTopWidth: 1,
+          borderTopColor: theme.colors.GRAY_200,
           paddingBottom: 16,
           paddingTop: 8,
           height: 88,
@@ -71,7 +71,7 @@ export function AdminBottomTabRoutes() {
               <Entypo
                 name="home"
                 size={tabBarIconWidth}
-                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+                color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
           ),
@@ -87,7 +87,7 @@ export function AdminBottomTabRoutes() {
               <Entypo
                 name="users"
                 size={tabBarIconWidth}
-                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+                color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
           ),
@@ -103,7 +103,7 @@ export function AdminBottomTabRoutes() {
               <Entypo
                 name="list"
                 size={tabBarIconWidth}
-                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+                color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
           ),
@@ -120,7 +120,7 @@ export function AdminBottomTabRoutes() {
               <Entypo
                 name="user"
                 size={tabBarIconWidth}
-                color={focused ? theme.colors.WHITE : theme.colors.GRAY_300}
+                color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
           ),

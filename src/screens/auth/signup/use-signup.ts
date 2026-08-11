@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
 import { DEFAULT_CITY, DEFAULT_ENGENHO } from "src/constants/localOptions";
+import { authSessionStorage } from "src/libs/storage/authSessionStorage";
 import { postLogin, postSignup } from "src/services/auth";
 import * as yup from "yup";
 
@@ -61,6 +62,7 @@ export function useSignup() {
       });
 
       const authDates = await postLogin({ email, password });
+      await authSessionStorage.save(authDates);
 
       Toast.show({
         type: "success",

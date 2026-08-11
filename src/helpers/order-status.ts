@@ -53,6 +53,21 @@ export function getOrderStatusSurfaceColor(status: OrderStatusProps): string {
   return "#FFF4E6";
 }
 
+export function getOrderStatusIconName(
+  status: OrderStatusProps
+): "clock" | "truck" | "check-circle" | "x-circle" {
+  if (status === "INICIADO") {
+    return "truck";
+  }
+  if (status === "FINALIZADO") {
+    return "check-circle";
+  }
+  if (status === "CANCELADO") {
+    return "x-circle";
+  }
+  return "clock";
+}
+
 export type OrderStatusOption = {
   label: string;
   value: OrderStatusProps;

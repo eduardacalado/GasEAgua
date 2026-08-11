@@ -2,6 +2,7 @@ import { config } from "@config/environment";
 import { store } from "@store/index";
 import { authActions } from "@store/modules/auth/slice";
 import { userActions } from "@store/modules/user/slice";
+import { authSessionStorage } from "../storage/authSessionStorage";
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -41,6 +42,7 @@ api.interceptors.response.use(
     console.log(JSON.stringify(error, null, 2));
 
     if (error.response?.status === 401) {
+      authSessionStorage.clear();
       store.dispatch(userActions.clearUserData());
       store.dispatch(authActions.clearAuthData());
     }

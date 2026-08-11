@@ -1,4 +1,5 @@
 import { CustomHeader } from "@components/custom-header";
+import { Feather } from "@expo/vector-icons";
 import { useUpdateProfile } from "@screens/user/profile/use-update-profile";
 import { StatusBar } from "expo-status-bar";
 import { Controller } from "react-hook-form";
@@ -33,6 +34,8 @@ export function UserProfile() {
     email,
   } = useUpdateProfile();
 
+  const avatarInitial = username?.trim()?.charAt(0)?.toUpperCase() || "?";
+
   return (
     <S.SafeAreaViewContainer>
       <StatusBar style="dark" />
@@ -45,134 +48,192 @@ export function UserProfile() {
           <CustomHeader color={theme.colors.ORANGE_300} />
         </S.MapImage>
         <S.Container>
-          <S.Name>{username}</S.Name>
-          <S.Email>{email}</S.Email>
+          <S.ProfileHeader>
+            <S.AvatarBadge>
+              <S.AvatarInitial>{avatarInitial}</S.AvatarInitial>
+            </S.AvatarBadge>
+            <S.Name>{username}</S.Name>
+            <S.Email>{email}</S.Email>
+          </S.ProfileHeader>
 
-          <S.InfoContainer>
-            <S.TitleInfoContainer>
-              <S.InfoTitle>Local</S.InfoTitle>
-              <Controller
-                control={control}
-                name="mainLocal"
-                render={({ field: { onChange, value } }) => (
-                  <S.InfoInputContainer>
-                    <S.SelectInput
-                      selectedValue={mainLocal}
-                      onValueChange={(value: string) => {
-                        onChange(value);
-                        setMainLocal(value);
-                      }}
-                      enabled={isEditing}
-                    >
-                      <S.SelectInput.Item
-                        label={DEFAULT_CITY}
-                        value={DEFAULT_CITY}
-                      />
-                      <S.SelectInput.Item
-                        label={DEFAULT_ENGENHO}
-                        value={DEFAULT_ENGENHO}
-                      />
-                    </S.SelectInput>
-                  </S.InfoInputContainer>
-                )}
-              />
-            </S.TitleInfoContainer>
-            {mainLocal === DEFAULT_ENGENHO && (
+          <S.FormCard>
+            <S.InfoContainer>
               <S.TitleInfoContainer>
-                <S.InfoTitle>Engenho</S.InfoTitle>
+                <S.FieldLabelRow>
+                  <S.FieldIconBadge>
+                    <Feather
+                      name="map-pin"
+                      size={14}
+                      color={theme.colors.ORANGE_200}
+                    />
+                  </S.FieldIconBadge>
+                  <S.InfoTitle>Local</S.InfoTitle>
+                </S.FieldLabelRow>
                 <Controller
                   control={control}
-                  name="engenho"
-                  render={({ field: { onChange, value } }) => (
-                    <S.InfoInputContainer>
+                  name="mainLocal"
+                  render={({ field: { onChange } }) => (
+                    <S.InfoInputContainer isEditing={isEditing}>
                       <S.SelectInput
-                        selectedValue={selectedEngenho}
-                        onValueChange={(value: string) =>
-                          setSelectedEngenho(value)
-                        }
+                        selectedValue={mainLocal}
+                        onValueChange={(value: string) => {
+                          onChange(value);
+                          setMainLocal(value);
+                        }}
                         enabled={isEditing}
                       >
-                        {ENGENHO_OPTIONS.map((option) => (
-                          <S.SelectInput.Item
-                            key={option}
-                            label={option}
-                            value={option}
-                          />
-                        ))}
+                        <S.SelectInput.Item
+                          label={DEFAULT_CITY}
+                          value={DEFAULT_CITY}
+                        />
+                        <S.SelectInput.Item
+                          label={DEFAULT_ENGENHO}
+                          value={DEFAULT_ENGENHO}
+                        />
                       </S.SelectInput>
                     </S.InfoInputContainer>
                   )}
                 />
               </S.TitleInfoContainer>
-            )}
-            {mainLocal !== DEFAULT_ENGENHO && (
-              <S.StreetNumberInputContainer>
+
+              {mainLocal === DEFAULT_ENGENHO && (
                 <S.TitleInfoContainer>
-                  <S.InfoTitle>Rua</S.InfoTitle>
+                  <S.FieldLabelRow>
+                    <S.FieldIconBadge>
+                      <Feather
+                        name="home"
+                        size={14}
+                        color={theme.colors.ORANGE_200}
+                      />
+                    </S.FieldIconBadge>
+                    <S.InfoTitle>Engenho</S.InfoTitle>
+                  </S.FieldLabelRow>
                   <Controller
                     control={control}
-                    name="street"
-                    render={({ field: { onChange, value } }) => (
-                      <S.InfoInputContainer>
-                        <S.InfoInput
-                          editable={isEditing}
-                          value={value}
-                          onChangeText={(text: string) => {
-                            onChange(text);
-                            setAddressFields({
-                              ...addressFields,
-                              street: text,
-                            });
-                          }}
-                        />
+                    name="engenho"
+                    render={() => (
+                      <S.InfoInputContainer isEditing={isEditing}>
+                        <S.SelectInput
+                          selectedValue={selectedEngenho}
+                          onValueChange={(value: string) =>
+                            setSelectedEngenho(value)
+                          }
+                          enabled={isEditing}
+                        >
+                          {ENGENHO_OPTIONS.map((option) => (
+                            <S.SelectInput.Item
+                              key={option}
+                              label={option}
+                              value={option}
+                            />
+                          ))}
+                        </S.SelectInput>
                       </S.InfoInputContainer>
                     )}
                   />
                 </S.TitleInfoContainer>
-                <S.TitleInfoContainer>
-                  <S.InfoTitle>Número</S.InfoTitle>
-                  <Controller
-                    control={control}
-                    name="number"
-                    render={({ field: { onChange, value } }) => (
-                      <S.InfoInputContainer>
-                        <S.InfoInput
-                          editable={isEditing}
-                          value={value}
-                          onChangeText={(text: string) => {
-                            onChange(text);
-                            setAddressFields({
-                              ...addressFields,
-                              number: text,
-                            });
-                          }}
+              )}
+
+              {mainLocal !== DEFAULT_ENGENHO && (
+                <S.StreetNumberInputContainer>
+                  <S.TitleInfoContainer>
+                    <S.FieldLabelRow>
+                      <S.FieldIconBadge>
+                        <Feather
+                          name="navigation"
+                          size={14}
+                          color={theme.colors.ORANGE_200}
                         />
-                      </S.InfoInputContainer>
-                    )}
-                  />
-                </S.TitleInfoContainer>
-              </S.StreetNumberInputContainer>
-            )}
-            <S.TitleInfoContainer>
-              <S.InfoTitle>Referência</S.InfoTitle>
-              <Controller
-                control={control}
-                name="reference"
-                render={({ field: { onChange, value } }) => (
-                  <S.InfoInputContainer>
-                    <S.InfoInput
-                      editable={isEditing}
-                      value={value}
-                      onChangeText={(text: string) => {
-                        onChange(text);
-                        setAddressFields({ ...addressFields, reference: text });
-                      }}
+                      </S.FieldIconBadge>
+                      <S.InfoTitle>Rua</S.InfoTitle>
+                    </S.FieldLabelRow>
+                    <Controller
+                      control={control}
+                      name="street"
+                      render={({ field: { onChange, value } }) => (
+                        <S.InfoInputContainer isEditing={isEditing}>
+                          <S.InfoInput
+                            editable={isEditing}
+                            value={value}
+                            onChangeText={(text: string) => {
+                              onChange(text);
+                              setAddressFields({
+                                ...addressFields,
+                                street: text,
+                              });
+                            }}
+                          />
+                        </S.InfoInputContainer>
+                      )}
                     />
-                  </S.InfoInputContainer>
-                )}
-              />
-            </S.TitleInfoContainer>
-          </S.InfoContainer>
+                  </S.TitleInfoContainer>
+                  <S.TitleInfoContainer>
+                    <S.FieldLabelRow>
+                      <S.FieldIconBadge>
+                        <Feather
+                          name="hash"
+                          size={14}
+                          color={theme.colors.ORANGE_200}
+                        />
+                      </S.FieldIconBadge>
+                      <S.InfoTitle>Número</S.InfoTitle>
+                    </S.FieldLabelRow>
+                    <Controller
+                      control={control}
+                      name="number"
+                      render={({ field: { onChange, value } }) => (
+                        <S.InfoInputContainer isEditing={isEditing}>
+                          <S.InfoInput
+                            editable={isEditing}
+                            value={value}
+                            onChangeText={(text: string) => {
+                              onChange(text);
+                              setAddressFields({
+                                ...addressFields,
+                                number: text,
+                              });
+                            }}
+                          />
+                        </S.InfoInputContainer>
+                      )}
+                    />
+                  </S.TitleInfoContainer>
+                </S.StreetNumberInputContainer>
+              )}
+
+              <S.TitleInfoContainer>
+                <S.FieldLabelRow>
+                  <S.FieldIconBadge>
+                    <Feather
+                      name="bookmark"
+                      size={14}
+                      color={theme.colors.ORANGE_200}
+                    />
+                  </S.FieldIconBadge>
+                  <S.InfoTitle>Referência</S.InfoTitle>
+                </S.FieldLabelRow>
+                <Controller
+                  control={control}
+                  name="reference"
+                  render={({ field: { onChange, value } }) => (
+                    <S.InfoInputContainer isEditing={isEditing}>
+                      <S.InfoInput
+                        editable={isEditing}
+                        value={value}
+                        onChangeText={(text: string) => {
+                          onChange(text);
+                          setAddressFields({
+                            ...addressFields,
+                            reference: text,
+                          });
+                        }}
+                      />
+                    </S.InfoInputContainer>
+                  )}
+                />
+              </S.TitleInfoContainer>
+            </S.InfoContainer>
+          </S.FormCard>
 
           <S.ButtonsContainer>
             <TouchableOpacity
@@ -197,7 +258,7 @@ export function UserProfile() {
               <S.LogoutButton
                 colors={
                   isEditing
-                    ? ["#929292", "#c5c0c0", "#EEEEEE"]
+                    ? ["#C5C5C5", "#C5C5C5", "#C5C5C5"]
                     : ["#DB1A00", "#ED4200", "#FF6A00"]
                 }
                 start={{ x: 0, y: 1 }}

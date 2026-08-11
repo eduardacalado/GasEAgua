@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import theme from "../../../styles/theme";
+import theme from "src/styles/theme";
 
 export const SafeAreaViewContainer = styled.View`
   flex: 1;
@@ -49,14 +49,14 @@ export const DateChipText = styled.Text`
   font-weight: ${theme.font.weight.medium};
 `;
 
-export const AnalysisContainer = styled.View`
+export const CardsContainer = styled.View`
   flex-direction: column;
   align-items: stretch;
   gap: ${theme.size.m4};
   width: 100%;
 `;
 
-export const DataContainer = styled.View`
+export const DataCard = styled.View`
   background-color: ${theme.colors.WHITE};
   border-radius: ${theme.size.m5};
   padding: ${theme.size.m6};
@@ -67,7 +67,7 @@ export const DataContainer = styled.View`
   shadow-offset: 0px 2px;
 `;
 
-export const HighlightCard = styled(DataContainer)`
+export const HighlightCard = styled(DataCard)`
   border-left-width: 4px;
   border-left-color: ${theme.colors.ORANGE_200};
 `;
@@ -88,21 +88,21 @@ export const IconBadge = styled.View<{ backgroundColor: string }>`
   justify-content: center;
 `;
 
-export const DataItem = styled.Text`
+export const DataLabel = styled.Text`
   color: ${theme.colors.GRAY_300};
   font-size: ${theme.font.size.m3};
   font-weight: ${theme.font.weight.semibold};
   flex-shrink: 1;
 `;
 
-export const DataItemValue = styled.Text`
+export const DataValue = styled.Text`
   color: ${theme.colors.GRAY_700};
   font-size: ${theme.font.size.m10};
   font-weight: ${theme.font.weight.bold};
   line-height: ${theme.font.size.m10};
 `;
 
-export const DataItemValueText = styled.Text`
+export const DataValueDescription = styled.Text`
   color: ${theme.colors.GRAY_300};
   font-size: ${theme.font.size.m4};
   font-weight: ${theme.font.weight.regular};
@@ -110,21 +110,21 @@ export const DataItemValueText = styled.Text`
   flex-shrink: 2;
 `;
 
-export const DataItemValueTextContainer = styled.View`
+export const DataValueRow = styled.View`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
   gap: ${theme.size.m2};
 `;
 
-export const GasAndWaterAnalysisContainer = styled.View`
+export const SideBySideContainer = styled.View`
   flex-direction: row;
   align-items: stretch;
   gap: ${theme.size.m3};
   width: 100%;
 `;
 
-export const SideBySideDataContainer = styled(DataContainer)`
+export const SideBySideCard = styled(DataCard)`
   flex: 1;
   padding: ${theme.size.m5};
 `;

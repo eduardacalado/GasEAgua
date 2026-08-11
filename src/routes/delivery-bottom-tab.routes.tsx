@@ -1,38 +1,27 @@
 import { TabIconContainer } from "@components/tab-icon-container";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { OrdersListScreen } from "@screens/user/orders-list";
 import { UserProfile } from "@screens/user/profile";
 import theme from "src/styles/theme";
-import { Home } from "../screens/user/home";
+import { DeliveryHomeScreen } from "../screens/delivery/home";
+import { DeliveryOrdersListScreen } from "../screens/delivery/orders-list";
 
-type UserNavbarRoutesProps = {
-  UserOrders: undefined;
-  UserHome: undefined;
-  UserProfile: undefined;
+type DeliveryNavbarRoutesProps = {
+  DeliveryHome: undefined;
+  DeliveryOrders: undefined;
+  DeliveryProfile: undefined;
 };
 
-export type AdminNavigatorNavbarRoutesProps =
-  NativeStackNavigationProp<UserNavbarRoutesProps>;
+export type DeliveryNavigatorNavbarRoutesProps =
+  NativeStackNavigationProp<DeliveryNavbarRoutesProps>;
 
-const { Navigator, Screen } = createBottomTabNavigator<UserNavbarRoutesProps>();
+const { Navigator, Screen } =
+  createBottomTabNavigator<DeliveryNavbarRoutesProps>();
 
-export function UserBottomTabRoutes() {
-  const { goBack } = useNavigation();
+const TAB_BAR_ICON_SIZE = 24;
 
-  const renderCustomBackButton = () => (
-    <MaterialIcons
-      name="arrow-back-ios"
-      size={24}
-      color={theme.colors.WHITE}
-      onPress={() => goBack()}
-    />
-  );
-
-  const tabBarIconWidth = 24;
-
+export function DeliveryBottomTabRoutes() {
   return (
     <Navigator
       screenOptions={{
@@ -46,7 +35,6 @@ export function UserBottomTabRoutes() {
           marginTop: 4,
           marginBottom: 2,
         },
-        headerLeft: renderCustomBackButton,
         title: "",
         tabBarStyle: {
           backgroundColor: theme.colors.GRAY_100,
@@ -60,15 +48,15 @@ export function UserBottomTabRoutes() {
       }}
     >
       <Screen
-        name="UserHome"
-        component={Home}
+        name="DeliveryHome"
+        component={DeliveryHomeScreen}
         options={{
           tabBarLabel: "Início",
           tabBarIcon: ({ focused }) => (
             <TabIconContainer focused={focused}>
               <Entypo
                 name="home"
-                size={tabBarIconWidth}
+                size={TAB_BAR_ICON_SIZE}
                 color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
@@ -76,15 +64,15 @@ export function UserBottomTabRoutes() {
         }}
       />
       <Screen
-        name="UserOrders"
-        component={OrdersListScreen}
+        name="DeliveryOrders"
+        component={DeliveryOrdersListScreen}
         options={{
           tabBarLabel: "Pedidos",
           tabBarIcon: ({ focused }) => (
             <TabIconContainer focused={focused}>
               <Entypo
                 name="list"
-                size={tabBarIconWidth}
+                size={TAB_BAR_ICON_SIZE}
                 color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
@@ -92,7 +80,7 @@ export function UserBottomTabRoutes() {
         }}
       />
       <Screen
-        name="UserProfile"
+        name="DeliveryProfile"
         component={UserProfile}
         options={{
           tabBarLabel: "Perfil",
@@ -101,7 +89,7 @@ export function UserBottomTabRoutes() {
             <TabIconContainer focused={focused}>
               <Entypo
                 name="user"
-                size={tabBarIconWidth}
+                size={TAB_BAR_ICON_SIZE}
                 color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />
             </TabIconContainer>
