@@ -16,19 +16,33 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.gaseagua.app",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "usesCleartextTraffic": true,
-      "permissions": ["INTERNET"],
-      "useNextNetworkStack": true
-    },
-    "networking": {
-      "connectivityExemptDomains": ["*"] 
+      "permissions": [
+        "INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "dd721d43-a345-48f4-b95b-9b56aea18387"
+      }
     }
   }
 }
