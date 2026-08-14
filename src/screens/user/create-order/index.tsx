@@ -21,6 +21,7 @@ export function UserCreateOrder() {
     navigateToOrderAddress,
     total,
     navigate,
+    homeRouteName,
     incrementProduct,
     decrementProduct,
     incrementAddon,
@@ -121,7 +122,7 @@ export function UserCreateOrder() {
       <S.SafeAreaViewContainer>
         <S.ScrollViewContainer>
           <StatusBar style="light" />
-          <CustomHeader handleBack={() => navigate("userHome")} />
+          <CustomHeader handleBack={() => navigate(homeRouteName)} />
           {stockLoading ? (
             <S.AddressContainer>
               <ActivityIndicator size="large" color={theme.colors.WHITE} />

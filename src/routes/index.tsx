@@ -8,12 +8,13 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { authSessionStorage } from "src/libs/storage/authSessionStorage";
 import { AdminRoutes } from "./admin.routes";
+import type { AdminRoutes as AdminRouteParams } from "./admin.routes";
 import { AuthRoutes } from "./auth.routes";
 import { DeliveryRoutes } from "./delivery.routes";
 import { UserRoutes } from "./user.routes";
 
 export type RootNavigatorRoutesProps = NativeStackNavigationProp<
-  AuthRoutes & UserRoutes
+  AuthRoutes & UserRoutes & AdminRouteParams
 >;
 
 export function RootRoutes() {

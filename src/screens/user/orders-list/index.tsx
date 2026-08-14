@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
+import { useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { getOrdersFilterAppearance } from "src/helpers/orders-filter-appearance";
 import {
@@ -15,15 +16,19 @@ import {
 } from "src/helpers/order-status";
 import theme from "src/styles/theme";
 import { OrderStatusProps } from "src/types/orders";
+import { ProductName } from "src/types/stock";
 import * as S from "./styles";
 import { useOrdersList } from "./use-orders-list";
 
-type OrderDetailNavigationProp = NativeStackNavigationProp<{
+type OrdersListNavigationProp = NativeStackNavigationProp<{
   orderDetail: { orderId: number };
+  userCreateOrder: { type: ProductName };
 }>;
 
 export const OrdersListScreen = () => {
-  const navigation = useNavigation<OrderDetailNavigationProp>();
+  const navigation = useNavigation<OrdersListNavigationProp>();
+  const [isCreateOrderMenuVisible, setIsCreateOrderMenuVisible] =
+    useState(false);
   const {
     openDatePicker,
     handleDateChange,
@@ -48,6 +53,24 @@ export const OrdersListScreen = () => {
     date,
     hasActiveFilters: haveFilters,
   });
+
+  function closeCreateOrderMenu() {
+    setIsCreateOrderMenuVisible(false);
+  }
+
+  function toggleCreateOrderMenu() {
+    setIsCreateOrderMenuVisible((isVisible) => !isVisible);
+  }
+
+  function handleCreateOrder(productType: ProductName) {
+    closeCreateOrderMenu();
+    navigation.navigate("userCreateOrder", { type: productType });
+  }
+
+  let createOrderFabIconName: "plus" | "x" = "plus";
+  if (isCreateOrderMenuVisible) {
+    createOrderFabIconName = "x";
+  }
 
   return (
     <LinearGradientBackground>
@@ -207,6 +230,34 @@ export const OrdersListScreen = () => {
           onEndList={onEndList}
         />
       </S.Container>
+      {isAdminView && isCreateOrderMenuVisible && (
+        <>
+          <S.CreateOrderBackdrop onPress={closeCreateOrderMenu} />
+          <S.CreateOrderActions>
+            <S.CreateOrderActionRow onPress={() => handleCreateOrder("GAS")}>
+              <S.CreateOrderActionLabel>Pedir Gás</S.CreateOrderActionLabel>
+              <S.CreateOrderActionButton>
+                <Feather name="zap" size={18} color={theme.colors.ORANGE_200} />
+              </S.CreateOrderActionButton>
+            </S.CreateOrderActionRow>
+            <S.CreateOrderActionRow onPress={() => handleCreateOrder("WATER")}>
+              <S.CreateOrderActionLabel>Pedir Água</S.CreateOrderActionLabel>
+              <S.CreateOrderActionButton>
+                <Feather name="droplet" size={18} color={theme.colors.BLUE} />
+              </S.CreateOrderActionButton>
+            </S.CreateOrderActionRow>
+          </S.CreateOrderActions>
+        </>
+      )}
+      {isAdminView && (
+        <S.CreateOrderFab onPress={toggleCreateOrderMenu}>
+          <Feather
+            name={createOrderFabIconName}
+            size={24}
+            color={theme.colors.WHITE}
+          />
+        </S.CreateOrderFab>
+      )}
     </LinearGradientBackground>
   );
 };
