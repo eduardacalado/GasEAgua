@@ -155,7 +155,7 @@ export const useCreateOrder = () => {
     const orderPayload = buildOrderPayload();
 
     navigate("orderAddress", {
-      type: params.type,
+      type: params?.type,
       orderPayload,
       totalValue: total,
     });

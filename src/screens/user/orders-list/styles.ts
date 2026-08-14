@@ -235,14 +235,6 @@ export const dropdownMenuItemContainerStyle = {
   paddingHorizontal: 0,
 };
 
-export const CreateOrderBackdrop = styled.Pressable`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-`;
-
 export const CreateOrderFab = styled.TouchableOpacity`
   position: absolute;
   right: ${theme.size.m5};
@@ -258,43 +250,4 @@ export const CreateOrderFab = styled.TouchableOpacity`
   shadow-opacity: 0.25;
   shadow-radius: 8px;
   shadow-offset: 0px 4px;
-`;
-
-export const CreateOrderActions = styled.View`
-  position: absolute;
-  right: ${theme.size.m5};
-  bottom: 88px;
-  align-items: flex-end;
-  gap: ${theme.size.m3};
-`;
-
-export const CreateOrderActionRow = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  gap: ${theme.size.m3};
-`;
-
-export const CreateOrderActionLabel = styled.Text`
-  color: ${theme.colors.GRAY_700};
-  background-color: ${theme.colors.WHITE};
-  font-size: ${theme.font.size.m3};
-  font-weight: ${theme.font.weight.bold};
-  padding: ${theme.size.m2} ${theme.size.m3};
-  border-radius: ${theme.size.m3};
-  elevation: 4;
-  overflow: hidden;
-`;
-
-export const CreateOrderActionButton = styled.View`
-  width: 44px;
-  height: 44px;
-  border-radius: 22px;
-  background-color: ${theme.colors.WHITE};
-  align-items: center;
-  justify-content: center;
-  elevation: 4;
-  shadow-color: ${theme.colors.GRAY_700};
-  shadow-opacity: 0.18;
-  shadow-radius: 6px;
-  shadow-offset: 0px 2px;
 `;

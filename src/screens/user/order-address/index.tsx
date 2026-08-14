@@ -57,7 +57,7 @@ export function OrderAddress() {
           <StatusBar style="light" />
           <CustomHeader
             handleBack={() =>
-              navigate("userCreateOrder", { type: params.type })
+              navigate("userCreateOrder", { type: params?.type })
             }
           />
 
