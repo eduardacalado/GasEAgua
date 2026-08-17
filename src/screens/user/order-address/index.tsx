@@ -26,11 +26,10 @@ export function OrderAddress() {
     handleSubmit,
     control,
     errors,
-    setValue,
     mainLocal,
-    setMainLocal,
     selectedEngenho,
-    setSelectedEngenho,
+    handleMainLocalChange,
+    handleEngenhoChange,
     navigate,
     orderSummary,
     handChangeAddress,
@@ -67,93 +66,95 @@ export function OrderAddress() {
                 <S.Title>Endereço de entrega</S.Title>
                 {isAdmin ? (
                   <>
-                    <Controller
-                      control={control}
-                      name="local"
-                      render={({ field: { onChange } }) => (
-                        <S.InputArea>
-                          <S.SelectInput
-                            selectedValue={mainLocal}
-                            onValueChange={(value: string) => {
-                              onChange(value);
-                              setMainLocal(value);
-                              if (value === DEFAULT_CITY) {
-                                setValue("local", DEFAULT_CITY);
-                              }
-                            }}
-                          >
-                            <S.SelectInput.Item
-                              label={DEFAULT_CITY}
-                              value={DEFAULT_CITY}
-                            />
-                            <S.SelectInput.Item
-                              label={DEFAULT_ENGENHO}
-                              value={DEFAULT_ENGENHO}
-                            />
-                          </S.SelectInput>
-                        </S.InputArea>
-                      )}
-                    />
+                    <S.InputArea>
+                      <S.SelectInput
+                        selectedValue={mainLocal}
+                        onValueChange={handleMainLocalChange}
+                      >
+                        <S.SelectInput.Item
+                          label={DEFAULT_CITY}
+                          value={DEFAULT_CITY}
+                        />
+                        <S.SelectInput.Item
+                          label={DEFAULT_ENGENHO}
+                          value={DEFAULT_ENGENHO}
+                        />
+                      </S.SelectInput>
+                    </S.InputArea>
 
                     {mainLocal === DEFAULT_ENGENHO && (
-                      <S.InputArea>
-                        <S.SelectInput
-                          selectedValue={selectedEngenho}
-                          onValueChange={(value: string) => {
-                            setSelectedEngenho(value);
-                            setValue("local", value);
-                          }}
-                        >
-                          {ENGENHO_OPTIONS.map((option) => (
+                      <>
+                        <S.InputArea>
+                          <S.SelectInput
+                            selectedValue={selectedEngenho}
+                            onValueChange={handleEngenhoChange}
+                          >
                             <S.SelectInput.Item
-                              key={option}
-                              label={option}
-                              value={option}
+                              label="Selecione o engenho"
+                              value=""
                             />
-                          ))}
-                        </S.SelectInput>
-                      </S.InputArea>
+                            {ENGENHO_OPTIONS.map((option) => (
+                              <S.SelectInput.Item
+                                key={option}
+                                label={option}
+                                value={option}
+                              />
+                            ))}
+                          </S.SelectInput>
+                        </S.InputArea>
+                        {errors.local && (
+                          <S.LabelError>{errors.local.message}</S.LabelError>
+                        )}
+                      </>
                     )}
 
                     {mainLocal !== DEFAULT_ENGENHO && (
-                      <S.StreetNumberInputContainer>
-                        <Controller
-                          control={control}
-                          name="street"
-                          render={({ field: { onChange, value } }) => (
-                            <S.InputArea>
-                              <MaterialCommunityIcons
-                                name="map-marker"
-                                size={20}
-                                color="#7e7e7e"
-                              />
-                              <S.Input
-                                value={value}
-                                onChangeText={onChange}
-                                placeholder="Rua"
-                              />
-                            </S.InputArea>
-                          )}
-                        />
-                        <Controller
-                          control={control}
-                          name="number"
-                          render={({ field: { onChange, value } }) => (
-                            <S.InputArea>
-                              <MaterialCommunityIcons
-                                name="map-marker"
-                                size={20}
-                                color="#7e7e7e"
-                              />
-                              <S.Input
-                                value={value}
-                                onChangeText={onChange}
-                                placeholder="Número"
-                              />
-                            </S.InputArea>
-                          )}
-                        />
-                      </S.StreetNumberInputContainer>
+                      <>
+                        <S.StreetNumberInputContainer>
+                          <Controller
+                            control={control}
+                            name="street"
+                            render={({ field: { onChange, value } }) => (
+                              <S.InputArea>
+                                <MaterialCommunityIcons
+                                  name="map-marker"
+                                  size={20}
+                                  color="#7e7e7e"
+                                />
+                                <S.Input
+                                  value={value}
+                                  onChangeText={onChange}
+                                  placeholder="Rua"
+                                />
+                              </S.InputArea>
+                            )}
+                          />
+                          <Controller
+                            control={control}
+                            name="number"
+                            render={({ field: { onChange, value } }) => (
+                              <S.InputArea>
+                                <MaterialCommunityIcons
+                                  name="map-marker"
+                                  size={20}
+                                  color="#7e7e7e"
+                                />
+                                <S.Input
+                                  value={value}
+                                  onChangeText={onChange}
+                                  placeholder="Número"
+                                />
+                              </S.InputArea>
+                            )}
+                          />
+                        </S.StreetNumberInputContainer>
+                        {errors.street && (
+                          <S.LabelError>{errors.street.message}</S.LabelError>
+                        )}
+                        {errors.number && (
+                          <S.LabelError>{errors.number.message}</S.LabelError>
+                        )}
+                      </>
                     )}
 
                     <Controller
@@ -174,16 +175,6 @@ export function OrderAddress() {
                         </S.InputArea>
                       )}
                     />
-
-                    {errors.local && (
-                      <S.LabelError>{errors.local.message}</S.LabelError>
-                    )}
-                    {errors.street && (
-                      <S.LabelError>{errors.street.message}</S.LabelError>
-                    )}
-                    {errors.number && (
-                      <S.LabelError>{errors.number.message}</S.LabelError>
-                    )}
                     {errors.reference && (
                       <S.LabelError>{errors.reference.message}</S.LabelError>
                     )}

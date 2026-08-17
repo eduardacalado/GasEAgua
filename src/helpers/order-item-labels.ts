@@ -40,7 +40,7 @@ export function getAddonOrderLabel(type: string, fallbackName: string) {
     return {
       title: "Vasilhame de água",
       subtitle:
-        "Recipiente vazio. Adicione junto da água se o cliente ainda não tem o botijão.",
+        "Recipiente vazio. Adicione junto da água se o cliente ainda não tem o vasilhame.",
     };
   }
 
@@ -48,7 +48,7 @@ export function getAddonOrderLabel(type: string, fallbackName: string) {
     return {
       title: "Vasilhame de gás",
       subtitle:
-        "Botijão vazio. Adicione junto do gás se o cliente ainda não tem o recipiente.",
+        "Botijão vazio. Adicione junto do gás se o cliente ainda não tem o botijão.",
     };
   }
 

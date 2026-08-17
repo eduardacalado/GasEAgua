@@ -14,19 +14,61 @@ import { postOrder } from "src/services/order";
 import { OrderDeliveryAddress, OrderPayload } from "src/services/order/types";
 import * as yup from "yup";
 
+function isJaqueiraLocal(local?: string) {
+  return local === DEFAULT_CITY;
+}
+
 const deliveryAddressSchema = yup.object({
-  street: yup.string(),
-  number: yup.string(),
-  reference: yup.string().required("Informe uma referência do endereço"),
-  local: yup.string().required("Informe a localidade"),
+  local: yup
+    .string()
+    .trim()
+    .required("Selecione o engenho")
+    .test(
+      "is-specific-locality",
+      "Selecione o engenho",
+      (localValue) => Boolean(localValue) && localValue !== DEFAULT_ENGENHO
+    ),
+  street: yup.string().when("local", {
+    is: DEFAULT_CITY,
+    then: (schema) =>
+      schema.trim().required("Informe a rua").min(1, "Informe a rua"),
+    otherwise: (schema) => schema.strip(),
+  }),
+  number: yup.string().when("local", {
+    is: DEFAULT_CITY,
+    then: (schema) =>
+      schema.trim().required("Informe o número").min(1, "Informe o número"),
+    otherwise: (schema) => schema.strip(),
+  }),
+  reference: yup
+    .string()
+    .trim()
+    .required("Informe uma referência do endereço")
+    .min(1, "Informe uma referência do endereço"),
 });
+
+function buildAdminCustomAddress(deliveryAddress: OrderDeliveryAddress) {
+  if (isJaqueiraLocal(deliveryAddress.local)) {
+    return {
+      local: deliveryAddress.local,
+      street: deliveryAddress.street,
+      number: deliveryAddress.number,
+      reference: deliveryAddress.reference,
+    };
+  }
+
+  return {
+    local: deliveryAddress.local,
+    reference: deliveryAddress.reference,
+  };
+}
 
 export const useOrderAddress = () => {
   const { params } = useRoute<RouteProp<UserRoutes, "orderAddress">>();
   const { navigate } = useNavigation<RootNavigatorRoutesProps>();
   const [isLoading, setIsLoading] = useState(false);
   const [mainLocal, setMainLocal] = useState(DEFAULT_CITY);
-  const [selectedEngenho, setSelectedEngenho] = useState(DEFAULT_ENGENHO);
+  const [selectedEngenho, setSelectedEngenho] = useState("");
 
   const {
     user: { addresses, role },
@@ -40,6 +82,7 @@ export const useOrderAddress = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    clearErrors,
   } = useForm<OrderDeliveryAddress>({
     resolver: yupResolver(deliveryAddressSchema),
     defaultValues: {
@@ -49,6 +92,26 @@ export const useOrderAddress = () => {
       reference: "",
     },
   });
+
+  const handleMainLocalChange = (selectedMainLocal: string) => {
+    setMainLocal(selectedMainLocal);
+    setSelectedEngenho("");
+    setValue("street", "");
+    setValue("number", "");
+    clearErrors(["street", "number", "local"]);
+
+    if (selectedMainLocal === DEFAULT_CITY) {
+      setValue("local", DEFAULT_CITY);
+      return;
+    }
+
+    setValue("local", "");
+  };
+
+  const handleEngenhoChange = (selectedEngenhoName: string) => {
+    setSelectedEngenho(selectedEngenhoName);
+    setValue("local", selectedEngenhoName, { shouldValidate: true });
+  };
 
   const defaultAddress = addresses.find(
     (address) => address.isDefault === true,
@@ -120,7 +183,8 @@ export const useOrderAddress = () => {
   }
 
   async function handleCreateAdminOrder(deliveryAddress: OrderDeliveryAddress) {
-    await submitOrder(deliveryAddress);
+    const customAddress = buildAdminCustomAddress(deliveryAddress);
+    await submitOrder(customAddress);
   }
 
   const handChangeAddress = () => {
@@ -140,11 +204,10 @@ export const useOrderAddress = () => {
     handleSubmit,
     control,
     errors,
-    setValue,
     mainLocal,
-    setMainLocal,
     selectedEngenho,
-    setSelectedEngenho,
+    handleMainLocalChange,
+    handleEngenhoChange,
     navigate,
     orderSummary,
     handChangeAddress,
