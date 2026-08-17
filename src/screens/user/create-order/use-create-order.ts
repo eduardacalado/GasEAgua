@@ -1,8 +1,10 @@
+import { useAppSelector } from "@hooks/useAppSelector";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RootNavigatorRoutesProps } from "@routes/index";
 import { UserRoutes } from "@routes/user.routes";
 import { errorHandler } from "@utils/error-handler";
 import React, { useEffect, useMemo, useState } from "react";
+import { getAuthenticatedHomeRoute } from "src/helpers/authenticated-home-route";
 import { formatToBRL } from "src/helpers/format-currency";
 import { getAddons } from "src/services/addon";
 import { getStock } from "src/services/order";
@@ -10,6 +12,10 @@ import { getStock } from "src/services/order";
 export const useCreateOrder = () => {
   const { params } = useRoute<RouteProp<UserRoutes, "userCreateOrder">>();
   const { navigate } = useNavigation<RootNavigatorRoutesProps>();
+  const {
+    user: { role },
+  } = useAppSelector((state) => state.user);
+  const homeRouteName = getAuthenticatedHomeRoute(role);
 
   const [stockLoading, setIsStockLoading] = useState(false);
   const [products, setProducts] = useState<
@@ -149,7 +155,7 @@ export const useCreateOrder = () => {
     const orderPayload = buildOrderPayload();
 
     navigate("orderAddress", {
-      type: params.type,
+      type: params?.type,
       orderPayload,
       totalValue: total,
     });
@@ -190,6 +196,7 @@ export const useCreateOrder = () => {
     decrementAddon,
 
     navigate,
+    homeRouteName,
     params,
   };
 };

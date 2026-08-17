@@ -234,3 +234,20 @@ export const dropdownMenuContainerStyle = {
 export const dropdownMenuItemContainerStyle = {
   paddingHorizontal: 0,
 };
+
+export const CreateOrderFab = styled.TouchableOpacity`
+  position: absolute;
+  right: ${theme.size.m5};
+  bottom: ${theme.size.m6};
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background-color: ${theme.colors.ORANGE_200};
+  align-items: center;
+  justify-content: center;
+  elevation: 6;
+  shadow-color: ${theme.colors.GRAY_700};
+  shadow-opacity: 0.25;
+  shadow-radius: 8px;
+  shadow-offset: 0px 4px;
+`;

@@ -1,3 +1,10 @@
+export type OrderDeliveryAddress = {
+  street?: string;
+  number?: string;
+  reference: string;
+  local: string;
+};
+
 export type OrderPayload = {
   items: Array<{
     id: number;
@@ -9,6 +16,7 @@ export type OrderPayload = {
     type: string;
     quantity: number;
   }>;
+  customAddress?: OrderDeliveryAddress;
 };
 
 export type StockData = {

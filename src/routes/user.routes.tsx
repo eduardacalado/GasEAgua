@@ -17,9 +17,9 @@ import { UserBottomTabRoutes } from "./user-bottom-tab.routes";
 export type UserRoutes = {
   userHome: undefined;
   schedule: undefined;
-  userCreateOrder: { type: ProductName };
+  userCreateOrder: { type?: ProductName };
   orderAddress: {
-    type: ProductName;
+    type?: ProductName;
     orderPayload: {
       items: Array<{
         id: number;

@@ -18,12 +18,13 @@ import { OrderStatusProps } from "src/types/orders";
 import * as S from "./styles";
 import { useOrdersList } from "./use-orders-list";
 
-type OrderDetailNavigationProp = NativeStackNavigationProp<{
+type OrdersListNavigationProp = NativeStackNavigationProp<{
   orderDetail: { orderId: number };
+  userCreateOrder: { type?: string };
 }>;
 
 export const OrdersListScreen = () => {
-  const navigation = useNavigation<OrderDetailNavigationProp>();
+  const navigation = useNavigation<OrdersListNavigationProp>();
   const {
     openDatePicker,
     handleDateChange,
@@ -48,6 +49,10 @@ export const OrdersListScreen = () => {
     date,
     hasActiveFilters: haveFilters,
   });
+
+  function handleCreateOrder() {
+    navigation.navigate("userCreateOrder", {});
+  }
 
   return (
     <LinearGradientBackground>
@@ -207,6 +212,11 @@ export const OrdersListScreen = () => {
           onEndList={onEndList}
         />
       </S.Container>
+      {isAdminView && (
+        <S.CreateOrderFab onPress={handleCreateOrder}>
+          <Feather name="plus" size={24} color={theme.colors.WHITE} />
+        </S.CreateOrderFab>
+      )}
     </LinearGradientBackground>
   );
 };
