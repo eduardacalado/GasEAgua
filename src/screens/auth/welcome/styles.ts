@@ -28,15 +28,13 @@ export const BrandBadge = styled.View`
   width: 72px;
   height: 72px;
   border-radius: 36px;
-  background-color: ${theme.colors.ORANGE_50};
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   margin-bottom: ${theme.size.m2};
 `;
 
 export const BrandImage = styled(Image)`
-  width: 48px;
-  height: 48px;
+  width: 72px;
+  height: 72px;
 `;
 
 export const SignupButton = styled.TouchableOpacity`
