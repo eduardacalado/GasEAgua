@@ -1,3 +1,4 @@
+import { CustomHeader } from "@components/custom-header";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { StatusBar } from "expo-status-bar";
@@ -27,10 +28,10 @@ export function SignUp() {
   } = useSignup();
   return (
     <LinearGradientBackground>
+      <StatusBar style="light" />
+      <CustomHeader />
       <ScrollView showsVerticalScrollIndicator={false}>
         <S.SafeAreaViewContainer>
-          <StatusBar style="light" />
-
           <S.Container>
             <S.Title>Preencha os campos para fazer cadastro!</S.Title>
             <Controller

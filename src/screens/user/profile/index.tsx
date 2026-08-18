@@ -1,5 +1,7 @@
 import { CustomHeader } from "@components/custom-header";
 import { Feather } from "@expo/vector-icons";
+import { useAppSelector } from "@hooks/useAppSelector";
+import { useNavigation } from "@react-navigation/native";
 import { useUpdateProfile } from "@screens/user/profile/use-update-profile";
 import { StatusBar } from "expo-status-bar";
 import { Controller } from "react-hook-form";
@@ -9,6 +11,7 @@ import {
   DEFAULT_ENGENHO,
   ENGENHO_OPTIONS,
 } from "src/constants/localOptions";
+import { getAuthenticatedHomeTabRoute } from "src/helpers/authenticated-home-route";
 import theme from "src/styles/theme";
 import * as S from "./styles";
 
@@ -33,20 +36,35 @@ export function UserProfile() {
     username,
     email,
   } = useUpdateProfile();
+  const { navigate } = useNavigation();
+  const {
+    user: { role },
+  } = useAppSelector((state) => state.user);
 
   const avatarInitial = username?.trim()?.charAt(0)?.toUpperCase() || "?";
+  const homeTabRoute = getAuthenticatedHomeTabRoute(role);
+
+  const handleBackToHome = () => {
+    navigate(homeTabRoute as never);
+  };
 
   return (
     <S.SafeAreaViewContainer>
       <StatusBar style="dark" />
       <S.ScrollViewBackground>
-        <S.MapImage
-          source={require("../../../../assets/images/map.jpg")}
-          placeholder={{ blurhash }}
-          contentFit="cover"
-        >
-          <CustomHeader color={theme.colors.ORANGE_300} />
-        </S.MapImage>
+        <S.MapBanner>
+          <S.MapImage
+            source={require("../../../../assets/images/map.jpg")}
+            placeholder={{ blurhash }}
+            contentFit="cover"
+          />
+          <S.MapHeaderOverlay>
+            <CustomHeader
+              color={theme.colors.ORANGE_300}
+              handleBack={handleBackToHome}
+            />
+          </S.MapHeaderOverlay>
+        </S.MapBanner>
         <S.Container>
           <S.ProfileHeader>
             <S.AvatarBadge>

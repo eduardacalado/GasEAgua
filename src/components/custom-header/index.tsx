@@ -9,16 +9,28 @@ type CustomHeaderProps = {
 };
 
 export const CustomHeader = ({ handleBack, color }: CustomHeaderProps) => {
-  const { goBack } = useNavigation();
+  const navigation = useNavigation();
+
+  const handlePressBack = () => {
+    if (handleBack) {
+      handleBack();
+      return;
+    }
+
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
+  };
 
   return (
     <S.Container>
-      <MaterialIcons
-        name="arrow-back-ios"
-        size={24}
-        color={color ?? theme.colors.WHITE}
-        onPress={handleBack ?? goBack}
-      />
+      <S.BackButton onPress={handlePressBack} hitSlop={16}>
+        <MaterialIcons
+          name="arrow-back-ios"
+          size={24}
+          color={color ?? theme.colors.WHITE}
+        />
+      </S.BackButton>
     </S.Container>
   );
 };

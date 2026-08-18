@@ -1,3 +1,4 @@
+import { CustomHeader } from "@components/custom-header";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -67,11 +68,12 @@ export function Login() {
 
   return (
     <LinearGradientBackground>
+      <StatusBar style="light" />
+      <CustomHeader />
       <S.ScrollViewContainer
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         keyboardShouldPersistTaps="handled"
       >
-        <StatusBar style="light" />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
