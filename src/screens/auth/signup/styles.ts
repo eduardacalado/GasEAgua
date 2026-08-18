@@ -16,7 +16,7 @@ export const Container = styled.View`
   align-items: center;
   justify-content: center;
   gap: ${theme.size.m4};
-  margin-top: 120px;
+  margin-top: ${theme.size.m4};
   elevation: 5;
 `;
 

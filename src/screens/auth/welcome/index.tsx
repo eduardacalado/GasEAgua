@@ -25,7 +25,7 @@ export function WelcomeScreen() {
           <S.BrandBadge>
             <S.BrandImage
               source={require("../../../../assets/icon.png")}
-              contentFit="contain"
+              contentFit="cover"
             />
           </S.BrandBadge>
 

@@ -21,11 +21,24 @@ export const Container = styled.View`
   margin-top: -${theme.size.m6};
 `;
 
+export const MapBanner = styled.View`
+  width: 100%;
+  height: 220px;
+`;
+
 export const MapImage = styled(ImageBackground)`
   width: 100%;
   height: 220px;
-  padding: ${theme.size.m6};
   background-color: ${theme.colors.GRAY_200};
+`;
+
+export const MapHeaderOverlay = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: ${theme.size.m6};
 `;
 
 export const SafeAreaViewContainer = styled.SafeAreaView`

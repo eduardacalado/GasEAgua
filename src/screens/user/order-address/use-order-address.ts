@@ -10,6 +10,7 @@ import Toast from "react-native-toast-message";
 import { DEFAULT_CITY, DEFAULT_ENGENHO } from "src/constants/localOptions";
 import { getAuthenticatedHomeRoute } from "src/helpers/authenticated-home-route";
 import { formatToBRL } from "src/helpers/format-currency";
+import { NumberOrZero } from "src/helpers/utils";
 import { postOrder } from "src/services/order";
 import { OrderDeliveryAddress, OrderPayload } from "src/services/order/types";
 import * as yup from "yup";
@@ -118,16 +119,26 @@ export const useOrderAddress = () => {
   );
 
   const orderSummary = useMemo(() => {
-    const itemsWithSubtotal = params.orderPayload.items.map((item) => ({
-      ...item,
-      subtotal: formatToBRL(0),
-    }));
+    const itemsWithSubtotal = params.orderPayload.items.map((item) => {
+      const itemSubtotal =
+        NumberOrZero(item.quantity) * NumberOrZero(item.value);
+
+      return {
+        ...item,
+        subtotal: formatToBRL(itemSubtotal),
+      };
+    });
 
     const addonsWithSubtotal =
-      params.orderPayload.addons?.map((addon) => ({
-        ...addon,
-        subtotal: formatToBRL(0),
-      })) || [];
+      params.orderPayload.addons?.map((addon) => {
+        const addonSubtotal =
+          NumberOrZero(addon.quantity) * NumberOrZero(addon.value);
+
+        return {
+          ...addon,
+          subtotal: formatToBRL(addonSubtotal),
+        };
+      }) || [];
 
     const totalItems =
       params.orderPayload.items.reduce((sum, item) => sum + item.quantity, 0) +
@@ -146,9 +157,20 @@ export const useOrderAddress = () => {
   async function submitOrder(deliveryAddress?: OrderDeliveryAddress) {
     setIsLoading(true);
     try {
+      const orderItems = params.orderPayload.items.map((item) => ({
+        id: item.id,
+        type: item.type,
+        quantity: item.quantity,
+      }));
+      const orderAddons = params.orderPayload.addons?.map((addon) => ({
+        id: addon.id,
+        type: addon.type,
+        quantity: addon.quantity,
+      }));
+
       let orderRequestBody: OrderPayload = {
-        items: params.orderPayload.items,
-        addons: params.orderPayload.addons,
+        items: orderItems,
+        addons: orderAddons,
       };
 
       if (isAdmin && deliveryAddress) {
