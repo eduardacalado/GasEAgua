@@ -132,6 +132,7 @@ export const useCreateOrder = () => {
         type: product.type,
         name: product.name,
         quantity: productQuantities[product.id],
+        value: product.value,
       }));
 
     const orderAddons = addons
@@ -141,6 +142,7 @@ export const useCreateOrder = () => {
         type: addon.type,
         name: addon.name,
         quantity: addonQuantities[addon.id],
+        value: addon.value,
       }));
 
     const payload = {

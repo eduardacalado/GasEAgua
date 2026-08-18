@@ -26,12 +26,14 @@ export type UserRoutes = {
         type: string;
         name: string;
         quantity: number;
+        value: number;
       }>;
       addons?: Array<{
         id: number;
         type: string;
         name: string;
         quantity: number;
+        value: number;
       }>;
     };
     totalValue: string;
