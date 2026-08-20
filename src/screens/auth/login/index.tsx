@@ -1,7 +1,10 @@
+import { Button } from "@components/button";
 import { CustomHeader } from "@components/custom-header";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useNavigation } from "@react-navigation/native";
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { authActions } from "@store/modules/auth/slice";
 import { userActions } from "@store/modules/user/slice";
 import { isAxiosError } from "axios";
@@ -35,6 +38,7 @@ export function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
   const {
     control,
@@ -43,6 +47,14 @@ export function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const handlePressSignup = () => {
+    navigation.navigate("signup");
+  };
+
+  const handleTogglePasswordVisibility = () => {
+    setIsPasswordVisible((isVisible) => !isVisible);
+  };
 
   const handleLogin = async (data: yup.InferType<typeof schema>) => {
     const { email, password } = data;
@@ -67,102 +79,103 @@ export function Login() {
   };
 
   return (
-    <LinearGradientBackground>
+    <LinearGradientBackground variant="fullscreen">
       <StatusBar style="light" />
       <CustomHeader />
       <S.ScrollViewContainer
-        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{ flex: 1, justifyContent: "center" }}
+            style={{ flex: 1 }}
           >
-            <S.Container>
-              <S.Title>Preencha os campos para fazer login!</S.Title>
-              <Controller
-                control={control}
-                name="email"
-                render={({ field: { onChange, value } }) => (
-                  <S.InputArea>
-                    <S.InputIconBadge>
-                      <MaterialIcons
-                        name="alternate-email"
-                        size={16}
-                        color={theme.colors.ORANGE_200}
-                      />
-                    </S.InputIconBadge>
-                    <S.Input
-                      placeholder="Email"
-                      placeholderTextColor={theme.colors.GRAY_300}
-                      onChangeText={onChange}
-                      value={value}
-                      keyboardType="email-address"
-                      autoCapitalize="none"
-                    />
-                  </S.InputArea>
-                )}
-              />
-              {errors.email && (
-                <S.LabelError>{errors.email?.message}</S.LabelError>
-              )}
+            <S.Content>
+              <S.Hero>
+                <S.Title>Olá, entre!</S.Title>
+              </S.Hero>
 
-              <Controller
-                control={control}
-                name="password"
-                render={({ field: { onChange, value } }) => (
-                  <S.InputArea>
-                    <S.InputIconBadge>
-                      <MaterialIcons
-                        name="lock-outline"
-                        size={16}
-                        color={theme.colors.ORANGE_200}
-                      />
-                    </S.InputIconBadge>
-                    <S.Input
-                      placeholder="Senha"
-                      placeholderTextColor={theme.colors.GRAY_300}
-                      onChangeText={onChange}
-                      value={value}
-                      secureTextEntry={!isPasswordVisible}
-                    />
-                    <TouchableOpacity
-                      onPress={() =>
-                        setIsPasswordVisible((isVisible) => !isVisible)
-                      }
-                      hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                      activeOpacity={0.7}
-                    >
-                      <MaterialIcons
-                        name={
-                          isPasswordVisible ? "visibility" : "visibility-off"
-                        }
-                        size={22}
-                        color={theme.colors.GRAY_300}
-                      />
-                    </TouchableOpacity>
-                  </S.InputArea>
-                )}
-              />
-              {errors.password && (
-                <S.LabelError>{errors.password?.message}</S.LabelError>
-              )}
+              <S.Sheet>
+                <S.FormStack>
+                  <Controller
+                    control={control}
+                    name="email"
+                    render={({ field: { onChange, value } }) => (
+                      <S.FieldGroup>
+                        <S.FieldLabel>Email</S.FieldLabel>
+                        <S.InputRow>
+                          <S.Input
+                            placeholder="Email"
+                            placeholderTextColor={theme.colors.GRAY_300}
+                            onChangeText={onChange}
+                            value={value}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                          />
+                        </S.InputRow>
+                      </S.FieldGroup>
+                    )}
+                  />
+                  {errors.email && (
+                    <S.LabelError>{errors.email?.message}</S.LabelError>
+                  )}
 
-              <TouchableOpacity
-                onPress={handleSubmit(handleLogin)}
-                disabled={isLoading}
-                activeOpacity={0.85}
-              >
-                <S.LoginButton
-                  colors={["#DB1A00", "#ED4200", "#FF6A00"]}
-                  start={{ x: 0, y: 1 }}
-                  end={{ x: 1, y: 0 }}
-                >
-                  <S.LoginButtonText>Entrar</S.LoginButtonText>
-                </S.LoginButton>
-              </TouchableOpacity>
-            </S.Container>
+                  <Controller
+                    control={control}
+                    name="password"
+                    render={({ field: { onChange, value } }) => (
+                      <S.FieldGroup>
+                        <S.FieldLabel>Senha</S.FieldLabel>
+                        <S.InputRow>
+                          <S.Input
+                            placeholder="Senha"
+                            placeholderTextColor={theme.colors.GRAY_300}
+                            onChangeText={onChange}
+                            value={value}
+                            secureTextEntry={!isPasswordVisible}
+                          />
+                          <TouchableOpacity
+                            onPress={handleTogglePasswordVisibility}
+                            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                            activeOpacity={0.7}
+                          >
+                            <MaterialIcons
+                              name={
+                                isPasswordVisible
+                                  ? "visibility"
+                                  : "visibility-off"
+                              }
+                              size={22}
+                              color={theme.colors.GRAY_300}
+                            />
+                          </TouchableOpacity>
+                        </S.InputRow>
+                      </S.FieldGroup>
+                    )}
+                  />
+                  {errors.password && (
+                    <S.LabelError>{errors.password?.message}</S.LabelError>
+                  )}
+
+                  <Button
+                    title="Entrar"
+                    onPress={handleSubmit(handleLogin)}
+                    isLoading={isLoading}
+                    disabled={isLoading}
+                  />
+
+                  <S.SignupRow>
+                    <S.SignupHint>Não tem conta?</S.SignupHint>
+                    <Button
+                      variant="tertiary"
+                      title="Cadastre-se"
+                      onPress={handlePressSignup}
+                    />
+                  </S.SignupRow>
+                </S.FormStack>
+              </S.Sheet>
+            </S.Content>
           </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
       </S.ScrollViewContainer>

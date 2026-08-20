@@ -1,84 +1,91 @@
-import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
 
 export const ScrollViewContainer = styled.ScrollView`
   flex: 1;
-  padding: ${theme.size.m7};
 `;
 
-export const Container = styled.View`
-  background-color: ${theme.colors.WHITE};
-  border-radius: ${theme.size.m5};
-  align-items: stretch;
-  justify-content: center;
-  gap: ${theme.size.m4};
-  margin-top: auto;
-  margin-bottom: auto;
-  elevation: 2;
-  shadow-color: ${theme.colors.GRAY_700};
-  shadow-opacity: 0.08;
-  shadow-radius: 8px;
-  shadow-offset: 0px 2px;
-  padding: ${theme.size.m6};
+export const Content = styled.View`
+  flex: 1;
+`;
+
+export const Hero = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+  padding-horizontal: ${theme.size.m7};
+  padding-bottom: ${theme.size.m6};
 `;
 
 export const Title = styled.Text`
-  color: ${theme.colors.GRAY_700};
-  font-weight: ${theme.font.weight.bold};
-  font-size: ${theme.font.size.m6};
-  text-align: center;
-  margin-bottom: ${theme.size.m2};
+  color: ${theme.colors.WHITE};
+  font-weight: ${theme.font.weight.extrabold};
+  font-size: ${theme.font.size.m9};
+  text-align: left;
 `;
 
-export const InputArea = styled.View`
-  padding-horizontal: ${theme.size.m3};
+export const Sheet = styled.View`
+  background-color: ${theme.colors.WHITE};
+  border-top-left-radius: ${theme.size.m10};
+  border-top-right-radius: ${theme.size.m10};
+  align-items: stretch;
+  padding-horizontal: ${theme.size.m7};
+  padding-top: ${theme.size.m8};
+  padding-bottom: ${theme.size.m10};
+`;
+
+export const FormStack = styled.View`
   width: 100%;
-  min-height: 52px;
+  gap: ${theme.size.m4};
+`;
+
+export const FieldGroup = styled.View`
+  width: 100%;
+  gap: ${theme.size.m1};
+`;
+
+export const FieldLabel = styled.Text`
+  color: ${theme.colors.ORANGE_200};
+  font-size: ${theme.font.size.m3};
+  font-weight: ${theme.font.weight.semibold};
+`;
+
+export const InputRow = styled.View`
+  width: 100%;
+  min-height: 44px;
   align-items: center;
-  border-radius: ${theme.size.m3};
-  border-width: 1.5px;
-  border-color: ${theme.colors.GRAY_200};
-  background-color: ${theme.colors.GRAY_100};
   flex-direction: row;
   gap: ${theme.size.m2};
+  border-bottom-width: 1px;
+  border-bottom-color: ${theme.colors.GRAY_200};
 `;
 
-export const InputIconBadge = styled.View`
-  width: 28px;
-  height: 28px;
-  border-radius: ${theme.size.m2};
-  background-color: ${theme.colors.ORANGE_50};
-  align-items: center;
-  justify-content: center;
-`;
-
-export const Input = styled.TextInput`
+export const Input = styled.TextInput.attrs({
+  autoCapitalize: "none",
+})`
   flex: 1;
   font-size: ${theme.font.size.m4};
   color: ${theme.colors.GRAY_700};
   font-weight: ${theme.font.weight.medium};
-`;
-
-export const LoginButton = styled(LinearGradient)`
-  min-height: 52px;
-  padding: ${theme.size.m4};
-  width: 100%;
-  margin-top: ${theme.size.m3};
-  align-items: center;
-  justify-content: center;
-  border-radius: ${theme.size.m4};
-`;
-
-export const LoginButtonText = styled.Text`
-  color: ${theme.colors.WHITE};
-  font-weight: ${theme.font.weight.bold};
-  font-size: ${theme.font.size.m5};
+  padding-vertical: ${theme.size.m2};
 `;
 
 export const LabelError = styled.Text`
   align-self: flex-start;
   color: ${theme.colors.RED_100};
   font-size: ${theme.font.size.m3};
-  margin-top: -${theme.size.m2};
+`;
+
+export const SignupRow = styled.View`
+  margin-top: ${theme.size.m2};
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: ${theme.size.m1};
+`;
+
+export const SignupHint = styled.Text`
+  color: ${theme.colors.GRAY_300};
+  font-size: ${theme.font.size.m4};
+  font-weight: ${theme.font.weight.regular};
 `;

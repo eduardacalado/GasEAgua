@@ -1,75 +1,43 @@
-import { LinearGradient } from "expo-linear-gradient";
 import { Image } from "expo-image";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
 
 export const SafeAreaViewContainer = styled.View`
   flex: 1;
-  padding: ${theme.size.m7};
-  justify-content: center;
+  padding-horizontal: ${theme.size.m7};
+  padding-top: ${theme.size.m12};
+  padding-bottom: ${theme.size.m8};
 `;
 
-export const Container = styled.View`
-  background-color: ${theme.colors.WHITE};
-  border-radius: ${theme.size.m5};
+export const BrandSection = styled.View`
+  flex: 1;
   align-items: center;
   justify-content: center;
   gap: ${theme.size.m4};
-  elevation: 2;
-  shadow-color: ${theme.colors.GRAY_700};
-  shadow-opacity: 0.08;
-  shadow-radius: 8px;
-  shadow-offset: 0px 2px;
-  padding-horizontal: ${theme.size.m6};
-  padding-vertical: ${theme.size.m8};
+`;
+
+export const Title = styled.Text`
+  color: ${theme.colors.WHITE};
+  font-weight: ${theme.font.weight.extrabold};
+  font-size: ${theme.font.size.m9};
+  text-align: center;
+`;
+
+export const Actions = styled.View`
+  width: 100%;
+  gap: ${theme.size.m4};
 `;
 
 export const BrandBadge = styled.View`
-  width: 72px;
-  height: 72px;
-  border-radius: 36px;
+  width: 88px;
+  height: 88px;
+  border-radius: 44px;
   overflow: hidden;
-  margin-bottom: ${theme.size.m2};
+  border-width: 3px;
+  border-color: ${theme.colors.WHITE};
 `;
 
 export const BrandImage = styled(Image)`
-  width: 72px;
-  height: 72px;
-`;
-
-export const SignupButton = styled.TouchableOpacity`
-  min-height: 52px;
-  padding: ${theme.size.m4};
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  border-radius: ${theme.size.m4};
-  background-color: ${theme.colors.ORANGE_50};
-  border-width: 1.5px;
-  border-color: ${theme.colors.ORANGE_100};
-`;
-
-export const SignupButtonText = styled.Text`
-  color: ${theme.colors.ORANGE_200};
-  font-weight: ${theme.font.weight.bold};
-  font-size: ${theme.font.size.m5};
-`;
-
-export const LoginButton = styled.TouchableOpacity`
-  width: 100%;
-`;
-
-export const LoginButtonGradient = styled(LinearGradient)`
-  min-height: 52px;
-  padding: ${theme.size.m4};
-  border-radius: ${theme.size.m4};
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-`;
-
-export const LoginButtonText = styled.Text`
-  color: ${theme.colors.WHITE};
-  font-weight: ${theme.font.weight.bold};
-  font-size: ${theme.font.size.m5};
+  width: 88px;
+  height: 88px;
 `;

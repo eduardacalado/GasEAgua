@@ -24,11 +24,12 @@ export const CustomHeader = ({ handleBack, color }: CustomHeaderProps) => {
 
   return (
     <S.Container>
-      <S.BackButton onPress={handlePressBack} hitSlop={16}>
+      <S.BackButton onPress={handlePressBack} activeOpacity={0.7} hitSlop={8}>
         <MaterialIcons
           name="arrow-back-ios"
-          size={24}
+          size={22}
           color={color ?? theme.colors.WHITE}
+          style={{ marginLeft: 6 }}
         />
       </S.BackButton>
     </S.Container>
