@@ -2,8 +2,12 @@ import { Feather } from "@expo/vector-icons";
 import dayjs from "dayjs";
 import { formatToBRL } from "src/helpers/format-currency";
 import { getIntendedPaymentMethodLabel } from "src/helpers/intended-payment-method";
+import {
+  getOrderTransactionAmountColor,
+  getOrderTransactionTypeLabel,
+} from "src/helpers/order-transaction";
 import theme from "src/styles/theme";
-import { OrderDetailProps } from "src/types/orders";
+import { OrderDetailProps, OrderTransactionDetail } from "src/types/orders";
 import * as S from "../styles";
 
 type SectionHeaderProps = {
@@ -139,6 +143,59 @@ export function OrderDetailIntendedPaymentSection({
   );
 }
 
+function OrderTransactionHistoryItem({
+  transaction,
+}: {
+  transaction: OrderTransactionDetail;
+}) {
+  const typeLabel = getOrderTransactionTypeLabel(transaction.type);
+  const amountColor = getOrderTransactionAmountColor(transaction.type);
+  const formattedAmount = formatToBRL(transaction.amount);
+  const formattedDate = dayjs(transaction.created_at).format(
+    "DD/MM/YYYY HH:mm"
+  );
+  const hasBalanceChange = transaction.old_value !== transaction.new_value;
+  const formattedOldValue = formatToBRL(transaction.old_value);
+  const formattedNewValue = formatToBRL(transaction.new_value);
+
+  let balanceChangeLabel: string | undefined;
+  if (hasBalanceChange) {
+    balanceChangeLabel = `Saldo ${formattedOldValue} → ${formattedNewValue}`;
+  }
+
+  let paymentMethodLabel: string | undefined;
+  if (transaction.payment_method) {
+    paymentMethodLabel = getIntendedPaymentMethodLabel(
+      transaction.payment_method
+    );
+  }
+
+  const transactionNotes = transaction.notes?.trim();
+
+  return (
+    <S.TransactionHistoryItem>
+      <S.TransactionHistoryHeader>
+        <S.TransactionHistoryType>{typeLabel}</S.TransactionHistoryType>
+        <S.TransactionHistoryAmount color={amountColor}>
+          {formattedAmount}
+        </S.TransactionHistoryAmount>
+      </S.TransactionHistoryHeader>
+      <S.TransactionHistoryMeta>{formattedDate}</S.TransactionHistoryMeta>
+      {balanceChangeLabel && (
+        <S.TransactionHistoryMeta>{balanceChangeLabel}</S.TransactionHistoryMeta>
+      )}
+      {paymentMethodLabel && (
+        <S.TransactionHistoryMeta>
+          Método: {paymentMethodLabel}
+        </S.TransactionHistoryMeta>
+      )}
+      {transactionNotes && (
+        <S.TransactionHistoryMeta>{transactionNotes}</S.TransactionHistoryMeta>
+      )}
+    </S.TransactionHistoryItem>
+  );
+}
+
 export function OrderDetailTransactionsSection({
   orderDetail,
 }: OrderDetailSectionProps) {
@@ -148,19 +205,15 @@ export function OrderDetailTransactionsSection({
 
   return (
     <S.SectionCard>
-      <SectionHeader icon="credit-card" title="Pagamentos" />
-      <S.ListGroup>
+      <SectionHeader icon="credit-card" title="Histórico" />
+      <S.TransactionHistoryList>
         {orderDetail.transactions.map((transaction) => (
-          <S.ListRow key={transaction.id}>
-            <S.RowLabel>
-              {dayjs(transaction.created_at).format("DD/MM/YYYY")}
-            </S.RowLabel>
-            <S.RowValue style={{ color: theme.colors.GREEN }}>
-              {formatToBRL(transaction.value)}
-            </S.RowValue>
-          </S.ListRow>
+          <OrderTransactionHistoryItem
+            key={transaction.id}
+            transaction={transaction}
+          />
         ))}
-      </S.ListGroup>
+      </S.TransactionHistoryList>
     </S.SectionCard>
   );
 }

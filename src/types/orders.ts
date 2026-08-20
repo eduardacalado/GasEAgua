@@ -46,9 +46,16 @@ export type OrderAddonDetail = {
   };
 };
 
+export type OrderTransactionType = "PAYMENT" | "INTEREST" | "ADJUSTMENT";
+
 export type OrderTransactionDetail = {
   id: number;
-  value: number;
+  type: OrderTransactionType;
+  amount: number;
+  old_value: number;
+  new_value: number;
+  payment_method?: string | null;
+  notes?: string | null;
   created_at: string;
 };
 

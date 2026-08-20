@@ -130,6 +130,43 @@ export const ListRow = styled.View`
   padding-vertical: ${theme.size.m1};
 `;
 
+export const TransactionHistoryList = styled.View`
+  gap: ${theme.size.m3};
+`;
+
+export const TransactionHistoryItem = styled.View`
+  background-color: ${theme.colors.GRAY_100};
+  border-radius: 10px;
+  padding: ${theme.size.m4};
+  gap: ${theme.size.m2};
+`;
+
+export const TransactionHistoryHeader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: ${theme.size.m3};
+`;
+
+export const TransactionHistoryType = styled.Text`
+  color: ${theme.colors.GRAY_600};
+  font-size: ${theme.font.size.m4};
+  font-weight: ${theme.font.weight.bold};
+  flex: 1;
+`;
+
+export const TransactionHistoryAmount = styled.Text<{ color: string }>`
+  color: ${({ color }) => color};
+  font-size: ${theme.font.size.m5};
+  font-weight: ${theme.font.weight.extrabold};
+`;
+
+export const TransactionHistoryMeta = styled.Text`
+  color: ${theme.colors.GRAY_300};
+  font-size: ${theme.font.size.m3};
+  font-weight: ${theme.font.weight.semibold};
+`;
+
 export const Divider = styled.View`
   height: 1px;
   background-color: ${theme.colors.GRAY_200};
