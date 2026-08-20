@@ -173,9 +173,10 @@ export function DeliveryOrdersListScreen() {
           </S.ClearFilterButton>
         </S.FilterContainer>
         <OrderList
+          isLoadError={Boolean(loadError)}
           emptyArrayMessage={
             loadError
-              ? "Não foi possível carregar os pedidos. Verifique se o servidor está rodando e puxe para atualizar."
+              ? "Não foi possível carregar os pedidos. Puxe a tela para tentar novamente."
               : "Não há pedidos"
           }
           refreshing={refreshing}

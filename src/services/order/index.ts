@@ -1,5 +1,5 @@
 import api from "@libs/axios/api";
-import { OrderDetailProps, OrderProps } from "src/types/orders";
+import { OrderDetailProps, OrderPaymentStatus, OrderProps } from "src/types/orders";
 import { ConcludeOrderPayload, getOrderProps, OrderPayload, StockData } from "./types";
 
 export const postOrder = async (data: OrderPayload) => {
@@ -14,14 +14,21 @@ export const getOrders = async ({
   pageNumber,
   pageSize,
   scope = "me",
+  openAccounts,
 }: getOrderProps): Promise<OrderProps[]> => {
+  const params: Record<string, string | number | boolean> = {
+    page: pageNumber,
+    limit: pageSize,
+    scope,
+  };
+
+  if (openAccounts) {
+    params.openAccounts = true;
+  }
+
   return api
     .get("/orders", {
-      params: {
-        page: pageNumber,
-        limit: pageSize,
-        scope,
-      },
+      params,
     })
     .then((response) => {
       return response.data.items;
@@ -38,5 +45,19 @@ export const concludeOrder = async ({
 }: ConcludeOrderPayload) => {
   return api
     .put(`/orders/${orderId}/conclude`, { status })
+    .then((response) => response.data);
+};
+
+export const updateOrderPaymentState = async (
+  orderId: number,
+  paymentState: OrderPaymentStatus,
+  options?: { remainingBalance?: number; notes?: string }
+): Promise<OrderDetailProps> => {
+  return api
+    .put(`/orders/${orderId}/payment-state`, {
+      payment_state: paymentState,
+      remaining_balance: options?.remainingBalance,
+      notes: options?.notes,
+    })
     .then((response) => response.data);
 };

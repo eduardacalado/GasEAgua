@@ -58,7 +58,7 @@ export function AdminUsersListScreen() {
           onEndList={loadNextUsersPage}
           emptyListMessage={
             loadError
-              ? "Não foi possível carregar os clientes. Verifique se o servidor está rodando e puxe para atualizar."
+              ? "Não foi possível carregar os clientes. Puxe a tela para tentar novamente."
               : "Não há clientes cadastrados"
           }
           itemSeparatorComponent={S.Divider}

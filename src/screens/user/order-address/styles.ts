@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { Picker } from "@react-native-picker/picker";
+import { ImageStyle, TextStyle, ViewStyle } from "react-native";
 import theme from "../../../styles/theme";
 
 export const SafeAreaViewContainer = styled.View`
@@ -60,16 +61,6 @@ export const AddressTextContainer = styled.View`
   margin-bottom: ${theme.size.m4};
 `;
 
-export const AlterAddressButton = styled.TouchableOpacity`
-  margin-top: ${theme.font.size.m7};
-`;
-
-export const AlterLocationButtonText = styled.Text`
-  color: ${theme.colors.ORANGE_300};
-  font-size: ${theme.font.size.m4};
-  font-weight: ${theme.font.weight.bold};
-`;
-
 export const OrderSummaryContainer = styled.View`
   background-color: ${theme.colors.WHITE};
   padding: ${theme.font.size.m6};
@@ -116,16 +107,53 @@ export const OrderTotalContainer = styled.View`
   margin-bottom: ${theme.size.m10};
 `;
 
+export const IntendedPaymentMethodContainer = styled.View`
+  background-color: ${theme.colors.WHITE};
+  padding: ${theme.font.size.m6};
+  margin-bottom: ${theme.size.m6};
+  border-radius: ${theme.size.m6};
+  gap: ${theme.size.m4};
+  width: 100%;
+  z-index: 2;
+  elevation: 6;
+
+  elevation: 5;
+  shadow-color: #000;
+  shadow-opacity: 0.1;
+  shadow-radius: 3px;
+  shadow-offset: 3px;
+`;
+
+export const IntendedPaymentMethodDropdownShell = styled.View`
+  min-height: 50px;
+  border-radius: 10px;
+  background-color: ${theme.colors.GRAY_100};
+  padding-horizontal: 12px;
+  justify-content: center;
+`;
+
+export const IntendedPaymentMethodOptionRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: ${theme.size.m3};
+  padding-vertical: 12px;
+  padding-horizontal: 12px;
+`;
+
+export const IntendedPaymentMethodOptionLabel = styled.Text`
+  color: ${theme.colors.GRAY_600};
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+export const SelectedIntendedPaymentMethodIcon = styled.View`
+  margin-right: 8px;
+`;
+
 export const ButtonContainer = styled.View`
   justify-content: flex-end;
   align-items: center;
   padding-bottom: ${theme.size.m6};
-`;
-
-export const ConfirmOrderButtonText = styled.Text`
-  color: ${theme.colors.WHITE};
-  font-size: ${theme.font.size.m4};
-  font-weight: ${theme.font.weight.bold};
 `;
 
 export const InputArea = styled.View`
@@ -140,7 +168,9 @@ export const InputArea = styled.View`
   max-height: 55px;
 `;
 
-export const Input = styled.TextInput`
+export const Input = styled.TextInput.attrs({
+  autoCapitalize: "none",
+})`
   flex: 1;
   font-size: ${theme.size.m4};
   margin-left: ${theme.size.m2};
@@ -164,3 +194,36 @@ export const LabelError = styled.Text`
   align-self: flex-start;
   color: #ff375b;
 `;
+
+export const intendedPaymentMethodDropdownStyles: {
+  dropdown: ViewStyle;
+  placeholder: TextStyle;
+  selectedText: TextStyle;
+  icon: ImageStyle;
+  menuContainer: ViewStyle;
+} = {
+  dropdown: {
+    height: 50,
+  },
+  placeholder: {
+    fontSize: 16,
+    color: theme.colors.GRAY_300,
+    fontWeight: "bold",
+  },
+  selectedText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: theme.colors.GRAY_600,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+  },
+  menuContainer: {
+    borderRadius: 12,
+    backgroundColor: theme.colors.WHITE,
+    marginTop: 6,
+    paddingVertical: 4,
+    elevation: 8,
+  },
+};

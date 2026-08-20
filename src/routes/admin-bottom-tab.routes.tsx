@@ -7,12 +7,14 @@ import { OrdersListScreen } from "@screens/user/orders-list";
 import { UserProfile } from "@screens/user/profile";
 import theme from "src/styles/theme";
 import { Home } from "../screens/admin/home";
+import { ManagementHubScreen } from "../screens/admin/management/hub";
 import { AdminUsersListScreen } from "../screens/admin/users-list";
 
 type UserNavbarRoutesProps = {
   UserOrders: undefined;
   AdminHome: undefined;
   AdminUsers: undefined;
+  AdminManagement: undefined;
   UserProfile: undefined;
 };
 
@@ -102,6 +104,22 @@ export function AdminBottomTabRoutes() {
             <TabIconContainer focused={focused}>
               <Entypo
                 name="list"
+                size={tabBarIconWidth}
+                color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
+              />
+            </TabIconContainer>
+          ),
+        }}
+      />
+      <Screen
+        name="AdminManagement"
+        component={ManagementHubScreen}
+        options={{
+          tabBarLabel: "Gestão",
+          tabBarIcon: ({ focused }) => (
+            <TabIconContainer focused={focused}>
+              <Entypo
+                name="box"
                 size={tabBarIconWidth}
                 color={focused ? theme.colors.ORANGE_200 : theme.colors.GRAY_300}
               />

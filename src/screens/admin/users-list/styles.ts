@@ -31,7 +31,9 @@ export const SearchInputShell = styled.View`
   shadow-offset: 2px 2px;
 `;
 
-export const SearchInput = styled.TextInput`
+export const SearchInput = styled.TextInput.attrs({
+  autoCapitalize: "none",
+})`
   flex: 1;
   height: 50px;
   font-size: ${theme.font.size.m4};

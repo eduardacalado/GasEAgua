@@ -91,6 +91,7 @@ export const SectionAccent = styled.View`
 `;
 
 export const SectionTitle = styled.Text`
+  flex: 1;
   color: ${theme.colors.GRAY_600};
   font-size: ${theme.font.size.m5};
   font-weight: ${theme.font.weight.bold};
@@ -129,6 +130,43 @@ export const ListRow = styled.View`
   padding-vertical: ${theme.size.m1};
 `;
 
+export const TransactionHistoryList = styled.View`
+  gap: ${theme.size.m3};
+`;
+
+export const TransactionHistoryItem = styled.View`
+  background-color: ${theme.colors.GRAY_100};
+  border-radius: 10px;
+  padding: ${theme.size.m4};
+  gap: ${theme.size.m2};
+`;
+
+export const TransactionHistoryHeader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: ${theme.size.m3};
+`;
+
+export const TransactionHistoryType = styled.Text`
+  color: ${theme.colors.GRAY_600};
+  font-size: ${theme.font.size.m4};
+  font-weight: ${theme.font.weight.bold};
+  flex: 1;
+`;
+
+export const TransactionHistoryAmount = styled.Text<{ color: string }>`
+  color: ${({ color }) => color};
+  font-size: ${theme.font.size.m5};
+  font-weight: ${theme.font.weight.extrabold};
+`;
+
+export const TransactionHistoryMeta = styled.Text`
+  color: ${theme.colors.GRAY_300};
+  font-size: ${theme.font.size.m3};
+  font-weight: ${theme.font.weight.semibold};
+`;
+
 export const Divider = styled.View`
   height: 1px;
   background-color: ${theme.colors.GRAY_200};
@@ -146,6 +184,23 @@ export const AddressText = styled.Text`
   font-size: ${theme.font.size.m4};
   font-weight: ${theme.font.weight.semibold};
   line-height: 22px;
+`;
+
+export const PixCopyButton = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: ${theme.size.m2};
+  background-color: ${theme.colors.ORANGE_200};
+  border-radius: ${theme.size.m2};
+  padding: ${theme.size.m3};
+  margin-top: ${theme.size.m2};
+`;
+
+export const PixCopyButtonText = styled.Text`
+  color: ${theme.colors.WHITE};
+  font-size: ${theme.font.size.m3};
+  font-weight: ${theme.font.weight.bold};
 `;
 
 export const StatusActionCard = styled.View`

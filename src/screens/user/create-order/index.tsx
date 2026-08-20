@@ -250,14 +250,10 @@ export function UserCreateOrder() {
 
                   <S.ButtonContainer>
                     <Button
+                      title="Continuar"
                       onPress={navigateToOrderAddress}
-                      color={theme.colors.ORANGE_200}
                       disabled={totalItemsCount === 0}
-                    >
-                      <S.ConfirmOrderButtonText>
-                        Continuar
-                      </S.ConfirmOrderButtonText>
-                    </Button>
+                    />
                   </S.ButtonContainer>
                 </>
               )}

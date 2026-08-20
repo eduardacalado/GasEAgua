@@ -3,8 +3,9 @@ import { useAppSelector } from "@hooks/useAppSelector";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RootNavigatorRoutesProps } from "@routes/index";
 import { UserRoutes } from "@routes/user.routes";
+import { Address } from "@store/modules/user/types";
 import { isAxiosError } from "axios";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
 import { DEFAULT_CITY, DEFAULT_ENGENHO } from "src/constants/localOptions";
@@ -13,6 +14,7 @@ import { formatToBRL } from "src/helpers/format-currency";
 import { NumberOrZero } from "src/helpers/utils";
 import { postOrder } from "src/services/order";
 import { OrderDeliveryAddress, OrderPayload } from "src/services/order/types";
+import { IntendedPaymentMethod } from "src/types/orders";
 import * as yup from "yup";
 
 function isJaqueiraLocal(local?: string) {
@@ -48,7 +50,7 @@ const deliveryAddressSchema = yup.object({
     .min(1, "Informe uma referência do endereço"),
 });
 
-function buildAdminCustomAddress(deliveryAddress: OrderDeliveryAddress) {
+function buildCustomAddress(deliveryAddress: OrderDeliveryAddress) {
   if (isJaqueiraLocal(deliveryAddress.local)) {
     return {
       local: deliveryAddress.local,
@@ -64,12 +66,27 @@ function buildAdminCustomAddress(deliveryAddress: OrderDeliveryAddress) {
   };
 }
 
+function getDeliveryAddressLine(address?: Address) {
+  if (!address) {
+    return "Endereço não cadastrado";
+  }
+
+  if (isJaqueiraLocal(address.local)) {
+    const streetLine = [address.street, address.number].filter(Boolean).join(" ");
+    return streetLine || DEFAULT_CITY;
+  }
+
+  return address.local;
+}
+
 export const useOrderAddress = () => {
   const { params } = useRoute<RouteProp<UserRoutes, "orderAddress">>();
   const { navigate } = useNavigation<RootNavigatorRoutesProps>();
   const [isLoading, setIsLoading] = useState(false);
   const [mainLocal, setMainLocal] = useState(DEFAULT_CITY);
   const [selectedEngenho, setSelectedEngenho] = useState("");
+  const [intendedPaymentMethod, setIntendedPaymentMethod] =
+    useState<IntendedPaymentMethod | null>(null);
 
   const {
     user: { addresses, role },
@@ -77,6 +94,10 @@ export const useOrderAddress = () => {
 
   const isAdmin = role === "ADMIN";
   const homeRouteName = getAuthenticatedHomeRoute(role);
+  const [isEditingDeliveryAddress, setIsEditingDeliveryAddress] = useState(isAdmin);
+
+  const defaultAddress =
+    addresses.find((address) => address.isDefault === true) || addresses[0];
 
   const {
     control,
@@ -93,6 +114,38 @@ export const useOrderAddress = () => {
       reference: "",
     },
   });
+
+  const prefillFormFromAddress = useCallback(
+    (address?: Address) => {
+      if (!address) {
+        setMainLocal(DEFAULT_CITY);
+        setSelectedEngenho("");
+        setValue("local", DEFAULT_CITY);
+        setValue("street", "");
+        setValue("number", "");
+        setValue("reference", "");
+        return;
+      }
+
+      if (isJaqueiraLocal(address.local)) {
+        setMainLocal(DEFAULT_CITY);
+        setSelectedEngenho("");
+        setValue("local", DEFAULT_CITY);
+        setValue("street", address.street ?? "");
+        setValue("number", address.number ?? "");
+        setValue("reference", address.reference ?? "");
+        return;
+      }
+
+      setMainLocal(DEFAULT_ENGENHO);
+      setSelectedEngenho(address.local);
+      setValue("local", address.local);
+      setValue("street", "");
+      setValue("number", "");
+      setValue("reference", address.reference ?? "");
+    },
+    [setValue]
+  );
 
   const handleMainLocalChange = (selectedMainLocal: string) => {
     setMainLocal(selectedMainLocal);
@@ -113,10 +166,6 @@ export const useOrderAddress = () => {
     setSelectedEngenho(selectedEngenhoName);
     setValue("local", selectedEngenhoName, { shouldValidate: true });
   };
-
-  const defaultAddress = addresses.find(
-    (address) => address.isDefault === true,
-  );
 
   const orderSummary = useMemo(() => {
     const itemsWithSubtotal = params.orderPayload.items.map((item) => {
@@ -144,7 +193,7 @@ export const useOrderAddress = () => {
       params.orderPayload.items.reduce((sum, item) => sum + item.quantity, 0) +
       (params.orderPayload.addons?.reduce(
         (sum, addon) => sum + addon.quantity,
-        0,
+        0
       ) || 0);
 
     return {
@@ -173,10 +222,17 @@ export const useOrderAddress = () => {
         addons: orderAddons,
       };
 
-      if (isAdmin && deliveryAddress) {
+      if (deliveryAddress) {
         orderRequestBody = {
           ...orderRequestBody,
           customAddress: deliveryAddress,
+        };
+      }
+
+      if (intendedPaymentMethod) {
+        orderRequestBody = {
+          ...orderRequestBody,
+          intended_payment_method: intendedPaymentMethod,
         };
       }
 
@@ -204,25 +260,47 @@ export const useOrderAddress = () => {
     await submitOrder();
   }
 
-  async function handleCreateAdminOrder(deliveryAddress: OrderDeliveryAddress) {
-    const customAddress = buildAdminCustomAddress(deliveryAddress);
+  async function handleCreateOrderWithCustomAddress(
+    deliveryAddress: OrderDeliveryAddress
+  ) {
+    const customAddress = buildCustomAddress(deliveryAddress);
     await submitOrder(customAddress);
   }
 
   const handChangeAddress = () => {
-    Toast.show({
-      type: "error",
-      text2: "Funcionalidade em desenvolvimento!",
-    });
+    prefillFormFromAddress(defaultAddress);
+    setIsEditingDeliveryAddress(true);
   };
+
+  const handleUseProfileAddress = () => {
+    setIsEditingDeliveryAddress(false);
+    clearErrors();
+  };
+
+  function handleIntendedPaymentMethodChange(
+    selectedPaymentMethod: IntendedPaymentMethod | ""
+  ) {
+    if (!selectedPaymentMethod) {
+      setIntendedPaymentMethod(null);
+      return;
+    }
+
+    setIntendedPaymentMethod(selectedPaymentMethod);
+  }
+
+  const shouldShowDeliveryAddressForm = isAdmin || isEditingDeliveryAddress;
+  const deliveryAddressLine = getDeliveryAddressLine(defaultAddress);
 
   return {
     params,
     address: defaultAddress,
+    deliveryAddressLine,
     isLoading,
     isAdmin,
+    isEditingDeliveryAddress,
+    shouldShowDeliveryAddressForm,
     handleCreateOrder,
-    handleCreateAdminOrder,
+    handleCreateOrderWithCustomAddress,
     handleSubmit,
     control,
     errors,
@@ -233,5 +311,8 @@ export const useOrderAddress = () => {
     navigate,
     orderSummary,
     handChangeAddress,
+    handleUseProfileAddress,
+    intendedPaymentMethod,
+    handleIntendedPaymentMethodChange,
   };
 };

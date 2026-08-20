@@ -13,7 +13,10 @@
       "backgroundColor": "#ED4200"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": ["remote-notification"]
+      }
     },
     "android": {
       "package": "com.gaseagua.app",
@@ -23,7 +26,8 @@
         "backgroundColor": "#ED4200"
       },
       "permissions": [
-        "INTERNET"
+        "INTERNET",
+        "POST_NOTIFICATIONS"
       ]
     },
     "web": {
@@ -34,8 +38,14 @@
         "expo-build-properties",
         {
           "android": {
-            "usesCleartextTraffic": true
+            "usesCleartextTraffic": false
           }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#ED4200"
         }
       ]
     ],

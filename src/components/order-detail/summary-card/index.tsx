@@ -1,6 +1,7 @@
 import { OrderStatusText } from "@components/order-status-text";
 import dayjs from "dayjs";
 import { formatToBRL } from "src/helpers/format-currency";
+import { getIntendedPaymentMethodLabel } from "src/helpers/intended-payment-method";
 import theme from "src/styles/theme";
 import { OrderDetailProps, OrderPaymentStatus } from "src/types/orders";
 import * as S from "../styles";
@@ -31,6 +32,9 @@ export function OrderDetailSummaryCard({
     .add(30, "day")
     .format("DD/MM/YYYY");
   const paymentStateColor = getPaymentStateColor(orderDetail.payment_state);
+  const intendedPaymentMethodLabel = getIntendedPaymentMethodLabel(
+    orderDetail.intended_payment_method
+  );
 
   return (
     <S.SummaryCard>
@@ -71,6 +75,12 @@ export function OrderDetailSummaryCard({
         <S.RowLabel>Pagamento</S.RowLabel>
         <S.RowValue style={{ color: paymentStateColor }}>
           {getPaymentStateLabel(orderDetail.payment_state)}
+        </S.RowValue>
+      </S.RowContainer>
+      <S.RowContainer>
+        <S.RowLabel>Como pretende pagar</S.RowLabel>
+        <S.RowValue>
+          {intendedPaymentMethodLabel}
         </S.RowValue>
       </S.RowContainer>
     </S.SummaryCard>

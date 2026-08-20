@@ -12,17 +12,17 @@ import { postLogin, postSignup } from "src/services/auth";
 import * as yup from "yup";
 
 const addressSchema = yup.object({
-  street: yup.string(),
-  reference: yup.string().required("Infome uma referência do seu endereço"),
+  street: yup.string().trim(),
+  reference: yup.string().trim().required("Infome uma referência do seu endereço"),
   local: yup.string().required("Informe sua localidade"),
-  number: yup.string(),
+  number: yup.string().trim(),
 });
 
 const schema = yup.object({
-  username: yup.string().required("Infome seu nome"),
+  username: yup.string().trim().required("Infome seu nome"),
   address: addressSchema,
   phonenumber: yup.string().required("Infome seu número de celular"),
-  email: yup.string().email("Email inválido").required("Infome seu email"),
+  email: yup.string().trim().email("Email inválido").required("Infome seu email"),
   password: yup
     .string()
     .min(6, "A senha deve conter pelo menos 6 dígitos")
@@ -53,11 +53,13 @@ export function useSignup() {
 
     setIsLoading(true);
     try {
+      const sanitizedPhoneNumber = phonenumber.replace(/\D/g, "").slice(0, 11);
+
       await postSignup({
         username,
         email,
         password,
-        telephone: phonenumber,
+        telephone: sanitizedPhoneNumber,
         address,
       });
 

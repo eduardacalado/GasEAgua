@@ -7,6 +7,9 @@ import {
   OrderDetailItemsSection,
   OrderDetailTransactionsSection,
 } from "@components/order-detail/sections";
+import { OrderDetailPaymentAction } from "@components/order-detail/payment-action";
+import { OrderDetailPixPaymentSection } from "@components/order-detail/pix-payment-section";
+import { PartialPaymentModal } from "@components/order-detail/partial-payment-modal";
 import { OrderDetailStatusAction } from "@components/order-detail/status-action";
 import { OrderDetailSummaryCard } from "@components/order-detail/summary-card";
 import * as OrderDetailStyles from "@components/order-detail/styles";
@@ -14,6 +17,7 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
 import { useAdminOrderStatusUpdate } from "src/hooks/use-admin-order-status-update";
+import { useAdminPaymentStateUpdate } from "src/hooks/use-admin-payment-state-update";
 import { useOrderDetailData } from "src/hooks/use-order-detail-data";
 import theme from "src/styles/theme";
 
@@ -36,6 +40,26 @@ export function AdminOrderDetailScreen() {
     orderStatusOptions,
     updateOrderStatus,
   } = useAdminOrderStatusUpdate(orderId, orderDetail, reloadOrderDetail);
+
+  const {
+    isUpdatingPaymentState,
+    paymentStateOptions,
+    updatePaymentState,
+    isPaymentModalVisible,
+    closePartialPaymentModal,
+    submitPartialPayment,
+    isSubmittingPayment,
+    canSubmitPartialPayment,
+    partialPaymentModalTitle,
+    shouldShowPaymentMethodField,
+    paymentMethodOptions,
+    paymentAmountInput,
+    setPaymentAmountInput,
+    paymentMethod,
+    setPaymentMethod,
+    paymentNotes,
+    setPaymentNotes,
+  } = useAdminPaymentStateUpdate(orderId, orderDetail, reloadOrderDetail);
 
   if (isLoading || !orderDetail) {
     return (
@@ -60,12 +84,19 @@ export function AdminOrderDetailScreen() {
           isUpdatingStatus={isUpdatingStatus}
           onStatusChange={updateOrderStatus}
         />
+        <OrderDetailPaymentAction
+          orderDetail={orderDetail}
+          paymentStateOptions={paymentStateOptions}
+          isUpdatingPaymentState={isUpdatingPaymentState}
+          onPaymentStateChange={updatePaymentState}
+        />
         <OrderDetailStyles.ScrollViewContainer>
           <OrderDetailStyles.ContentContainer>
             <OrderDetailSummaryCard
               orderDetail={orderDetail}
               getPaymentStateLabel={getPaymentStateLabel}
             />
+            <OrderDetailPixPaymentSection orderDetail={orderDetail} />
             <OrderDetailCustomerSection orderDetail={orderDetail} />
             <OrderDetailAddressSection orderDetail={orderDetail} />
             <OrderDetailItemsSection orderDetail={orderDetail} />
@@ -74,6 +105,22 @@ export function AdminOrderDetailScreen() {
           </OrderDetailStyles.ContentContainer>
         </OrderDetailStyles.ScrollViewContainer>
       </OrderDetailStyles.SafeAreaViewContainer>
+      <PartialPaymentModal
+        visible={isPaymentModalVisible}
+        title={partialPaymentModalTitle}
+        isSubmitting={isSubmittingPayment}
+        isSubmitDisabled={!canSubmitPartialPayment}
+        showPaymentMethodField={shouldShowPaymentMethodField}
+        paymentMethodOptions={paymentMethodOptions}
+        paymentAmountInput={paymentAmountInput}
+        paymentMethod={paymentMethod}
+        paymentNotes={paymentNotes}
+        onClose={closePartialPaymentModal}
+        onSubmit={submitPartialPayment}
+        onPaymentAmountChange={setPaymentAmountInput}
+        onPaymentMethodChange={setPaymentMethod}
+        onPaymentNotesChange={setPaymentNotes}
+      />
     </LinearGradientBackground>
   );
 }

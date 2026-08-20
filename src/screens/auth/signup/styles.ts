@@ -1,79 +1,113 @@
 import { Picker } from "@react-native-picker/picker";
-import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
 
-export const SafeAreaViewContainer = styled.View`
-  flex: 1;
-  padding: ${theme.size.m7};
-  justify-content: flex-start;
+export const HeaderContainer = styled.View`
+  padding-horizontal: ${theme.size.m7};
 `;
 
-export const Container = styled.View`
-  padding: ${theme.size.m2};
+export const ScrollViewContainer = styled.ScrollView`
+  flex: 1;
+`;
+
+export const Content = styled.View`
+  flex: 1;
+`;
+
+export const Hero = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+  padding-horizontal: ${theme.size.m7};
+  padding-bottom: ${theme.size.m6};
+`;
+
+export const Title = styled.Text`
+  color: ${theme.colors.WHITE};
+  font-weight: ${theme.font.weight.extrabold};
+  font-size: ${theme.font.size.m9};
+  text-align: left;
+`;
+
+export const Sheet = styled.View`
   background-color: ${theme.colors.WHITE};
-  border-radius: ${theme.size.m6};
-  align-items: center;
-  justify-content: center;
+  border-top-left-radius: ${theme.size.m10};
+  border-top-right-radius: ${theme.size.m10};
+  align-items: stretch;
+  padding-horizontal: ${theme.size.m7};
+  padding-top: ${theme.size.m8};
+  padding-bottom: ${theme.size.m10};
+`;
+
+export const FormStack = styled.View`
+  width: 100%;
   gap: ${theme.size.m4};
-  margin-top: ${theme.size.m4};
-  elevation: 5;
+`;
+
+export const FieldGroup = styled.View`
+  width: 100%;
+  gap: ${theme.size.m1};
+`;
+
+export const CompactFieldGroup = styled(FieldGroup)`
+  width: auto;
+  flex: 1;
+`;
+
+export const FieldLabel = styled.Text`
+  color: ${theme.colors.ORANGE_200};
+  font-size: ${theme.font.size.m3};
+  font-weight: ${theme.font.weight.semibold};
+`;
+
+export const InputRow = styled.View`
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  flex-direction: row;
+  gap: ${theme.size.m2};
+  border-bottom-width: 1px;
+  border-bottom-color: ${theme.colors.GRAY_200};
+`;
+
+export const Input = styled.TextInput.attrs({
+  autoCapitalize: "none",
+})`
+  flex: 1;
+  font-size: ${theme.font.size.m4};
+  color: ${theme.colors.GRAY_700};
+  font-weight: ${theme.font.weight.medium};
+  padding-vertical: ${theme.size.m2};
 `;
 
 export const SelectInput = styled(Picker)`
-  color: ${theme.colors.GRAY_500};
-  justify-content: center;
-  text-align: start;
-  font-size: ${theme.font.size.m6};
-  border-radius: ${theme.size.m1};
+  flex: 1;
+  color: ${theme.colors.GRAY_700};
   width: 100%;
 `;
 
 export const StreetNumberInputContainer = styled.View`
   flex-direction: row;
   gap: ${theme.size.m3};
-`;
-
-export const Title = styled.Text`
-  color: ${theme.colors.GRAY_300};
-  font-weight: ${theme.font.weight.bold};
-  font-size: ${theme.font.size.m7};
-  text-align: center;
-`;
-
-export const InputArea = styled.View`
-  padding: ${theme.size.base};
   width: 100%;
-  align-items: center;
-  border-radius: ${theme.size.m4};
-  border: ${theme.colors.GRAY_200};
-  background-color: ${theme.colors.GRAY_100};
-  flex-direction: row;
-  flex: 1;
-  max-height: 55px;
-`;
-
-export const Input = styled.TextInput`
-  flex: 1;
-  font-size: ${theme.size.m4};
-  margin-left: ${theme.size.m2};
-`;
-
-export const SignUpButton = styled(LinearGradient)`
-  padding: ${theme.size.m2};
-  width: 200px;
-  margin-top: ${theme.size.m5};
-  align-items: center;
-  border-radius: ${theme.size.m7};
-`;
-
-export const SignUpButtonText = styled.Text`
-  color: ${theme.colors.WHITE};
-  font-weight: ${theme.font.weight.bold};
-  font-size: ${theme.font.size.m4};
 `;
 
 export const LabelError = styled.Text`
   align-self: flex-start;
-  color: #ff375b;
+  color: ${theme.colors.RED_100};
+  font-size: ${theme.font.size.m3};
+`;
+
+export const LoginRow = styled.View`
+  margin-top: ${theme.size.m2};
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: ${theme.size.m1};
+`;
+
+export const LoginHint = styled.Text`
+  color: ${theme.colors.GRAY_300};
+  font-size: ${theme.font.size.m4};
+  font-weight: ${theme.font.weight.regular};
 `;

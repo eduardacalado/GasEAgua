@@ -1,9 +1,11 @@
 import { CustomHeader } from "@components/custom-header";
 import { LinearGradientBackground } from "@components/LinearGradientBackground";
+import { OrderDetailPixPaymentSection } from "@components/order-detail/pix-payment-section";
 import {
   OrderDetailAddonsSection,
   OrderDetailAddressSection,
   OrderDetailCustomerSection,
+  OrderDetailIntendedPaymentSection,
   OrderDetailItemsSection,
 } from "@components/order-detail/sections";
 import { OrderDetailStatusAction } from "@components/order-detail/status-action";
@@ -58,6 +60,8 @@ export function DeliveryOrderDetailScreen() {
         />
         <OrderDetailStyles.ScrollViewContainer>
           <OrderDetailStyles.ContentContainer>
+            <OrderDetailIntendedPaymentSection orderDetail={orderDetail} />
+            <OrderDetailPixPaymentSection orderDetail={orderDetail} />
             <OrderDetailCustomerSection orderDetail={orderDetail} />
             <OrderDetailAddressSection orderDetail={orderDetail} />
             <OrderDetailItemsSection orderDetail={orderDetail} />

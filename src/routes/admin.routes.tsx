@@ -8,6 +8,9 @@ import {
 import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { ProductName } from "src/types/stock";
+import { PixSettingsScreen } from "../screens/admin/management/pix-settings";
+import { StockAndPricesScreen } from "../screens/admin/management/stock-and-prices";
+import { RevenueScreen } from "../screens/admin/management/revenue";
 import { AdminOrderDetailScreen } from "../screens/admin/order-detail";
 import { AdminUserDetailScreen } from "../screens/admin/user-detail";
 import { UserCreateOrder } from "../screens/user/create-order";
@@ -17,6 +20,9 @@ import { AdminBottomTabRoutes } from "./admin-bottom-tab.routes";
 
 export type AdminRoutes = {
   adminHome: undefined;
+  stockAndPrices: undefined;
+  revenue: undefined;
+  pixSettings: undefined;
   schedule: undefined;
   userCreateOrder: { type?: ProductName };
   orderAddress: {
@@ -80,6 +86,9 @@ export function AdminRoutes() {
             animation: "slide_from_right",
           }}
         />
+        <Screen name="stockAndPrices" component={StockAndPricesScreen} />
+        <Screen name="revenue" component={RevenueScreen} />
+        <Screen name="pixSettings" component={PixSettingsScreen} />
         <Screen name="userCreateOrder" component={UserCreateOrder} />
         <Screen name="orderAddress" component={OrderAddress} />
         <Screen name="userProfile" component={UserProfile} />

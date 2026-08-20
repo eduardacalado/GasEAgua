@@ -6,6 +6,7 @@ import {
   OrderDetailItemsSection,
   OrderDetailTransactionsSection,
 } from "@components/order-detail/sections";
+import { OrderDetailPixPaymentSection } from "@components/order-detail/pix-payment-section";
 import { OrderDetailSummaryCard } from "@components/order-detail/summary-card";
 import * as OrderDetailStyles from "@components/order-detail/styles";
 import { RouteProp, useRoute } from "@react-navigation/native";
@@ -51,6 +52,7 @@ export function UserOrderDetailScreen() {
               orderDetail={orderDetail}
               getPaymentStateLabel={getPaymentStateLabel}
             />
+            <OrderDetailPixPaymentSection orderDetail={orderDetail} />
             <OrderDetailAddressSection orderDetail={orderDetail} />
             <OrderDetailItemsSection orderDetail={orderDetail} />
             <OrderDetailAddonsSection orderDetail={orderDetail} />

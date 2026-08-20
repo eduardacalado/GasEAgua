@@ -4,25 +4,42 @@ import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import { OrderTotal } from "@components/order-total";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import { Controller } from "react-hook-form";
 import { KeyboardAvoidingView, Platform } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
 import {
-  DEFAULT_CITY,
-  DEFAULT_ENGENHO,
-  ENGENHO_OPTIONS,
-} from "src/constants/localOptions";
-import theme from "src/styles/theme";
+  getIntendedPaymentMethodOption,
+  intendedPaymentMethodOptions,
+  IntendedPaymentMethodOption,
+} from "src/helpers/intended-payment-method";
+import { DeliveryAddressForm } from "./delivery-address-form";
 import * as S from "./styles";
 import { useOrderAddress } from "./use-order-address";
+
+function renderIntendedPaymentMethodItem(item: IntendedPaymentMethodOption) {
+  return (
+    <S.IntendedPaymentMethodOptionRow>
+      <MaterialCommunityIcons
+        name={item.icon}
+        size={20}
+        color={item.iconColor}
+      />
+      <S.IntendedPaymentMethodOptionLabel>
+        {item.label}
+      </S.IntendedPaymentMethodOptionLabel>
+    </S.IntendedPaymentMethodOptionRow>
+  );
+}
 
 export function OrderAddress() {
   const {
     params,
     address,
+    deliveryAddressLine,
     isLoading,
-    isAdmin,
+    shouldShowDeliveryAddressForm,
+    isEditingDeliveryAddress,
     handleCreateOrder,
-    handleCreateAdminOrder,
+    handleCreateOrderWithCustomAddress,
     handleSubmit,
     control,
     errors,
@@ -33,17 +50,40 @@ export function OrderAddress() {
     navigate,
     orderSummary,
     handChangeAddress,
+    handleUseProfileAddress,
+    intendedPaymentMethod,
+    handleIntendedPaymentMethodChange,
   } = useOrderAddress();
 
   let confirmOrderAction = handleCreateOrder;
   let keyboardAvoidingBehavior: "padding" | undefined;
 
-  if (isAdmin) {
-    confirmOrderAction = handleSubmit(handleCreateAdminOrder);
+  if (shouldShowDeliveryAddressForm) {
+    confirmOrderAction = handleSubmit(handleCreateOrderWithCustomAddress);
   }
 
   if (Platform.OS === "ios") {
     keyboardAvoidingBehavior = "padding";
+  }
+
+  const selectedIntendedPaymentMethodOption = getIntendedPaymentMethodOption(
+    intendedPaymentMethod
+  );
+
+  function renderSelectedIntendedPaymentMethodIcon() {
+    if (!selectedIntendedPaymentMethodOption) {
+      return null;
+    }
+
+    return (
+      <S.SelectedIntendedPaymentMethodIcon>
+        <MaterialCommunityIcons
+          name={selectedIntendedPaymentMethodOption.icon}
+          size={20}
+          color={selectedIntendedPaymentMethodOption.iconColor}
+        />
+      </S.SelectedIntendedPaymentMethodIcon>
+    );
   }
 
   return (
@@ -64,119 +104,23 @@ export function OrderAddress() {
             <S.AddressContainer>
               <S.AddressSubContainer>
                 <S.Title>Endereço de entrega</S.Title>
-                {isAdmin ? (
+                {shouldShowDeliveryAddressForm ? (
                   <>
-                    <S.InputArea>
-                      <S.SelectInput
-                        selectedValue={mainLocal}
-                        onValueChange={handleMainLocalChange}
-                      >
-                        <S.SelectInput.Item
-                          label={DEFAULT_CITY}
-                          value={DEFAULT_CITY}
-                        />
-                        <S.SelectInput.Item
-                          label={DEFAULT_ENGENHO}
-                          value={DEFAULT_ENGENHO}
-                        />
-                      </S.SelectInput>
-                    </S.InputArea>
-
-                    {mainLocal === DEFAULT_ENGENHO && (
-                      <>
-                        <S.InputArea>
-                          <S.SelectInput
-                            selectedValue={selectedEngenho}
-                            onValueChange={handleEngenhoChange}
-                          >
-                            <S.SelectInput.Item
-                              label="Selecione o engenho"
-                              value=""
-                            />
-                            {ENGENHO_OPTIONS.map((option) => (
-                              <S.SelectInput.Item
-                                key={option}
-                                label={option}
-                                value={option}
-                              />
-                            ))}
-                          </S.SelectInput>
-                        </S.InputArea>
-                        {errors.local && (
-                          <S.LabelError>{errors.local.message}</S.LabelError>
-                        )}
-                      </>
-                    )}
-
-                    {mainLocal !== DEFAULT_ENGENHO && (
-                      <>
-                        <S.StreetNumberInputContainer>
-                          <Controller
-                            control={control}
-                            name="street"
-                            render={({ field: { onChange, value } }) => (
-                              <S.InputArea>
-                                <MaterialCommunityIcons
-                                  name="map-marker"
-                                  size={20}
-                                  color="#7e7e7e"
-                                />
-                                <S.Input
-                                  value={value}
-                                  onChangeText={onChange}
-                                  placeholder="Rua"
-                                />
-                              </S.InputArea>
-                            )}
-                          />
-                          <Controller
-                            control={control}
-                            name="number"
-                            render={({ field: { onChange, value } }) => (
-                              <S.InputArea>
-                                <MaterialCommunityIcons
-                                  name="map-marker"
-                                  size={20}
-                                  color="#7e7e7e"
-                                />
-                                <S.Input
-                                  value={value}
-                                  onChangeText={onChange}
-                                  placeholder="Número"
-                                />
-                              </S.InputArea>
-                            )}
-                          />
-                        </S.StreetNumberInputContainer>
-                        {errors.street && (
-                          <S.LabelError>{errors.street.message}</S.LabelError>
-                        )}
-                        {errors.number && (
-                          <S.LabelError>{errors.number.message}</S.LabelError>
-                        )}
-                      </>
-                    )}
-
-                    <Controller
+                    <DeliveryAddressForm
                       control={control}
-                      name="reference"
-                      render={({ field: { onChange, value } }) => (
-                        <S.InputArea>
-                          <MaterialCommunityIcons
-                            name="map-marker"
-                            size={20}
-                            color="#7e7e7e"
-                          />
-                          <S.Input
-                            placeholder="Referência"
-                            onChangeText={onChange}
-                            value={value}
-                          />
-                        </S.InputArea>
-                      )}
+                      errors={errors}
+                      mainLocal={mainLocal}
+                      selectedEngenho={selectedEngenho}
+                      onMainLocalChange={handleMainLocalChange}
+                      onEngenhoChange={handleEngenhoChange}
                     />
-                    {errors.reference && (
-                      <S.LabelError>{errors.reference.message}</S.LabelError>
+                    {isEditingDeliveryAddress && (
+                      <Button
+                        variant="tertiary"
+                        title="Usar endereço do perfil"
+                        onPress={handleUseProfileAddress}
+                        style={{ marginTop: 16 }}
+                      />
                     )}
                   </>
                 ) : (
@@ -187,19 +131,18 @@ export function OrderAddress() {
                         size={20}
                         color="#7e7e7e"
                       />
-                      <S.SubTitle>
-                        {address?.street} {address?.number}
-                      </S.SubTitle>
+                      <S.SubTitle>{deliveryAddressLine}</S.SubTitle>
                     </S.AddressTextContainer>
 
                     <S.Title>Referência</S.Title>
-                    <S.SubTitle>{address?.reference}</S.SubTitle>
+                    <S.SubTitle>{address?.reference ?? "-"}</S.SubTitle>
 
-                    <S.AlterAddressButton onPress={handChangeAddress}>
-                      <S.AlterLocationButtonText>
-                        Alterar endereço de entrega
-                      </S.AlterLocationButtonText>
-                    </S.AlterAddressButton>
+                    <Button
+                      variant="tertiary"
+                      title="Alterar endereço de entrega"
+                      onPress={handChangeAddress}
+                      style={{ marginTop: 16 }}
+                    />
                   </>
                 )}
               </S.AddressSubContainer>
@@ -227,6 +170,37 @@ export function OrderAddress() {
               </S.OrderItem>
             </S.OrderSummaryContainer>
 
+            <S.IntendedPaymentMethodContainer>
+              <S.Title>Como pretende pagar</S.Title>
+              <S.IntendedPaymentMethodDropdownShell>
+                <Dropdown
+                  style={S.intendedPaymentMethodDropdownStyles.dropdown}
+                  placeholderStyle={
+                    S.intendedPaymentMethodDropdownStyles.placeholder
+                  }
+                  selectedTextStyle={
+                    S.intendedPaymentMethodDropdownStyles.selectedText
+                  }
+                  iconStyle={S.intendedPaymentMethodDropdownStyles.icon}
+                  containerStyle={
+                    S.intendedPaymentMethodDropdownStyles.menuContainer
+                  }
+                  data={intendedPaymentMethodOptions}
+                  maxHeight={280}
+                  labelField="label"
+                  valueField="value"
+                  placeholder="Opcional"
+                  value={intendedPaymentMethod}
+                  dropdownPosition="top"
+                  renderItem={renderIntendedPaymentMethodItem}
+                  renderLeftIcon={renderSelectedIntendedPaymentMethodIcon}
+                  onChange={({ value }) =>
+                    handleIntendedPaymentMethodChange(value)
+                  }
+                />
+              </S.IntendedPaymentMethodDropdownShell>
+            </S.IntendedPaymentMethodContainer>
+
             <S.OrderTotalContainer>
               <OrderTotal
                 totalItems={orderSummary.totalItems}
@@ -236,14 +210,10 @@ export function OrderAddress() {
 
             <S.ButtonContainer>
               <Button
+                title="Confirmar pedido"
                 onPress={confirmOrderAction}
                 isLoading={isLoading}
-                color={theme.colors.ORANGE_200}
-              >
-                <S.ConfirmOrderButtonText>
-                  Confirmar pedido
-                </S.ConfirmOrderButtonText>
-              </Button>
+              />
             </S.ButtonContainer>
           </S.ScrollViewContainer>
         </S.SafeAreaViewContainer>
