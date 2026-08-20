@@ -1,19 +1,20 @@
 import theme from "src/styles/theme";
 import { OrderTransactionType } from "src/types/orders";
 
+const orderTransactionTypeLabels: Record<OrderTransactionType, string> = {
+  [OrderTransactionType.PAYMENT]: "Pagamento",
+  [OrderTransactionType.INTEREST]: "Juros",
+  [OrderTransactionType.ADJUSTMENT]: "Ajuste",
+};
+
 export function getOrderTransactionTypeLabel(
   transactionType: OrderTransactionType | string
 ) {
-  if (transactionType === "PAYMENT") {
-    return "Pagamento";
-  }
+  const orderTransactionTypeLabel =
+    orderTransactionTypeLabels[transactionType as OrderTransactionType];
 
-  if (transactionType === "INTEREST") {
-    return "Juros";
-  }
-
-  if (transactionType === "ADJUSTMENT") {
-    return "Ajuste";
+  if (orderTransactionTypeLabel) {
+    return orderTransactionTypeLabel;
   }
 
   return transactionType;
@@ -22,7 +23,7 @@ export function getOrderTransactionTypeLabel(
 export function getOrderTransactionAmountColor(
   transactionType: OrderTransactionType | string
 ) {
-  if (transactionType === "PAYMENT") {
+  if (transactionType === OrderTransactionType.PAYMENT) {
     return theme.colors.GREEN;
   }
 

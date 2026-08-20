@@ -1,7 +1,9 @@
+import { errorHandler } from "@utils/error-handler";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
+import Toast from "react-native-toast-message";
 import { postNotificationToken } from "src/services/notifications";
 
 Notifications.setNotificationHandler({
@@ -25,7 +27,6 @@ async function configureAndroidNotificationChannel() {
 
 async function getExpoPushToken(): Promise<string | null> {
   if (Platform.OS === "web" || !Device.isDevice) {
-    console.log({ error: "Push notifications require a physical device" });
     return null;
   }
 
@@ -38,7 +39,11 @@ async function getExpoPushToken(): Promise<string | null> {
   }
 
   if (permissionStatus !== "granted") {
-    console.log({ error: "Push notification permission was not granted" });
+    Toast.show({
+      type: "error",
+      text2:
+        "Permissão de notificações negada. Ative nas configurações para receber avisos de pedidos.",
+    });
     return null;
   }
 
@@ -61,6 +66,6 @@ export async function registerPushToken(): Promise<void> {
 
     await postNotificationToken(token);
   } catch (error) {
-    console.log({ error });
+    errorHandler(error, "Não foi possível ativar as notificações.");
   }
 }

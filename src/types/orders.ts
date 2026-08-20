@@ -6,11 +6,12 @@ export type OrderStatusProps =
   | "FINALIZADO"
   | "CANCELADO";
 
-export type OrderPaymentStatus =
-  | "PENDENTE"
-  | "PAGO"
-  | "VENCIDO"
-  | "PARCIALMENTE_PAGO";
+export enum OrderPaymentStatus {
+  PENDENTE = "PENDENTE",
+  PAGO = "PAGO",
+  VENCIDO = "VENCIDO",
+  PARCIALMENTE_PAGO = "PARCIALMENTE_PAGO",
+}
 
 export type IntendedPaymentMethod =
   | "DINHEIRO"
@@ -46,7 +47,11 @@ export type OrderAddonDetail = {
   };
 };
 
-export type OrderTransactionType = "PAYMENT" | "INTEREST" | "ADJUSTMENT";
+export enum OrderTransactionType {
+  PAYMENT = "PAYMENT",
+  INTEREST = "INTEREST",
+  ADJUSTMENT = "ADJUSTMENT",
+}
 
 export type OrderTransactionDetail = {
   id: number;

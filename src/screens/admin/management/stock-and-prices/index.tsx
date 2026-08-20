@@ -5,6 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, Modal, Pressable, RefreshControl } from "react-native";
 import { formatToBRL } from "src/helpers/format-currency";
+import { getStockQuantityAlertLabel } from "src/helpers/stock-quantity";
 import theme from "src/styles/theme";
 import { useStockAndPrices } from "./use-stock-and-prices";
 import * as S from "./styles";
@@ -37,7 +38,6 @@ export function StockAndPricesScreen() {
     openAddonPriceModal,
     closeModal,
     handleSubmitModal,
-    isLowStock,
   } = useStockAndPrices();
 
   if (isLoading) {
@@ -71,13 +71,20 @@ export function StockAndPricesScreen() {
           <S.Title>Estoque e Preços</S.Title>
 
           <S.SectionTitle>Produtos</S.SectionTitle>
-          {stockItems.map((item) => (
+          {stockItems.map((item) => {
+            const stockQuantityAlertLabel = getStockQuantityAlertLabel(
+              item.quantity
+            );
+
+            return (
             <S.ProductCard key={item.id}>
               <S.ProductHeader>
                 <S.ProductName>{item.name}</S.ProductName>
-                {isLowStock(item.quantity) && (
+                {stockQuantityAlertLabel && (
                   <S.LowStockBadge>
-                    <S.LowStockBadgeText>Estoque baixo</S.LowStockBadgeText>
+                    <S.LowStockBadgeText>
+                      {stockQuantityAlertLabel}
+                    </S.LowStockBadgeText>
                   </S.LowStockBadge>
                 )}
               </S.ProductHeader>
@@ -109,7 +116,8 @@ export function StockAndPricesScreen() {
                 </S.ActionButton>
               </S.ActionsRow>
             </S.ProductCard>
-          ))}
+            );
+          })}
 
           {addonItems.length > 0 && (
             <>

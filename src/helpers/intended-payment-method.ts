@@ -8,15 +8,17 @@ const intendedPaymentMethodLabels: Record<IntendedPaymentMethod, string> = {
   TRANSFERENCIA: "Transferência",
 };
 
+export type IntendedPaymentMethodIconName =
+  | "cash"
+  | "qrcode"
+  | "credit-card-outline"
+  | "bank-transfer"
+  | "close-circle-outline";
+
 export type IntendedPaymentMethodOption = {
   label: string;
   value: IntendedPaymentMethod | "";
-  icon:
-    | "cash"
-    | "qrcode"
-    | "credit-card-outline"
-    | "bank-transfer"
-    | "close-circle-outline";
+  icon: IntendedPaymentMethodIconName;
   iconColor: string;
 };
 

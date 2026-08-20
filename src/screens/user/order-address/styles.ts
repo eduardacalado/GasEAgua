@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { Picker } from "@react-native-picker/picker";
-import { StyleSheet } from "react-native";
+import { ImageStyle, TextStyle, ViewStyle } from "react-native";
 import theme from "../../../styles/theme";
 
 export const SafeAreaViewContainer = styled.View`
@@ -146,6 +146,10 @@ export const IntendedPaymentMethodOptionLabel = styled.Text`
   font-weight: bold;
 `;
 
+export const SelectedIntendedPaymentMethodIcon = styled.View`
+  margin-right: 8px;
+`;
+
 export const ButtonContainer = styled.View`
   justify-content: flex-end;
   align-items: center;
@@ -191,7 +195,13 @@ export const LabelError = styled.Text`
   color: #ff375b;
 `;
 
-export const intendedPaymentMethodDropdownStyles = StyleSheet.create({
+export const intendedPaymentMethodDropdownStyles: {
+  dropdown: ViewStyle;
+  placeholder: TextStyle;
+  selectedText: TextStyle;
+  icon: ImageStyle;
+  menuContainer: ViewStyle;
+} = {
   dropdown: {
     height: 50,
   },
@@ -209,9 +219,6 @@ export const intendedPaymentMethodDropdownStyles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  selectedIcon: {
-    marginRight: 8,
-  },
   menuContainer: {
     borderRadius: 12,
     backgroundColor: theme.colors.WHITE,
@@ -219,4 +226,4 @@ export const intendedPaymentMethodDropdownStyles = StyleSheet.create({
     paddingVertical: 4,
     elevation: 8,
   },
-});
+};

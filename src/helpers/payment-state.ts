@@ -2,42 +2,61 @@ import theme from "src/styles/theme";
 import { OrderPaymentStatus } from "src/types/orders";
 
 const paymentStateLabels: Record<OrderPaymentStatus, string> = {
-  PENDENTE: "Pendente",
-  PAGO: "Pago",
-  VENCIDO: "Vencido",
-  PARCIALMENTE_PAGO: "Parcialmente pago",
+  [OrderPaymentStatus.PENDENTE]: "Pendente",
+  [OrderPaymentStatus.PAGO]: "Pago",
+  [OrderPaymentStatus.VENCIDO]: "Vencido",
+  [OrderPaymentStatus.PARCIALMENTE_PAGO]: "Parcialmente pago",
+};
+
+const paymentStateColors: Record<OrderPaymentStatus, string> = {
+  [OrderPaymentStatus.PENDENTE]: theme.colors.ORANGE_100,
+  [OrderPaymentStatus.PAGO]: theme.colors.GREEN,
+  [OrderPaymentStatus.VENCIDO]: theme.colors.RED_100,
+  [OrderPaymentStatus.PARCIALMENTE_PAGO]: theme.colors.ORANGE_100,
+};
+
+const paymentStateSurfaceColors: Record<OrderPaymentStatus, string> = {
+  [OrderPaymentStatus.PENDENTE]: "#FFF4E6",
+  [OrderPaymentStatus.PAGO]: "#E8F8EE",
+  [OrderPaymentStatus.VENCIDO]: "#FEE8E8",
+  [OrderPaymentStatus.PARCIALMENTE_PAGO]: "#FFF8E1",
 };
 
 export function getPaymentStateLabel(paymentState: OrderPaymentStatus | string) {
-  return paymentStateLabels[paymentState as OrderPaymentStatus] ?? paymentState;
+  const paymentStateLabel =
+    paymentStateLabels[paymentState as OrderPaymentStatus];
+
+  if (paymentStateLabel) {
+    return paymentStateLabel;
+  }
+
+  return paymentState;
 }
 
 export function getPaymentStateColor(paymentState: OrderPaymentStatus | string) {
-  if (paymentState === "PAGO") {
-    return theme.colors.GREEN;
+  const paymentStateColor =
+    paymentStateColors[paymentState as OrderPaymentStatus];
+
+  if (paymentStateColor) {
+    return paymentStateColor;
   }
-  if (paymentState === "VENCIDO") {
-    return theme.colors.RED_100;
-  }
-  if (paymentState === "PARCIALMENTE_PAGO") {
-    return theme.colors.ORANGE_100;
-  }
+
   return theme.colors.ORANGE_100;
 }
 
-export function getPaymentStateSurfaceColor(paymentState: OrderPaymentStatus | string) {
-  if (paymentState === "PAGO") {
-    return "#E8F8EE";
+export function getPaymentStateSurfaceColor(
+  paymentState: OrderPaymentStatus | string
+) {
+  const paymentStateSurfaceColor =
+    paymentStateSurfaceColors[paymentState as OrderPaymentStatus];
+
+  if (paymentStateSurfaceColor) {
+    return paymentStateSurfaceColor;
   }
-  if (paymentState === "VENCIDO") {
-    return "#FEE8E8";
-  }
-  if (paymentState === "PARCIALMENTE_PAGO") {
-    return "#FFF8E1";
-  }
-  return "#FFF4E6";
+
+  return paymentStateSurfaceColors[OrderPaymentStatus.PENDENTE];
 }
 
 export function isOpenAccount(paymentState: OrderPaymentStatus | string) {
-  return paymentState !== "PAGO";
+  return paymentState !== OrderPaymentStatus.PAGO;
 }

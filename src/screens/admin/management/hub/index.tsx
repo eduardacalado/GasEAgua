@@ -4,13 +4,15 @@ import { useNavigation } from "@react-navigation/native";
 import { AdminNavigatorRoutesProps } from "src/routes/admin.routes";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
+import { getStockAlertBannerMessage } from "src/helpers/stock-quantity";
 import theme from "src/styles/theme";
 import { useManagementHub } from "./use-management-hub";
 import * as S from "./styles";
 
 export function ManagementHubScreen() {
   const navigation = useNavigation<AdminNavigatorRoutesProps>();
-  const { hasLowStock, lowStockItems, isLoading } = useManagementHub();
+  const { hasStockAlert, stockAlertItems, isLoading } = useManagementHub();
+  const stockAlertBannerMessage = getStockAlertBannerMessage(stockAlertItems);
 
   if (isLoading) {
     return (
@@ -23,11 +25,6 @@ export function ManagementHubScreen() {
     );
   }
 
-  const lowStockMessage =
-    lowStockItems.length === 1
-      ? `${lowStockItems[0].name} com estoque baixo (${lowStockItems[0].quantity} un.)`
-      : `${lowStockItems.length} produtos com estoque baixo`;
-
   return (
     <LinearGradientBackground>
       <S.SafeAreaContainer>
@@ -35,10 +32,10 @@ export function ManagementHubScreen() {
         <S.ScrollContainer>
           <S.Title>Gestão</S.Title>
 
-          {hasLowStock && (
+          {hasStockAlert && (
             <S.LowStockBanner>
               <Feather name="alert-triangle" size={18} color={theme.colors.WHITE} />
-              <S.LowStockBannerText>{lowStockMessage}</S.LowStockBannerText>
+              <S.LowStockBannerText>{stockAlertBannerMessage}</S.LowStockBannerText>
             </S.LowStockBanner>
           )}
 
@@ -52,10 +49,10 @@ export function ManagementHubScreen() {
                   <Feather name="box" size={20} color={theme.colors.ORANGE_200} />
                 </S.MenuCardIconBadge>
                 <S.MenuCardTitle>Estoque e Preços</S.MenuCardTitle>
-                {hasLowStock && (
+                {hasStockAlert && (
                   <S.LowStockBadge>
                     <S.LowStockBadgeText>
-                      {lowStockItems.length}
+                      {stockAlertItems.length}
                     </S.LowStockBadgeText>
                   </S.LowStockBadge>
                 )}

@@ -76,12 +76,13 @@ export function OrderAddress() {
     }
 
     return (
-      <MaterialCommunityIcons
-        name={selectedIntendedPaymentMethodOption.icon}
-        size={20}
-        color={selectedIntendedPaymentMethodOption.iconColor}
-        style={S.intendedPaymentMethodDropdownStyles.selectedIcon}
-      />
+      <S.SelectedIntendedPaymentMethodIcon>
+        <MaterialCommunityIcons
+          name={selectedIntendedPaymentMethodOption.icon}
+          size={20}
+          color={selectedIntendedPaymentMethodOption.iconColor}
+        />
+      </S.SelectedIntendedPaymentMethodIcon>
     );
   }
 

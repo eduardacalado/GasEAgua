@@ -10,8 +10,6 @@ import {
 import { StockItem } from "src/services/management/types";
 import { Addon } from "src/services/addon/types";
 
-const LOW_STOCK_QUANTITY_THRESHOLD = 5;
-
 type ModalTarget = {
   id: number;
   name: string;
@@ -171,9 +169,6 @@ export function useStockAndPrices() {
     }
   };
 
-  const isLowStock = (quantity: number) =>
-    quantity <= LOW_STOCK_QUANTITY_THRESHOLD;
-
   return {
     stockItems,
     addonItems,
@@ -189,6 +184,5 @@ export function useStockAndPrices() {
     openAddonPriceModal,
     closeModal,
     handleSubmitModal,
-    isLowStock,
   };
 }

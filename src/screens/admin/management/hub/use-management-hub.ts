@@ -1,10 +1,9 @@
 import { errorHandler } from "@utils/error-handler";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
+import { hasStockQuantityAlert } from "src/helpers/stock-quantity";
 import { getStockItems } from "src/services/management";
 import { StockItem } from "src/services/management/types";
-
-const LOW_STOCK_QUANTITY_THRESHOLD = 5;
 
 export function useManagementHub() {
   const [stockItems, setStockItems] = useState<StockItem[]>([]);
@@ -28,17 +27,14 @@ export function useManagementHub() {
     }, [loadStockItems])
   );
 
-  const hasLowStock = stockItems.some(
-    (item) => item.quantity <= LOW_STOCK_QUANTITY_THRESHOLD
+  const stockAlertItems = stockItems.filter((item) =>
+    hasStockQuantityAlert(item.quantity)
   );
-
-  const lowStockItems = stockItems.filter(
-    (item) => item.quantity <= LOW_STOCK_QUANTITY_THRESHOLD
-  );
+  const hasStockAlert = stockAlertItems.length > 0;
 
   return {
-    hasLowStock,
-    lowStockItems,
+    hasStockAlert,
+    stockAlertItems,
     isLoading,
     loadStockItems,
   };
