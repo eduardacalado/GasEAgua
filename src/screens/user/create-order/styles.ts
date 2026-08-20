@@ -55,12 +55,6 @@ export const MinusPlusButton = styled.View`
   justify-content: center;
 `;
 
-export const ConfirmOrderButtonText = styled.Text`
-  color: ${theme.colors.WHITE};
-  font-size: ${theme.font.size.m4};
-  font-weight: ${theme.font.weight.bold};
-`;
-
 export const AddressContainer = styled.View`
   margin-top: ${theme.size.m7};
   margin-bottom: ${theme.size.m6};

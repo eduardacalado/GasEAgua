@@ -29,7 +29,6 @@ export const CustomHeader = ({ handleBack, color }: CustomHeaderProps) => {
           name="arrow-back-ios"
           size={22}
           color={color ?? theme.colors.WHITE}
-          style={{ marginLeft: 6 }}
         />
       </S.BackButton>
     </S.Container>

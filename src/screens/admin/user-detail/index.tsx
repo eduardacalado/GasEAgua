@@ -1,5 +1,4 @@
 import { Button } from "@components/button";
-import { CustomText } from "@components/custom-text";
 import { AccountCard } from "@components/account-card";
 import { AccountTransactionHistory } from "@components/account-transaction-history";
 import { CustomHeader } from "@components/custom-header";
@@ -120,14 +119,10 @@ export function AdminUserDetailScreen() {
                 <S.RowValue>{paidAccountsCount}</S.RowValue>
               </S.RowContainer>
               {hasOpenAccounts && (
-                <Button color={theme.colors.GREEN} onPress={openPaymentModal}>
-                  <CustomText
-                    color={theme.colors.WHITE}
-                    fontWeight={theme.font.weight.bold}
-                  >
-                    Registrar pagamento
-                  </CustomText>
-                </Button>
+                <Button
+                  title="Registrar pagamento"
+                  onPress={openPaymentModal}
+                />
               )}
             </S.SummaryCard>
 

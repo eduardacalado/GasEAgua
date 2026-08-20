@@ -1,5 +1,4 @@
 import { Button } from "@components/button";
-import { CustomText } from "@components/custom-text";
 import { PaymentMethod } from "src/services/transactions/types";
 import { Modal, Pressable } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
@@ -114,19 +113,19 @@ export function RegisterPaymentModal({
           />
 
           <S.ModalActionsRow>
-            <S.CancelButton onPress={onClose} disabled={isSubmittingPayment}>
-              <S.CancelButtonText>Cancelar</S.CancelButtonText>
-            </S.CancelButton>
             <Button
-              color={theme.colors.GREEN}
+              variant="secondary"
+              title="Cancelar"
+              onPress={onClose}
+              disabled={isSubmittingPayment}
+              style={{ flex: 1 }}
+            />
+            <Button
+              title="Confirmar"
               isLoading={isSubmittingPayment}
               onPress={onSubmit}
-              style={{ flex: 1, marginBottom: 0 }}
-            >
-              <CustomText color={theme.colors.WHITE} fontWeight={theme.font.weight.bold}>
-                Confirmar
-              </CustomText>
-            </Button>
+              style={{ flex: 1 }}
+            />
           </S.ModalActionsRow>
         </S.ModalContent>
       </S.ModalOverlay>

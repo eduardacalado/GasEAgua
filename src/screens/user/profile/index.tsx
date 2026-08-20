@@ -1,3 +1,4 @@
+import { Button } from "@components/button";
 import { CustomHeader } from "@components/custom-header";
 import { Feather } from "@expo/vector-icons";
 import { useAppSelector } from "@hooks/useAppSelector";
@@ -5,7 +6,6 @@ import { useNavigation } from "@react-navigation/native";
 import { useUpdateProfile } from "@screens/user/profile/use-update-profile";
 import { StatusBar } from "expo-status-bar";
 import { Controller } from "react-hook-form";
-import { TouchableOpacity } from "react-native";
 import {
   DEFAULT_CITY,
   DEFAULT_ENGENHO,
@@ -47,6 +47,14 @@ export function UserProfile() {
   const handleBackToHome = () => {
     navigate(homeTabRoute as never);
   };
+
+  let profileActionTitle = "Salvar";
+  let profileActionHandler = handleSubmit(handleUpdateUserData);
+
+  if (!isEditing) {
+    profileActionTitle = "Editar perfil";
+    profileActionHandler = handleEditProfile;
+  }
 
   return (
     <S.SafeAreaViewContainer>
@@ -254,37 +262,18 @@ export function UserProfile() {
           </S.FormCard>
 
           <S.ButtonsContainer>
-            <TouchableOpacity
-              onPress={
-                !isEditing
-                  ? handleEditProfile
-                  : handleSubmit(handleUpdateUserData)
-              }
+            <Button
+              title={profileActionTitle}
+              onPress={profileActionHandler}
+              isLoading={isLoading}
               disabled={isLoading}
-            >
-              <S.AlterInfoButton
-                colors={["#1F7F75", "#34958C", "#5FC3B9"]}
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 0 }}
-              >
-                <S.ButtonText>
-                  {!isEditing ? "Editar perfil" : "Salvar"}
-                </S.ButtonText>
-              </S.AlterInfoButton>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleLogout} disabled={isEditing}>
-              <S.LogoutButton
-                colors={
-                  isEditing
-                    ? ["#C5C5C5", "#C5C5C5", "#C5C5C5"]
-                    : ["#DB1A00", "#ED4200", "#FF6A00"]
-                }
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 0 }}
-              >
-                <S.ButtonText>Deslogar</S.ButtonText>
-              </S.LogoutButton>
-            </TouchableOpacity>
+            />
+            <Button
+              variant="secondary"
+              title="Deslogar"
+              onPress={handleLogout}
+              disabled={isEditing}
+            />
           </S.ButtonsContainer>
         </S.Container>
       </S.ScrollViewBackground>

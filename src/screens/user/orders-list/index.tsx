@@ -2,17 +2,17 @@ import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import { OrderCard } from "@components/order-card";
 import { OrderList } from "@components/orders-list";
 import { Feather } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import { Dropdown } from "react-native-element-dropdown";
-import { getOrdersFilterAppearance } from "src/helpers/orders-filter-appearance";
 import {
   getOrderStatusColor,
   getOrderStatusIconName,
   getOrderStatusSurfaceColor,
 } from "src/helpers/order-status";
+import { getOrdersFilterAppearance } from "src/helpers/orders-filter-appearance";
 import theme from "src/styles/theme";
 import { OrderStatusProps } from "src/types/orders";
 import * as S from "./styles";
@@ -152,7 +152,7 @@ export const OrdersListScreen = () => {
               color={filterAppearance.dateButtonTextColor}
               numberOfLines={1}
             >
-              {date ? dayjs(date).format("DD/MM/YY") : "Filtrar por data"}
+              {date ? dayjs(date).format("DD/MM/YY") : "Data"}
             </S.ButtonText>
           </S.FilterButton>
 
@@ -171,9 +171,10 @@ export const OrdersListScreen = () => {
           </S.ClearFilterButton>
         </S.FilterContainer>
         <OrderList
+          isLoadError={Boolean(loadError)}
           emptyArrayMessage={
             loadError
-              ? "Não foi possível carregar os pedidos. Verifique se o servidor está rodando e puxe para atualizar."
+              ? "Não foi possível carregar os pedidos. Puxe a tela para tentar novamente."
               : isAdminView
                 ? "Não há pedidos"
                 : "Você ainda não possui pedidos"

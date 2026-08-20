@@ -81,7 +81,9 @@ export function Login() {
   return (
     <LinearGradientBackground variant="fullscreen">
       <StatusBar style="light" />
-      <CustomHeader />
+      <S.HeaderContainer>
+        <CustomHeader />
+      </S.HeaderContainer>
       <S.ScrollViewContainer
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"

@@ -1,3 +1,5 @@
+import { IntendedPaymentMethod } from "src/types/orders";
+
 export type OrderDeliveryAddress = {
   street?: string;
   number?: string;
@@ -17,6 +19,7 @@ export type OrderPayload = {
     quantity: number;
   }>;
   customAddress?: OrderDeliveryAddress;
+  intended_payment_method?: IntendedPaymentMethod;
 };
 
 export type StockData = {
@@ -41,6 +44,7 @@ export type getOrderProps = {
   pageNumber: number;
   pageSize: number;
   scope?: "me" | "all";
+  openAccounts?: boolean;
 };
 
 export type ConcludeOrderPayload = {

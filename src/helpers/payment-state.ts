@@ -25,6 +25,19 @@ export function getPaymentStateColor(paymentState: OrderPaymentStatus | string) 
   return theme.colors.ORANGE_100;
 }
 
+export function getPaymentStateSurfaceColor(paymentState: OrderPaymentStatus | string) {
+  if (paymentState === "PAGO") {
+    return "#E8F8EE";
+  }
+  if (paymentState === "VENCIDO") {
+    return "#FEE8E8";
+  }
+  if (paymentState === "PARCIALMENTE_PAGO") {
+    return "#FFF8E1";
+  }
+  return "#FFF4E6";
+}
+
 export function isOpenAccount(paymentState: OrderPaymentStatus | string) {
   return paymentState !== "PAGO";
 }

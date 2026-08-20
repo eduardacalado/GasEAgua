@@ -10,7 +10,22 @@
         "buildType": "apk"
       },
       "env": {
-        "APP_ENV": "develop"
+        "APP_ENV": "preview"
+      }
+    },
+    "hml": {
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "env": {
+        "APP_ENV": "hml"
+      }
+    }
+  },
+  "submit": {
+    "hml": {
+      "android": {
+        "track": "internal"
       }
     }
   }

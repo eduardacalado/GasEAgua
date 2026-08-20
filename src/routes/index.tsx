@@ -1,3 +1,4 @@
+import { usePushNotifications } from "@hooks/use-push-notifications";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,6 +12,7 @@ import { AdminRoutes } from "./admin.routes";
 import type { AdminRoutes as AdminRouteParams } from "./admin.routes";
 import { AuthRoutes } from "./auth.routes";
 import { DeliveryRoutes } from "./delivery.routes";
+import { handleNavigationReady, navigationRef } from "./navigation-ref";
 import { UserRoutes } from "./user.routes";
 
 export type RootNavigatorRoutesProps = NativeStackNavigationProp<
@@ -21,6 +23,7 @@ export function RootRoutes() {
   const [isRestoringSession, setIsRestoringSession] = useState(true);
   const dispatch = useAppDispatch();
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+  usePushNotifications();
 
   const {
     user: { role },
@@ -63,7 +66,7 @@ export function RootRoutes() {
 
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef} onReady={handleNavigationReady}>
         {isAuthenticated ? authenticatedRoutes : <AuthRoutes />}
       </NavigationContainer>
     </>

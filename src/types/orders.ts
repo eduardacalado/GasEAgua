@@ -12,6 +12,12 @@ export type OrderPaymentStatus =
   | "VENCIDO"
   | "PARCIALMENTE_PAGO";
 
+export type IntendedPaymentMethod =
+  | "DINHEIRO"
+  | "PIX"
+  | "CARTAO"
+  | "TRANSFERENCIA";
+
 export type OrderItemDetail = {
   id: number;
   quantity: number;
@@ -50,6 +56,7 @@ export type OrderProps = {
   id: number;
   user_id: number;
   status: OrderStatusProps;
+  payment_state: OrderPaymentStatus;
   gasAmount: number;
   waterAmount: number;
   created_at: Date;
@@ -63,7 +70,7 @@ export type OrderProps = {
 };
 
 export type OrderDetailProps = OrderProps & {
-  payment_state: OrderPaymentStatus;
+  intended_payment_method?: IntendedPaymentMethod | null;
   orderItems?: OrderItemDetail[];
   orderAddons?: OrderAddonDetail[];
   transactions?: OrderTransactionDetail[];

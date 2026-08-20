@@ -91,6 +91,7 @@ export const SectionAccent = styled.View`
 `;
 
 export const SectionTitle = styled.Text`
+  flex: 1;
   color: ${theme.colors.GRAY_600};
   font-size: ${theme.font.size.m5};
   font-weight: ${theme.font.weight.bold};
@@ -146,6 +147,23 @@ export const AddressText = styled.Text`
   font-size: ${theme.font.size.m4};
   font-weight: ${theme.font.weight.semibold};
   line-height: 22px;
+`;
+
+export const PixCopyButton = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: ${theme.size.m2};
+  background-color: ${theme.colors.ORANGE_200};
+  border-radius: ${theme.size.m2};
+  padding: ${theme.size.m3};
+  margin-top: ${theme.size.m2};
+`;
+
+export const PixCopyButtonText = styled.Text`
+  color: ${theme.colors.WHITE};
+  font-size: ${theme.font.size.m3};
+  font-weight: ${theme.font.weight.bold};
 `;
 
 export const StatusActionCard = styled.View`

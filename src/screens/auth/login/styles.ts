@@ -1,6 +1,10 @@
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
 
+export const HeaderContainer = styled.View`
+  padding-horizontal: ${theme.size.m7};
+`;
+
 export const ScrollViewContainer = styled.ScrollView`
   flex: 1;
 `;

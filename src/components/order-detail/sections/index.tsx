@@ -1,6 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import dayjs from "dayjs";
 import { formatToBRL } from "src/helpers/format-currency";
+import { getIntendedPaymentMethodLabel } from "src/helpers/intended-payment-method";
 import theme from "src/styles/theme";
 import { OrderDetailProps } from "src/types/orders";
 import * as S from "../styles";
@@ -116,6 +117,24 @@ export function OrderDetailAddonsSection({
           </S.ListRow>
         ))}
       </S.ListGroup>
+    </S.SectionCard>
+  );
+}
+
+export function OrderDetailIntendedPaymentSection({
+  orderDetail,
+}: OrderDetailSectionProps) {
+  const intendedPaymentMethodLabel = getIntendedPaymentMethodLabel(
+    orderDetail.intended_payment_method
+  );
+
+  return (
+    <S.SectionCard>
+      <SectionHeader icon="dollar-sign" title="Como pretende pagar" />
+      <S.ListRow>
+        <S.RowLabel>Forma pretendida</S.RowLabel>
+        <S.RowValue>{intendedPaymentMethodLabel}</S.RowValue>
+      </S.ListRow>
     </S.SectionCard>
   );
 }

@@ -1,6 +1,5 @@
 import { Picker } from "@react-native-picker/picker";
 import { ImageBackground } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 import theme from "../../../styles/theme";
 
@@ -38,7 +37,7 @@ export const MapHeaderOverlay = styled.View`
   left: 0;
   right: 0;
   z-index: 2;
-  padding: ${theme.size.m6};
+  padding-horizontal: ${theme.size.m5};
 `;
 
 export const SafeAreaViewContainer = styled.SafeAreaView`
@@ -150,7 +149,9 @@ export const InfoInputContainer = styled.View<{ isEditing?: boolean }>`
   height: 48px;
 `;
 
-export const InfoInput = styled.TextInput`
+export const InfoInput = styled.TextInput.attrs({
+  autoCapitalize: "none",
+})`
   color: ${theme.colors.GRAY_700};
   justify-content: center;
   text-align: start;
@@ -173,28 +174,4 @@ export const SelectInput = styled(Picker)`
 export const ButtonsContainer = styled.View`
   gap: ${theme.size.m3};
   margin-top: ${theme.size.m5};
-`;
-
-export const AlterInfoButton = styled(LinearGradient)`
-  padding: ${theme.size.m4};
-  width: 100%;
-  border-radius: ${theme.size.m4};
-  align-items: center;
-  min-height: 52px;
-  justify-content: center;
-`;
-
-export const LogoutButton = styled(LinearGradient)`
-  padding: ${theme.size.m4};
-  width: 100%;
-  align-items: center;
-  border-radius: ${theme.size.m4};
-  min-height: 52px;
-  justify-content: center;
-`;
-
-export const ButtonText = styled.Text`
-  color: ${theme.colors.WHITE};
-  font-size: ${theme.font.size.m5};
-  font-weight: ${theme.font.weight.bold};
 `;
