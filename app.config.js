@@ -1,5 +1,3 @@
-const appJson = require("./app.json");
-
 function getPluginName(plugin) {
   if (typeof plugin === "string") {
     return plugin;
@@ -27,18 +25,16 @@ function withCleartextTrafficForDevelop(plugins, allowCleartextTraffic) {
   });
 }
 
-module.exports = () => {
+module.exports = ({ config }) => {
   const appEnvironment = process.env.APP_ENV || "develop";
   const allowCleartextTraffic = appEnvironment === "develop";
-  const appJsonPlugins = appJson.expo.plugins ?? [];
+  const configPlugins = config.plugins ?? [];
 
   return {
-    expo: {
-      ...appJson.expo,
-      plugins: withCleartextTrafficForDevelop(
-        appJsonPlugins,
-        allowCleartextTraffic
-      ),
-    },
+    ...config,
+    plugins: withCleartextTrafficForDevelop(
+      configPlugins,
+      allowCleartextTraffic
+    ),
   };
 };
