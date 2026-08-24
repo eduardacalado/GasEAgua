@@ -12,7 +12,7 @@ export const Divider = styled.View`
 
 export const SearchContainer = styled.View`
   width: 100%;
-  margin-top: ${theme.size.m11};
+  margin-top: ${theme.size.m2};
   margin-bottom: ${theme.size.m4};
 `;
 

@@ -10,6 +10,23 @@ export const Container = styled.View`
   flex: 1;
 `;
 
+export const HelpButtonRow = styled.View`
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: ${theme.size.m2};
+  align-items: flex-end;
+`;
+
+export const FilterContainer = styled.View`
+  width: 100%;
+  height: 100px;
+  padding-bottom: 50px;
+  margin-top: ${theme.size.m2};
+  flex-direction: row;
+  align-items: center;
+  gap: ${theme.size.m3};
+`;
+
 export const HeaderSpacing = styled.View`
   height: ${theme.size.m12};
 `;
@@ -82,16 +99,6 @@ export const CardSideContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-`;
-
-export const FilterContainer = styled.View`
-  width: 100%;
-  height: 100px;
-  padding-bottom: 50px;
-  margin-top: ${theme.size.m11};
-  flex-direction: row;
-  align-items: center;
-  gap: ${theme.size.m3};
 `;
 
 export const FilterControlShell = styled.View<{

@@ -1,3 +1,4 @@
+import { HelpHeaderButton } from "@components/help-header-button";
 import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -30,7 +31,10 @@ export function ManagementHubScreen() {
       <S.SafeAreaContainer>
         <StatusBar style="light" />
         <S.ScrollContainer>
-          <S.Title>Gestão</S.Title>
+          <S.HeaderRow>
+            <S.Title>Gestão</S.Title>
+            <HelpHeaderButton />
+          </S.HeaderRow>
 
           {hasStockAlert && (
             <S.LowStockBanner>

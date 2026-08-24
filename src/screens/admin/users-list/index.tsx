@@ -1,3 +1,4 @@
+import { CustomHeader } from "@components/custom-header";
 import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import { UserCard } from "@components/user-card";
 import { UsersList } from "@components/users-list";
@@ -26,6 +27,7 @@ export function AdminUsersListScreen() {
   return (
     <LinearGradientBackground>
       <S.Container>
+        <CustomHeader showBackButton={false} />
         <S.SearchContainer>
           <S.SearchInputShell>
             <Feather

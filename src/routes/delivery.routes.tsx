@@ -8,11 +8,13 @@ import {
 import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { DeliveryOrderDetailScreen } from "../screens/delivery/order-detail";
+import { HelpCenterScreen } from "../screens/user/help-center";
 import { UserProfile } from "../screens/user/profile";
 import { DeliveryBottomTabRoutes } from "./delivery-bottom-tab.routes";
 
 export type DeliveryRoutes = {
   deliveryHome: undefined;
+  helpCenter: undefined;
   orderDetail: { orderId: number };
   userProfile: undefined;
 };
@@ -55,6 +57,7 @@ export function DeliveryRoutes() {
           }}
         />
         <Screen name="orderDetail" component={DeliveryOrderDetailScreen} />
+        <Screen name="helpCenter" component={HelpCenterScreen} />
         <Screen name="userProfile" component={UserProfile} />
       </Navigator>
     </LinearGradientBackground>

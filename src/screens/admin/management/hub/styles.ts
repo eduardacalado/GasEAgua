@@ -16,12 +16,20 @@ export const ScrollContainer = styled.ScrollView.attrs({
   flex: 1;
 `;
 
+export const HeaderRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${theme.size.m3};
+  margin-top: ${theme.font.size.m8};
+  margin-bottom: ${theme.size.m6};
+`;
+
 export const Title = styled.Text`
   color: ${theme.colors.WHITE};
   font-size: ${theme.font.size.m9};
   font-weight: ${theme.font.weight.bold};
-  margin-top: ${theme.font.size.m8};
-  margin-bottom: ${theme.size.m6};
+  flex: 1;
 `;
 
 export const LowStockBanner = styled.View`

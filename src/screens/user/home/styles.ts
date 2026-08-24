@@ -22,10 +22,18 @@ export const HeaderContent = styled.View`
   margin-top: ${theme.font.size.m8};
 `;
 
+export const HeaderRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${theme.size.m3};
+`;
+
 export const Title = styled.Text`
   color: ${theme.colors.WHITE};
   font-size: ${theme.font.size.m8};
   font-weight: ${theme.font.weight.bold};
+  flex: 1;
 `;
 
 export const SubTitle = styled.Text`

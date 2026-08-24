@@ -5,6 +5,12 @@ export const Container = styled.View`
   padding-top: 50px;
 `;
 
+export const HeaderRow = styled.View<{ justifyContent: string }>`
+  flex-direction: row;
+  align-items: center;
+  justify-content: ${({ justifyContent }) => justifyContent};
+`;
+
 export const BackButton = styled.TouchableOpacity`
   width: 44px;
   height: 44px;

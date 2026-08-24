@@ -1,3 +1,4 @@
+import { HelpHeaderButton } from "@components/help-header-button";
 import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import { OrderCard } from "@components/order-card";
 import { OrderList } from "@components/orders-list";
@@ -66,6 +67,9 @@ export const OrdersListScreen = () => {
         />
       )}
       <S.Container>
+        <S.HelpButtonRow>
+          <HelpHeaderButton />
+        </S.HelpButtonRow>
         <S.FilterContainer>
           <S.FilterControlShell
             backgroundColor={filterAppearance.statusShellBackgroundColor}

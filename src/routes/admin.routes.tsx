@@ -14,12 +14,14 @@ import { RevenueScreen } from "../screens/admin/management/revenue";
 import { AdminOrderDetailScreen } from "../screens/admin/order-detail";
 import { AdminUserDetailScreen } from "../screens/admin/user-detail";
 import { UserCreateOrder } from "../screens/user/create-order";
+import { HelpCenterScreen } from "../screens/user/help-center";
 import { OrderAddress } from "../screens/user/order-address";
 import { UserProfile } from "../screens/user/profile";
 import { AdminBottomTabRoutes } from "./admin-bottom-tab.routes";
 
 export type AdminRoutes = {
   adminHome: undefined;
+  helpCenter: undefined;
   stockAndPrices: undefined;
   revenue: undefined;
   pixSettings: undefined;
@@ -92,6 +94,7 @@ export function AdminRoutes() {
         <Screen name="userCreateOrder" component={UserCreateOrder} />
         <Screen name="orderAddress" component={OrderAddress} />
         <Screen name="userProfile" component={UserProfile} />
+        <Screen name="helpCenter" component={HelpCenterScreen} />
         <Screen name="orderDetail" component={AdminOrderDetailScreen} />
         <Screen name="userDetail" component={AdminUserDetailScreen} />
       </Navigator>

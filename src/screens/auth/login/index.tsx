@@ -82,7 +82,7 @@ export function Login() {
     <LinearGradientBackground variant="fullscreen">
       <StatusBar style="light" />
       <S.HeaderContainer>
-        <CustomHeader />
+        <CustomHeader showHelpButton={false} />
       </S.HeaderContainer>
       <S.ScrollViewContainer
         contentContainerStyle={{ flexGrow: 1 }}

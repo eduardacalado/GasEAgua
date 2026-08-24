@@ -9,6 +9,7 @@ import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { ProductName } from "src/types/stock";
 import { UserCreateOrder } from "../screens/user/create-order";
+import { HelpCenterScreen } from "../screens/user/help-center";
 import { OrderAddress } from "../screens/user/order-address";
 import { UserProfile } from "../screens/user/profile";
 import { UserOrderDetailScreen } from "../screens/user/order-detail";
@@ -16,6 +17,7 @@ import { UserBottomTabRoutes } from "./user-bottom-tab.routes";
 
 export type UserRoutes = {
   userHome: undefined;
+  helpCenter: undefined;
   schedule: undefined;
   userCreateOrder: { type?: ProductName };
   orderAddress: {
@@ -81,6 +83,7 @@ export function UserRoutes() {
         <Screen name="userCreateOrder" component={UserCreateOrder} />
         <Screen name="orderAddress" component={OrderAddress} />
         <Screen name="userProfile" component={UserProfile} />
+        <Screen name="helpCenter" component={HelpCenterScreen} />
         <Screen name="orderDetail" component={UserOrderDetailScreen} />
       </Navigator>
     </LinearGradientBackground>
