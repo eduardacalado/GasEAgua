@@ -26,7 +26,7 @@ export function DeliveryAddressForm({
   onEngenhoChange,
 }: DeliveryAddressFormProps) {
   return (
-    <>
+    <S.DeliveryAddressFormStack>
       <S.InputArea>
         <S.SelectInput
           selectedValue={mainLocal}
@@ -67,7 +67,7 @@ export function DeliveryAddressForm({
               control={control}
               name="street"
               render={({ field: { onChange, value } }) => (
-                <S.InputArea>
+                <S.CompactInputArea>
                   <MaterialCommunityIcons
                     name="map-marker"
                     size={20}
@@ -78,14 +78,14 @@ export function DeliveryAddressForm({
                     onChangeText={onChange}
                     placeholder="Rua"
                   />
-                </S.InputArea>
+                </S.CompactInputArea>
               )}
             />
             <Controller
               control={control}
               name="number"
               render={({ field: { onChange, value } }) => (
-                <S.InputArea>
+                <S.CompactInputArea>
                   <MaterialCommunityIcons
                     name="map-marker"
                     size={20}
@@ -96,7 +96,7 @@ export function DeliveryAddressForm({
                     onChangeText={onChange}
                     placeholder="Número"
                   />
-                </S.InputArea>
+                </S.CompactInputArea>
               )}
             />
           </S.StreetNumberInputContainer>
@@ -130,6 +130,6 @@ export function DeliveryAddressForm({
       {errors.reference && (
         <S.LabelError>{errors.reference.message}</S.LabelError>
       )}
-    </>
+    </S.DeliveryAddressFormStack>
   );
 }

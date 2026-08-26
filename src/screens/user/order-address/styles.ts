@@ -34,7 +34,7 @@ export const AddressSubContainer = styled.View`
   padding-top: ${theme.font.size.m10};
   background-color: ${theme.colors.WHITE};
   border-radius: ${theme.size.m6};
-  gap: ${theme.size.base};
+  gap: ${theme.size.m4};
   width: 100%;
 
   elevation: 5;
@@ -156,16 +156,25 @@ export const ButtonContainer = styled.View`
   padding-bottom: ${theme.size.m6};
 `;
 
+export const DeliveryAddressFormStack = styled.View`
+  width: 100%;
+  gap: ${theme.size.m4};
+`;
+
 export const InputArea = styled.View`
-  padding: ${theme.size.base};
+  padding: ${theme.size.m2} ${theme.size.m3};
+  min-height: 50px;
   width: 100%;
   align-items: center;
   border-radius: ${theme.size.m4};
   border: ${theme.colors.GRAY_200};
   background-color: ${theme.colors.GRAY_100};
   flex-direction: row;
+`;
+
+export const CompactInputArea = styled(InputArea)`
+  width: auto;
   flex: 1;
-  max-height: 55px;
 `;
 
 export const Input = styled.TextInput.attrs({
@@ -188,6 +197,7 @@ export const SelectInput = styled(Picker)`
 export const StreetNumberInputContainer = styled.View`
   flex-direction: row;
   gap: ${theme.size.m3};
+  width: 100%;
 `;
 
 export const LabelError = styled.Text`

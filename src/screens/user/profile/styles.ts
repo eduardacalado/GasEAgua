@@ -175,3 +175,33 @@ export const ButtonsContainer = styled.View`
   gap: ${theme.size.m3};
   margin-top: ${theme.size.m5};
 `;
+
+export const ModalOverlay = styled.View`
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: flex-end;
+`;
+
+export const ModalContent = styled.View`
+  background-color: ${theme.colors.WHITE};
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: ${theme.size.m6};
+  gap: ${theme.size.m4};
+`;
+
+export const ModalTitle = styled.Text`
+  color: ${theme.colors.GRAY_600};
+  font-size: ${theme.font.size.m6};
+  font-weight: ${theme.font.weight.bold};
+`;
+
+export const ModalMessage = styled.Text`
+  color: ${theme.colors.GRAY_300};
+  font-size: ${theme.font.size.m4};
+`;
+
+export const ModalActionsRow = styled.View`
+  flex-direction: row;
+  gap: ${theme.size.m3};
+`;

@@ -9,6 +9,7 @@ import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { ProductName } from "src/types/stock";
 import { PixSettingsScreen } from "../screens/admin/management/pix-settings";
+import { BroadcastNotificationScreen } from "../screens/admin/management/broadcast-notification";
 import { StockAndPricesScreen } from "../screens/admin/management/stock-and-prices";
 import { RevenueScreen } from "../screens/admin/management/revenue";
 import { AdminOrderDetailScreen } from "../screens/admin/order-detail";
@@ -25,6 +26,7 @@ export type AdminRoutes = {
   stockAndPrices: undefined;
   revenue: undefined;
   pixSettings: undefined;
+  broadcastNotification: undefined;
   schedule: undefined;
   userCreateOrder: { type?: ProductName };
   orderAddress: {
@@ -91,6 +93,10 @@ export function AdminRoutes() {
         <Screen name="stockAndPrices" component={StockAndPricesScreen} />
         <Screen name="revenue" component={RevenueScreen} />
         <Screen name="pixSettings" component={PixSettingsScreen} />
+        <Screen
+          name="broadcastNotification"
+          component={BroadcastNotificationScreen}
+        />
         <Screen name="userCreateOrder" component={UserCreateOrder} />
         <Screen name="orderAddress" component={OrderAddress} />
         <Screen name="userProfile" component={UserProfile} />

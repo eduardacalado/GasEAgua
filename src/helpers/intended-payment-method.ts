@@ -11,24 +11,16 @@ const intendedPaymentMethodLabels: Record<IntendedPaymentMethod, string> = {
 export type IntendedPaymentMethodIconName =
   | "cash"
   | "qrcode"
-  | "credit-card-outline"
-  | "bank-transfer"
-  | "close-circle-outline";
+  | "credit-card-outline";
 
 export type IntendedPaymentMethodOption = {
   label: string;
-  value: IntendedPaymentMethod | "";
+  value: IntendedPaymentMethod;
   icon: IntendedPaymentMethodIconName;
   iconColor: string;
 };
 
 export const intendedPaymentMethodOptions: IntendedPaymentMethodOption[] = [
-  {
-    label: "Não informar",
-    value: "",
-    icon: "close-circle-outline",
-    iconColor: theme.colors.GRAY_300,
-  },
   {
     label: "Dinheiro",
     value: "DINHEIRO",
@@ -41,12 +33,6 @@ export const intendedPaymentMethodOptions: IntendedPaymentMethodOption[] = [
     value: "CARTAO",
     icon: "credit-card-outline",
     iconColor: theme.colors.ORANGE_300,
-  },
-  {
-    label: "Transferência",
-    value: "TRANSFERENCIA",
-    icon: "bank-transfer",
-    iconColor: theme.colors.GRAY_600,
   },
 ];
 

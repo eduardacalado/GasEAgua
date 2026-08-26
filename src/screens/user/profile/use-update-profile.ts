@@ -24,6 +24,7 @@ const schema = yup.object({
 export function useUpdateProfile() {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
   const dispatch = useAppDispatch();
 
   const {
@@ -61,6 +62,14 @@ export function useUpdateProfile() {
       ? defaultAddress.local
       : DEFAULT_ENGENHO;
   const [selectedEngenho, setSelectedEngenho] = useState(defaultEngenho);
+
+  function openLogoutModal() {
+    setIsLogoutModalVisible(true);
+  }
+
+  function closeLogoutModal() {
+    setIsLogoutModalVisible(false);
+  }
 
   async function handleLogout() {
     await authSessionStorage.clear();
@@ -123,6 +132,9 @@ export function useUpdateProfile() {
     addressFields,
     mainLocal,
     selectedEngenho,
+    isLogoutModalVisible,
+    openLogoutModal,
+    closeLogoutModal,
     handleLogout,
     handleEditProfile,
     handleUpdateUserData,

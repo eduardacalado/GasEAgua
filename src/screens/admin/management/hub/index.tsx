@@ -95,6 +95,21 @@ export function ManagementHubScreen() {
                 Receita por dia ou período
               </S.MenuCardDescription>
             </S.MenuCard>
+
+            <S.MenuCard
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate("broadcastNotification")}
+            >
+              <S.MenuCardHeader>
+                <S.MenuCardIconBadge backgroundColor="rgba(66, 153, 225, 0.15)">
+                  <Feather name="bell" size={20} color={theme.colors.BLUE} />
+                </S.MenuCardIconBadge>
+                <S.MenuCardTitle>Avisar clientes</S.MenuCardTitle>
+              </S.MenuCardHeader>
+              <S.MenuCardDescription>
+                Enviar notificação para todos os clientes
+              </S.MenuCardDescription>
+            </S.MenuCard>
           </S.CardsContainer>
         </S.ScrollContainer>
       </S.SafeAreaContainer>

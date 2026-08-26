@@ -28,7 +28,7 @@ export const HELP_CENTER_GUIDE_STEPS = [
     stepNumber: "4",
     title: "Informe o pagamento",
     description:
-      "Pix, dinheiro, cartão ou transferência. Você também pode informar na entrega.",
+      "Pix, dinheiro ou cartão. Você também pode informar na entrega.",
   },
   {
     stepNumber: "5",
