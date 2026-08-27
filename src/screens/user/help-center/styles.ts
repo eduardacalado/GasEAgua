@@ -27,7 +27,7 @@ export const Title = styled.Text`
 
 export const Subtitle = styled.Text`
   color: rgba(255, 255, 255, 0.9);
-  font-size: ${theme.font.size.m3};
+  font-size: ${theme.font.size.m5};
   margin-bottom: ${theme.size.m2};
 `;
 
@@ -88,16 +88,20 @@ export const ContactActionButton = styled.TouchableOpacity<{
   backgroundColor: string;
 }>`
   flex: 1;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: ${theme.size.m2};
+  gap: ${theme.size.m1};
   background-color: ${({ backgroundColor }) => backgroundColor};
   border-radius: ${theme.size.m3};
-  padding: ${theme.size.m3};
+  padding: ${theme.size.m3} ${theme.size.m1};
 `;
 
-export const ContactActionLabel = styled.Text`
+export const ContactActionLabel = styled.Text.attrs({
+  numberOfLines: 1,
+  adjustsFontSizeToFit: true,
+  minimumFontScale: 0.85,
+})`
   color: ${theme.colors.WHITE};
   font-size: ${theme.font.size.m3};
   font-weight: ${theme.font.weight.bold};

@@ -39,6 +39,11 @@ export function useBroadcastNotification() {
     setIsConfirmationModalVisible(false);
   }
 
+  function closeModalThenShowFeedback(showFeedback: () => void) {
+    setIsConfirmationModalVisible(false);
+    setTimeout(showFeedback, 300);
+  }
+
   async function handleSendBroadcast() {
     setIsSubmitting(true);
 
@@ -50,15 +55,17 @@ export function useBroadcastNotification() {
 
       setTitleInput("");
       setMessageInput("");
-      setIsConfirmationModalVisible(false);
-
-      Toast.show({
-        type: "success",
-        text1: "Notificação enviada",
-        text2: "O aviso está a caminho dos clientes.",
+      closeModalThenShowFeedback(() => {
+        Toast.show({
+          type: "success",
+          text1: "Notificação enviada",
+          text2: "O aviso está a caminho dos clientes.",
+        });
       });
     } catch (error) {
-      errorHandler(error, "Erro ao enviar a notificação.");
+      closeModalThenShowFeedback(() => {
+        errorHandler(error, "Erro ao enviar a notificação.");
+      });
     } finally {
       setIsSubmitting(false);
     }

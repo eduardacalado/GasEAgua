@@ -1,8 +1,8 @@
 export const HELP_CENTER_CONTACT = {
   adminName: "Administrador",
-  phoneDisplay: "(81) 99999-0000",
-  phoneTelUrl: "tel:+5581999990000",
-  whatsAppUrl: "https://wa.me/5581999990000",
+  phoneDisplay: "(81) 99732-67792",
+  phoneTelUrl: "tel:+55819973267792",
+  whatsAppUrl: "https://wa.me/55819973267792",
 };
 
 export const HELP_CENTER_BUSINESS_HOURS = "Segunda a sábado, das 7h às 18h";
