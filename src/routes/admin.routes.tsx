@@ -9,20 +9,24 @@ import { Platform } from "react-native";
 import theme from "src/styles/theme";
 import { ProductName } from "src/types/stock";
 import { PixSettingsScreen } from "../screens/admin/management/pix-settings";
+import { BroadcastNotificationScreen } from "../screens/admin/management/broadcast-notification";
 import { StockAndPricesScreen } from "../screens/admin/management/stock-and-prices";
 import { RevenueScreen } from "../screens/admin/management/revenue";
 import { AdminOrderDetailScreen } from "../screens/admin/order-detail";
 import { AdminUserDetailScreen } from "../screens/admin/user-detail";
 import { UserCreateOrder } from "../screens/user/create-order";
+import { HelpCenterScreen } from "../screens/user/help-center";
 import { OrderAddress } from "../screens/user/order-address";
 import { UserProfile } from "../screens/user/profile";
 import { AdminBottomTabRoutes } from "./admin-bottom-tab.routes";
 
 export type AdminRoutes = {
   adminHome: undefined;
+  helpCenter: undefined;
   stockAndPrices: undefined;
   revenue: undefined;
   pixSettings: undefined;
+  broadcastNotification: undefined;
   schedule: undefined;
   userCreateOrder: { type?: ProductName };
   orderAddress: {
@@ -89,9 +93,14 @@ export function AdminRoutes() {
         <Screen name="stockAndPrices" component={StockAndPricesScreen} />
         <Screen name="revenue" component={RevenueScreen} />
         <Screen name="pixSettings" component={PixSettingsScreen} />
+        <Screen
+          name="broadcastNotification"
+          component={BroadcastNotificationScreen}
+        />
         <Screen name="userCreateOrder" component={UserCreateOrder} />
         <Screen name="orderAddress" component={OrderAddress} />
         <Screen name="userProfile" component={UserProfile} />
+        <Screen name="helpCenter" component={HelpCenterScreen} />
         <Screen name="orderDetail" component={AdminOrderDetailScreen} />
         <Screen name="userDetail" component={AdminUserDetailScreen} />
       </Navigator>

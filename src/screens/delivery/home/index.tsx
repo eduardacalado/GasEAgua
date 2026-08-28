@@ -1,3 +1,4 @@
+import { HelpHeaderButton } from "@components/help-header-button";
 import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { Feather } from "@expo/vector-icons";
@@ -35,7 +36,10 @@ export function DeliveryHomeScreen() {
         <StatusBar style="light" />
 
         <S.ScrollViewContainer>
-          <S.Title>Olá, {formattedName}!</S.Title>
+          <S.HeaderRow>
+            <S.Title>Olá, {formattedName}!</S.Title>
+            <HelpHeaderButton />
+          </S.HeaderRow>
 
           <S.SubTitle>Resumo das entregas de hoje</S.SubTitle>
 

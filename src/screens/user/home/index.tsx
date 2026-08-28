@@ -1,3 +1,4 @@
+import { HelpHeaderButton } from "@components/help-header-button";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -81,7 +82,10 @@ export function Home() {
 
         <S.ScrollViewContainer>
           <S.HeaderContent>
-            <S.Title>Olá, {formattedName}!</S.Title>
+            <S.HeaderRow>
+              <S.Title>Olá, {formattedName}!</S.Title>
+              <HelpHeaderButton />
+            </S.HeaderRow>
             <S.SubTitle>O que gostaria de pedir?</S.SubTitle>
           </S.HeaderContent>
 

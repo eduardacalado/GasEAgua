@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useUpdateProfile } from "@screens/user/profile/use-update-profile";
 import { StatusBar } from "expo-status-bar";
 import { Controller } from "react-hook-form";
+import { Modal, Pressable } from "react-native";
 import {
   DEFAULT_CITY,
   DEFAULT_ENGENHO,
@@ -25,6 +26,9 @@ export function UserProfile() {
     addressFields,
     mainLocal,
     selectedEngenho,
+    isLogoutModalVisible,
+    openLogoutModal,
+    closeLogoutModal,
     handleLogout,
     handleEditProfile,
     handleUpdateUserData,
@@ -271,12 +275,42 @@ export function UserProfile() {
             <Button
               variant="secondary"
               title="Deslogar"
-              onPress={handleLogout}
+              onPress={openLogoutModal}
               disabled={isEditing}
             />
           </S.ButtonsContainer>
         </S.Container>
       </S.ScrollViewBackground>
+
+      <Modal
+        visible={isLogoutModalVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={closeLogoutModal}
+      >
+        <S.ModalOverlay>
+          <Pressable style={{ flex: 1 }} onPress={closeLogoutModal} />
+          <S.ModalContent>
+            <S.ModalTitle>Sair da conta</S.ModalTitle>
+            <S.ModalMessage>
+              Tem certeza que deseja deslogar?
+            </S.ModalMessage>
+            <S.ModalActionsRow>
+              <Button
+                variant="secondary"
+                title="Cancelar"
+                onPress={closeLogoutModal}
+                style={{ flex: 1 }}
+              />
+              <Button
+                title="Deslogar"
+                onPress={handleLogout}
+                style={{ flex: 1 }}
+              />
+            </S.ModalActionsRow>
+          </S.ModalContent>
+        </S.ModalOverlay>
+      </Modal>
     </S.SafeAreaViewContainer>
   );
 }

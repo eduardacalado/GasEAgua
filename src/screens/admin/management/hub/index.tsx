@@ -1,3 +1,4 @@
+import { HelpHeaderButton } from "@components/help-header-button";
 import { LinearGradientBackground } from "@components/LinearGradientBackground";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -30,7 +31,10 @@ export function ManagementHubScreen() {
       <S.SafeAreaContainer>
         <StatusBar style="light" />
         <S.ScrollContainer>
-          <S.Title>Gestão</S.Title>
+          <S.HeaderRow>
+            <S.Title>Gestão</S.Title>
+            <HelpHeaderButton />
+          </S.HeaderRow>
 
           {hasStockAlert && (
             <S.LowStockBanner>
@@ -89,6 +93,21 @@ export function ManagementHubScreen() {
               </S.MenuCardHeader>
               <S.MenuCardDescription>
                 Receita por dia ou período
+              </S.MenuCardDescription>
+            </S.MenuCard>
+
+            <S.MenuCard
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate("broadcastNotification")}
+            >
+              <S.MenuCardHeader>
+                <S.MenuCardIconBadge backgroundColor="rgba(66, 153, 225, 0.15)">
+                  <Feather name="bell" size={20} color={theme.colors.BLUE} />
+                </S.MenuCardIconBadge>
+                <S.MenuCardTitle>Avisar clientes</S.MenuCardTitle>
+              </S.MenuCardHeader>
+              <S.MenuCardDescription>
+                Enviar notificação para todos os clientes
               </S.MenuCardDescription>
             </S.MenuCard>
           </S.CardsContainer>
