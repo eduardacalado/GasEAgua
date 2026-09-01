@@ -9,7 +9,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
 import { DEFAULT_CITY, DEFAULT_ENGENHO } from "src/constants/localOptions";
+import { getExpoPushToken } from "src/libs/notifications/registerPushToken";
 import { authSessionStorage } from "src/libs/storage/authSessionStorage";
+import { deleteNotificationToken } from "src/services/notifications";
 import { postUpdateUser } from "src/services/user";
 import * as yup from "yup";
 
@@ -72,6 +74,18 @@ export function useUpdateProfile() {
   }
 
   async function handleLogout() {
+    try {
+      const expoPushToken = await getExpoPushToken({
+        requestPermission: false,
+      });
+
+      if (expoPushToken) {
+        await deleteNotificationToken(expoPushToken);
+      }
+    } catch (error) {
+      console.log({ error });
+    }
+
     await authSessionStorage.clear();
     dispatch(userActions.clearUserData());
     dispatch(authActions.clearAuthData());

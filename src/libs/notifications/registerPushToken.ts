@@ -25,7 +25,15 @@ async function configureAndroidNotificationChannel() {
   });
 }
 
-async function getExpoPushToken(): Promise<string | null> {
+type GetExpoPushTokenOptions = {
+  requestPermission?: boolean;
+};
+
+export async function getExpoPushToken(
+  options: GetExpoPushTokenOptions = {}
+): Promise<string | null> {
+  const shouldRequestPermission = options.requestPermission !== false;
+
   if (Platform.OS === "web" || !Device.isDevice) {
     return null;
   }
@@ -33,17 +41,19 @@ async function getExpoPushToken(): Promise<string | null> {
   const existingPermission = await Notifications.getPermissionsAsync();
   let permissionStatus = existingPermission.status;
 
-  if (permissionStatus !== "granted") {
+  if (permissionStatus !== "granted" && shouldRequestPermission) {
     const requestedPermission = await Notifications.requestPermissionsAsync();
     permissionStatus = requestedPermission.status;
   }
 
   if (permissionStatus !== "granted") {
-    Toast.show({
-      type: "error",
-      text2:
-        "Permissão de notificações negada. Ative nas configurações para receber avisos de pedidos.",
-    });
+    if (shouldRequestPermission) {
+      Toast.show({
+        type: "error",
+        text2:
+          "Permissão de notificações negada. Ative nas configurações para receber avisos de pedidos.",
+      });
+    }
     return null;
   }
 
