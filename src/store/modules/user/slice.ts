@@ -5,6 +5,7 @@ type UserState = UserDates;
 
 const initialState: UserState = {
   token: "",
+  refreshToken: "",
   user: {
     id: 0,
     role: "",
@@ -21,8 +22,10 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     saveUser: (state, action: PayloadAction<UserState>) => {
+      const sessionRefreshToken = action.payload.refreshToken ?? "";
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.refreshToken = sessionRefreshToken;
     },
     clearUserData() {
       return initialState;
