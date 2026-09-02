@@ -56,9 +56,7 @@ export function usePushNotifications() {
       handleNotificationResponse
     );
 
-    Notifications.getLastNotificationResponseAsync().then(
-      handleNotificationResponse
-    );
+    handleNotificationResponse(Notifications.getLastNotificationResponse());
 
     return () => {
       subscription.remove();
