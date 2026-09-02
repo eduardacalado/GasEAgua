@@ -53,11 +53,18 @@ export function UserProfile() {
   };
 
   let profileActionTitle = "Salvar";
-  let profileActionHandler = handleSubmit(handleUpdateUserData);
 
   if (!isEditing) {
     profileActionTitle = "Editar perfil";
-    profileActionHandler = handleEditProfile;
+  }
+
+  function handleProfileAction() {
+    if (!isEditing) {
+      handleEditProfile();
+      return;
+    }
+
+    void handleSubmit(handleUpdateUserData)();
   }
 
   return (
@@ -112,11 +119,11 @@ export function UserProfile() {
                         }}
                         enabled={isEditing}
                       >
-                        <S.SelectInput.Item
+                        <S.SelectInputItem
                           label={DEFAULT_CITY}
                           value={DEFAULT_CITY}
                         />
-                        <S.SelectInput.Item
+                        <S.SelectInputItem
                           label={DEFAULT_ENGENHO}
                           value={DEFAULT_ENGENHO}
                         />
@@ -151,7 +158,7 @@ export function UserProfile() {
                           enabled={isEditing}
                         >
                           {ENGENHO_OPTIONS.map((option) => (
-                            <S.SelectInput.Item
+                            <S.SelectInputItem
                               key={option}
                               label={option}
                               value={option}
@@ -268,7 +275,7 @@ export function UserProfile() {
           <S.ButtonsContainer>
             <Button
               title={profileActionTitle}
-              onPress={profileActionHandler}
+              onPress={handleProfileAction}
               isLoading={isLoading}
               disabled={isLoading}
             />

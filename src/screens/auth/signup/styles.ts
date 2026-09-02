@@ -79,11 +79,13 @@ export const Input = styled.TextInput.attrs({
   padding-vertical: ${theme.size.m2};
 `;
 
-export const SelectInput = styled(Picker)`
+export const SelectInput = styled(Picker<string>)`
   flex: 1;
   color: ${theme.colors.GRAY_700};
   width: 100%;
 `;
+
+export const SelectInputItem = Picker.Item;
 
 export const StreetNumberInputContainer = styled.View`
   flex-direction: row;
