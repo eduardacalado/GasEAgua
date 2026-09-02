@@ -9,35 +9,64 @@ type RefreshSessionResponse = {
   refreshToken: string;
 };
 
+export class SessionInvalidatedDuringRefreshError extends Error {
+  constructor() {
+    super("Sessão invalidada durante o refresh");
+    this.name = "SessionInvalidatedDuringRefreshError";
+  }
+}
+
 const refreshClient = axios.create({
   baseURL: config.API_URL,
 });
 
 let refreshInFlight: Promise<string> | null = null;
 
-async function requestNewAuthSession(): Promise<string> {
-  const currentSession = store.getState().user;
-  const persistedRefreshToken = currentSession.refreshToken;
+function throwIfSessionWasReplaced(expectedRefreshToken: string) {
+  const currentRefreshToken = store.getState().user.refreshToken;
+  const sessionWasReplaced = currentRefreshToken !== expectedRefreshToken;
 
-  if (!persistedRefreshToken) {
+  if (sessionWasReplaced) {
+    throw new SessionInvalidatedDuringRefreshError();
+  }
+}
+
+async function requestNewAuthSession(): Promise<string> {
+  const refreshTokenUsedForRequest = store.getState().user.refreshToken;
+
+  if (!refreshTokenUsedForRequest) {
     throw new Error("Refresh token ausente");
   }
 
   const response = await refreshClient.post<RefreshSessionResponse>(
     "/users/refresh-token",
-    { refreshToken: persistedRefreshToken }
+    { refreshToken: refreshTokenUsedForRequest }
   );
+
+  const sessionAfterRefresh = store.getState().user;
+  throwIfSessionWasReplaced(refreshTokenUsedForRequest);
 
   const newAccessToken = response.data.token;
   const newRefreshToken = response.data.refreshToken;
   const updatedSession = {
     token: newAccessToken,
     refreshToken: newRefreshToken,
-    user: currentSession.user,
+    user: sessionAfterRefresh.user,
   };
 
   store.dispatch(userActions.saveUser(updatedSession));
+  throwIfSessionWasReplaced(updatedSession.refreshToken);
+
   await authSessionStorage.save(updatedSession);
+
+  const sessionAfterStorageWrite = store.getState().user;
+  const storageWriteLostTheSession =
+    sessionAfterStorageWrite.refreshToken !== updatedSession.refreshToken;
+
+  if (storageWriteLostTheSession) {
+    await authSessionStorage.clear();
+    throw new SessionInvalidatedDuringRefreshError();
+  }
 
   return newAccessToken;
 }

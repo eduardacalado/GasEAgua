@@ -9,7 +9,10 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
-import { refreshAuthSession } from "./refreshAuthSession";
+import {
+  refreshAuthSession,
+  SessionInvalidatedDuringRefreshError,
+} from "./refreshAuthSession";
 
 type RetriableRequestConfig = InternalAxiosRequestConfig & {
   _retriedAfterRefresh?: boolean;
@@ -67,13 +70,13 @@ api.interceptors.response.use(
     const alreadyRetriedAfterRefresh = Boolean(
       originalRequest._retriedAfterRefresh
     );
-    const persistedRefreshToken = store.getState().user.refreshToken;
-    const shouldSkipRefresh =
+    const hasRefreshToken = Boolean(store.getState().user.refreshToken);
+    const shouldClearSessionWithoutRefresh =
       isRefreshTokenRequest(originalRequest) ||
       alreadyRetriedAfterRefresh ||
-      !persistedRefreshToken;
+      !hasRefreshToken;
 
-    if (shouldSkipRefresh) {
+    if (shouldClearSessionWithoutRefresh) {
       clearAuthSession();
       return Promise.reject(error);
     }
@@ -88,7 +91,13 @@ api.interceptors.response.use(
 
       return api(originalRequest);
     } catch (refreshError) {
-      clearAuthSession();
+      const wasSessionReplacedDuringRefresh =
+        refreshError instanceof SessionInvalidatedDuringRefreshError;
+
+      if (!wasSessionReplacedDuringRefresh) {
+        clearAuthSession();
+      }
+
       return Promise.reject(refreshError);
     }
   }
