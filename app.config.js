@@ -14,10 +14,18 @@ function withCleartextTrafficForDevelop(plugins, allowCleartextTraffic) {
       return plugin;
     }
 
+    const existingPluginConfig =
+      Array.isArray(plugin) && plugin[1] && typeof plugin[1] === "object"
+        ? plugin[1]
+        : {};
+    const existingAndroidConfig = existingPluginConfig.android ?? {};
+
     return [
       "expo-build-properties",
       {
+        ...existingPluginConfig,
         android: {
+          ...existingAndroidConfig,
           usesCleartextTraffic: allowCleartextTraffic,
         },
       },

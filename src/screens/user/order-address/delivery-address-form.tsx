@@ -32,8 +32,8 @@ export function DeliveryAddressForm({
           selectedValue={mainLocal}
           onValueChange={onMainLocalChange}
         >
-          <S.SelectInput.Item label={DEFAULT_CITY} value={DEFAULT_CITY} />
-          <S.SelectInput.Item label={DEFAULT_ENGENHO} value={DEFAULT_ENGENHO} />
+          <S.SelectInputItem label={DEFAULT_CITY} value={DEFAULT_CITY} />
+          <S.SelectInputItem label={DEFAULT_ENGENHO} value={DEFAULT_ENGENHO} />
         </S.SelectInput>
       </S.InputArea>
 
@@ -44,9 +44,9 @@ export function DeliveryAddressForm({
               selectedValue={selectedEngenho}
               onValueChange={onEngenhoChange}
             >
-              <S.SelectInput.Item label="Selecione o engenho" value="" />
+              <S.SelectInputItem label="Selecione o engenho" value="" />
               {ENGENHO_OPTIONS.map((engenhoOption) => (
-                <S.SelectInput.Item
+                <S.SelectInputItem
                   key={engenhoOption}
                   label={engenhoOption}
                   value={engenhoOption}

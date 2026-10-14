@@ -185,7 +185,7 @@ export const Input = styled.TextInput.attrs({
   margin-left: ${theme.size.m2};
 `;
 
-export const SelectInput = styled(Picker)`
+export const SelectInput = styled(Picker<string>)`
   color: ${theme.colors.GRAY_500};
   justify-content: center;
   text-align: start;
@@ -193,6 +193,8 @@ export const SelectInput = styled(Picker)`
   border-radius: ${theme.size.m1};
   width: 100%;
 `;
+
+export const SelectInputItem = Picker.Item;
 
 export const StreetNumberInputContainer = styled.View`
   flex-direction: row;

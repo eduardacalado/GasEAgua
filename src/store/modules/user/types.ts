@@ -22,6 +22,7 @@ export type UserDatesProps = {
 
 export type UserDates = {
   token: string;
+  refreshToken: string;
   user: UserDatesProps;
 };
 

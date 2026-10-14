@@ -161,7 +161,7 @@ export const InfoInput = styled.TextInput.attrs({
   width: 100%;
 `;
 
-export const SelectInput = styled(Picker)`
+export const SelectInput = styled(Picker<string>)`
   color: ${theme.colors.GRAY_700};
   justify-content: center;
   text-align: start;
@@ -170,6 +170,8 @@ export const SelectInput = styled(Picker)`
   width: 100%;
   margin-left: -${theme.size.m2};
 `;
+
+export const SelectInputItem = Picker.Item;
 
 export const ButtonsContainer = styled.View`
   gap: ${theme.size.m3};

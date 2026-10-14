@@ -112,11 +112,11 @@ export function SignUp() {
                               }
                             }}
                           >
-                            <S.SelectInput.Item
+                            <S.SelectInputItem
                               label={DEFAULT_CITY}
                               value={DEFAULT_CITY}
                             />
-                            <S.SelectInput.Item
+                            <S.SelectInputItem
                               label={DEFAULT_ENGENHO}
                               value={DEFAULT_ENGENHO}
                             />
@@ -138,7 +138,7 @@ export function SignUp() {
                           }}
                         >
                           {ENGENHO_OPTIONS.map((option) => (
-                            <S.SelectInput.Item
+                            <S.SelectInputItem
                               key={option}
                               label={option}
                               value={option}
