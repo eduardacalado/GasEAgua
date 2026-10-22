@@ -135,7 +135,6 @@ export function UserCreateOrder() {
     const unit = NumberOrZero(item.value);
     const subtotal = qty * unit;
     const isProductOutOfStock = item.quantity <= 0;
-    const hasReachedStockLimit = qty >= item.quantity;
     const productLabel = getProductOrderLabel(item.type, item.name);
 
     return (
@@ -166,7 +165,6 @@ export function UserCreateOrder() {
 
             <TouchableOpacity
               onPress={() => incrementProduct(item.id)}
-              disabled={isProductOutOfStock || hasReachedStockLimit}
             >
               <S.MinusPlusButton>
                 <MaterialCommunityIcons

@@ -204,6 +204,15 @@ export const useOrderAddress = () => {
   }, [params.orderPayload]);
 
   async function submitOrder(deliveryAddress?: OrderDeliveryAddress) {
+    if (!intendedPaymentMethod) {
+      Toast.show({
+        type: "error",
+        text1: "Selecione a forma de pagamento",
+        text2: "Informe como pretende pagar para confirmar o pedido.",
+      });
+      return;
+    }
+
     setIsLoading(true);
     try {
       const orderItems = params.orderPayload.items.map((item) => ({
@@ -220,19 +229,13 @@ export const useOrderAddress = () => {
       let orderRequestBody: OrderPayload = {
         items: orderItems,
         addons: orderAddons,
+        intended_payment_method: intendedPaymentMethod,
       };
 
       if (deliveryAddress) {
         orderRequestBody = {
           ...orderRequestBody,
           customAddress: deliveryAddress,
-        };
-      }
-
-      if (intendedPaymentMethod) {
-        orderRequestBody = {
-          ...orderRequestBody,
-          intended_payment_method: intendedPaymentMethod,
         };
       }
 

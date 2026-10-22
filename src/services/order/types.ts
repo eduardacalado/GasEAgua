@@ -19,7 +19,7 @@ export type OrderPayload = {
     quantity: number;
   }>;
   customAddress?: OrderDeliveryAddress;
-  intended_payment_method?: IntendedPaymentMethod;
+  intended_payment_method: IntendedPaymentMethod;
 };
 
 export type StockData = {

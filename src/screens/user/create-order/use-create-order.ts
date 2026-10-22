@@ -4,6 +4,7 @@ import { RootNavigatorRoutesProps } from "@routes/index";
 import { UserRoutes } from "@routes/user.routes";
 import { errorHandler } from "@utils/error-handler";
 import React, { useEffect, useMemo, useState } from "react";
+import Toast from "react-native-toast-message";
 import { getAuthenticatedHomeRoute } from "src/helpers/authenticated-home-route";
 import { formatToBRL } from "src/helpers/format-currency";
 import { getAddons } from "src/services/addon";
@@ -55,6 +56,23 @@ export const useCreateOrder = () => {
 
   const incrementProduct = (productId: number) => {
     const selectedProduct = products.find((product) => product.id === productId);
+
+    if (!selectedProduct) return;
+
+    if ((productQuantities[productId] || 0) >= selectedProduct.quantity) {
+      Toast.show({
+        type: "error",
+        text1:
+          selectedProduct.quantity <= 0
+            ? "Produto sem estoque"
+            : "Limite de estoque atingido",
+        text2:
+          selectedProduct.quantity <= 0
+            ? "Este produto está indisponível no momento."
+            : `Estoque disponível: ${selectedProduct.quantity} un.`,
+      });
+      return;
+    }
 
     updateQuantity(
       productId,
