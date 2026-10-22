@@ -171,7 +171,7 @@ export function OrderAddress() {
             </S.OrderSummaryContainer>
 
             <S.IntendedPaymentMethodContainer>
-              <S.Title>Como pretende pagar</S.Title>
+              <S.Title>Como pretende pagar (obrigatório)</S.Title>
               <S.IntendedPaymentMethodDropdownShell>
                 <Dropdown
                   style={S.intendedPaymentMethodDropdownStyles.dropdown}
@@ -189,7 +189,7 @@ export function OrderAddress() {
                   maxHeight={280}
                   labelField="label"
                   valueField="value"
-                  placeholder="Opcional"
+                  placeholder="Selecione a forma de pagamento"
                   value={intendedPaymentMethod}
                   dropdownPosition="top"
                   renderItem={renderIntendedPaymentMethodItem}
